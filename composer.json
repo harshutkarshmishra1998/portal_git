@@ -1,0 +1,19 @@
+{
+    "name": "complaintsystem/complaint-portal",
+    "description": "A complaint management system",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ComplaintPortal\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Utkarsh Mishra",
+            "email": "harshutkarshmishra1998@gmail.com"
+        }
+    ],
+    "require": {
+        "twilio/sdk": "^6.44" 
+    }
+}
