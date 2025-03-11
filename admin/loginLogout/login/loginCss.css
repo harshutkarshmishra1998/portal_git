@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    width: 90%; /* Mobile width */
+    max-width: 400px; /* Max width for larger screens */
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) { /* Desktop styles */
+    .login-container {
+        max-width: 500px;
+        padding: 3rem;
+    }
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}
+
+.mobile-view {
+    text-align: center;
+}
+
+.desktop-view {
+    text-align: left;
+}

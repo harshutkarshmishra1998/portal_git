@@ -1,0 +1,114 @@
+body {
+    background-color: #f8f9fa; /* Light background */
+    /* padding: 10rem; */
+}
+
+/* #mainContent{
+    padding: 3rem;
+} */
+
+.container {
+    background-color: #ffffff; /* White container */
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #343a40; /* Dark heading */
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h3 {
+    /* color: #007bff; */
+    margin-top: 20px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+#plantiff_citizenship, #defendant_citizenship, #file_upload{
+    width: 100%;
+}
+
+label {
+    font-weight: 500;
+    color: #495057; /* Slightly darker label */
+}
+
+.form-control,
+.form-control-file {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-control:focus,
+.form-control-file:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+textarea.form-control {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.btn-primary {
+    /* background-color: #007bff;
+    border-color: #007bff; */
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    display: block; /* Make it a block element */
+    width: 100%; /* Full width */
+    margin-top: 20px; /* Add some top margin */
+}
+
+/* .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+} */
+
+.btn-outline-secondary,
+.btn-success,
+.btn-secondary {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-success:hover,
+.btn-secondary:hover {
+    background-color: #e9ecef; /* Light gray on hover */
+}
+
+.invalid-feedback {
+    color: #dc3545; /* Red error messages */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+#mobile-otp-section,
+#email-otp-section {
+    margin-top: 10px;
+}
+
+button#verifyMobileBtn, button#verifyEmailBtn{
+    height: 100%;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    gap: 10px; /* Add some gap between buttons */
+}
