@@ -64,7 +64,7 @@
     <?php include '../../modules/footer.php'; ?>
     <?php include 'dataValidation.php'; ?>
     <?php include 'dataFetcher.php'; ?>
-    <?php include 'dataUpdation.php'; ?>
+    <?php //include 'dataUpdation.php'; ?>
 </body>
 
 </html>

@@ -104,12 +104,12 @@
                             name="plantiff_grandfather_name">
                     </div>
                     <!-- Plaintiff Citizenship Proof Upload -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="plantiff_citizenship">वादीको नागरिकता प्रमाण</label>
                         <input type="file" class="form-control-file" id="plantiff_citizenship"
                             name="plantiff_citizenship" required>
                         <div id="plantiff_citizenship_error" class="invalid-feedback d-block"></div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Defendant Information -->
                 <div class="col-md-6">
@@ -151,21 +151,21 @@
                             name="defendant_grandfather_name">
                     </div>
                     <!-- Defendant Citizenship Proof Upload -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="defendant_citizenship">प्रतिवादीको नागरिकता प्रमाण</label>
                         <input type="file" class="form-control-file" id="defendant_citizenship"
                             name="defendant_citizenship" required>
                         <div id="defendant_citizenship_error" class="invalid-feedback d-block"></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <!-- General File Upload (Multiple Files) -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="file_upload">सामान्य फाइल अपलोड (ऐच्छिक)</label>
                 <input type="file" class="form-control-file" id="file_upload" name="file_upload" multiple>
                 <div class="invalid-feedback d-block" id="file_upload_error"></div>
-            </div>
+            </div> -->
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary" id="#submitButton">पेश गर्नुहोस्</button>
         </form>
