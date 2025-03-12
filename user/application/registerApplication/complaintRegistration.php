@@ -130,8 +130,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_adhaar">Plaintiff Citizenship ID</label>
-                        <input type="text" class="form-control" id="plantiff_adhaar" name="plantiff_adhaar" required>
+                        <label for="plantiff_citizenship_id">Plaintiff Citizenship ID</label>
+                        <input type="text" class="form-control" id="plantiff_citizenship_id" name="plantiff_citizenship_id" required>
                     </div>
                     <div class="form-group">
                         <label for="plantiff_father_name">Plaintiff Father Name</label>
@@ -176,8 +176,8 @@
                         <input type="email" class="form-control" id="defendant_email" name="defendant_email" required>
                     </div>
                     <div class="form-group">
-                        <label for="defendant_adhaar">Defendant Citizenship ID</label>
-                        <input type="text" class="form-control" id="defendant_adhaar" name="defendant_adhaar" required>
+                        <label for="defendant_citizenship_id">Defendant Citizenship ID</label>
+                        <input type="text" class="form-control" id="defendant_citizenship_id" name="defendant_citizenship_id" required>
                     </div>
                     <div class="form-group">
                         <label for="defendant_father_name">Defendant Father Name</label>

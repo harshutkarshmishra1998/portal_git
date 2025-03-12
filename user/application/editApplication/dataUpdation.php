@@ -12,7 +12,7 @@
                 ward_number: document.getElementById('plantiff_ward_number').value.trim(),
                 mobile: document.getElementById('plantiff_mobile').value.trim(),
                 email: document.getElementById('plantiff_email').value.trim(),
-                adhaar: document.getElementById('plantiff_adhaar').value.trim(),
+                citizenship_id: document.getElementById('plantiff_citizenship_id').value.trim(),
                 father_name: document.getElementById('plantiff_father_name').value.trim(),
                 grandfather_name: document.getElementById('plantiff_grandfather_name').value.trim()
             },
@@ -22,7 +22,7 @@
                 ward_number: document.getElementById('defendant_ward_number').value.trim(),
                 mobile: document.getElementById('defendant_mobile').value.trim(),
                 email: document.getElementById('defendant_email').value.trim(),
-                adhaar: document.getElementById('defendant_adhaar').value.trim(),
+                citizenship_id: document.getElementById('defendant_citizenship_id').value.trim(),
                 father_name: document.getElementById('defendant_father_name').value.trim(),
                 grandfather_name: document.getElementById('defendant_grandfather_name').value.trim()
             }

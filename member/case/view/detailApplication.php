@@ -21,7 +21,7 @@
         "plantiff_ward_number" => "Plantiff Ward Number",
         "plantiff_mobile" => "Plantiff Mobile",
         "plantiff_email" => "Plantiff Email",
-        "plantiff_adhaar" => "Plantiff Identification Number",
+        "plantiff_citizenship_id" => "Plantiff Identification Number",
         "plantiff_father_name" => "Plantiff Father Name",
         "plantiff_grandfather_name" => "Plantiff Grandfather Name",
         "defendant_name" => "Defendant Name",
@@ -29,7 +29,7 @@
         "defendant_ward_number" => "Defendant Ward Number",
         "defendant_mobile" => "Defendant Mobile",
         "defendant_email" => "Defendant Email",
-        "defendant_adhaar" => "Defendant Identification Number",
+        "defendant_citizenship_id" => "Defendant Identification Number",
         "defendant_father_name" => "Defendant Father Name",
         "defendant_grandfather_name" => "Defendant Grandfather Name"
     ];

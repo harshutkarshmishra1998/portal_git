@@ -26,7 +26,7 @@
                     $('#plantiff_ward_number').val(data.plantiff_ward_number);
                     $('#plantiff_mobile').val(data.plantiff_mobile);
                     $('#plantiff_email').val(data.plantiff_email);
-                    $('#plantiff_adhaar').val(data.plantiff_adhaar);
+                    $('#plantiff_citizenship_id').val(data.plantiff_citizenship_id);
                     $('#plantiff_father_name').val(data.plantiff_father_name);
                     $('#plantiff_grandfather_name').val(data.plantiff_grandfather_name);
                     $('#defendant_name').val(data.defendant_name);
@@ -34,7 +34,7 @@
                     $('#defendant_ward_number').val(data.defendant_ward_number);
                     $('#defendant_mobile').val(data.defendant_mobile);
                     $('#defendant_email').val(data.defendant_email);
-                    $('#defendant_adhaar').val(data.defendant_adhaar);
+                    $('#defendant_citizenship_id').val(data.defendant_citizenship_id);
                     $('#defendant_father_name').val(data.defendant_father_name);
                     $('#defendant_grandfather_name').val(data.defendant_grandfather_name);
                     // Extra field for status

@@ -125,13 +125,13 @@ try {
     // Insert record into applications table
     $stmt = $pdo->prepare("INSERT INTO application (
         reference_id, title, subject, type, description,
-        plantiff_name, plantiff_address, plantiff_ward_number, plantiff_mobile, plantiff_email, plantiff_adhaar, plantiff_father_name, plantiff_grandfather_name,
-        defendant_name, defendant_address, defendant_ward_number, defendant_mobile, defendant_email, defendant_adhaar, defendant_father_name, defendant_grandfather_name,
+        plantiff_name, plantiff_address, plantiff_ward_number, plantiff_mobile, plantiff_email, plantiff_citizenship_id, plantiff_father_name, plantiff_grandfather_name,
+        defendant_name, defendant_address, defendant_ward_number, defendant_mobile, defendant_email, defendant_citizenship_id, defendant_father_name, defendant_grandfather_name,
         file_upload, created_at, updated_at
     ) VALUES (
         :reference_id, :title, :subject, :type, :description,
-        :plantiff_name, :plantiff_address, :plantiff_ward_number, :plantiff_mobile, :plantiff_email, :plantiff_adhaar, :plantiff_father_name, :plantiff_grandfather_name,
-        :defendant_name, :defendant_address, :defendant_ward_number, :defendant_mobile, :defendant_email, :defendant_adhaar, :defendant_father_name, :defendant_grandfather_name,
+        :plantiff_name, :plantiff_address, :plantiff_ward_number, :plantiff_mobile, :plantiff_email, :plantiff_citizenship_id, :plantiff_father_name, :plantiff_grandfather_name,
+        :defendant_name, :defendant_address, :defendant_ward_number, :defendant_mobile, :defendant_email, :defendant_citizenship_id, :defendant_father_name, :defendant_grandfather_name,
         :file_upload, NOW(), NOW()
     )");
 
@@ -151,7 +151,7 @@ try {
     $stmt->bindParam(':plantiff_ward_number', $formData['plantiff']['ward_number']);
     $stmt->bindParam(':plantiff_mobile', $formData['plantiff']['mobile']);
     $stmt->bindParam(':plantiff_email', $formData['plantiff']['email']);
-    $stmt->bindParam(':plantiff_adhaar', $formData['plantiff']['adhaar']);
+    $stmt->bindParam(':plantiff_citizenship_id', $formData['plantiff']['citizenship_id']);
     $stmt->bindParam(':plantiff_father_name', $formData['plantiff']['father_name']);
     $stmt->bindParam(':plantiff_grandfather_name', $formData['plantiff']['grandfather_name']);
     $stmt->bindParam(':defendant_name', $formData['defendant']['name']);
@@ -159,7 +159,7 @@ try {
     $stmt->bindParam(':defendant_ward_number', $formData['defendant']['ward_number']);
     $stmt->bindParam(':defendant_mobile', $formData['defendant']['mobile']);
     $stmt->bindParam(':defendant_email', $formData['defendant']['email']);
-    $stmt->bindParam(':defendant_adhaar', $formData['defendant']['adhaar']);
+    $stmt->bindParam(':defendant_citizenship_id', $formData['defendant']['citizenship_id']);
     $stmt->bindParam(':defendant_father_name', $formData['defendant']['father_name']);
     $stmt->bindParam(':defendant_grandfather_name', $formData['defendant']['grandfather_name']);
     $stmt->bindParam(':file_upload', $fileUploadJson);
