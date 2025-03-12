@@ -4,35 +4,34 @@
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
-    <!-- Form Container -->
-    <div class="container">
-        <h1 class="mt-4 mb-3">VIEW COMPLAINT</h1>
+    <div class="content" id="mainContent">
+        <h1 class="mt-4 mb-3">गुनासो हेर्नुहोस्</h1>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
             <!-- General Fields -->
             <div class="form-group">
-                <label for="reference_id">Reference ID</label>
+                <label for="reference_id">सन्दर्भ आईडी</label>
                 <input type="text" class="form-control" id="reference_id" name="reference_id"
-                    placeholder="Enter Reference ID" readonly>
+                    placeholder="सन्दर्भ आईडी प्रविष्ट गर्नुहोस्" readonly>
             </div>
             <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
+                <label for="title">शीर्षक</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="शीर्षक प्रविष्ट गर्नुहोस्">
             </div>
             <div class="form-group">
-                <label for="subject">Subject</label>
+                <label for="subject">विषय</label>
                 <textarea class="form-control" id="subject" name="subject" rows="2"></textarea>
             </div>
             <div class="form-group">
-                <label for="type">Type</label>
-                <input type="text" class="form-control" id="type" name="type" placeholder="Enter Type">
+                <label for="type">प्रकार</label>
+                <input type="text" class="form-control" id="type" name="type" placeholder="प्रकार प्रविष्ट गर्नुहोस्">
             </div>
             <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">विवरण</label>
                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <label for="status">Status</label>
+                <label for="status">स्थिति</label>
                 <input type="text" class="form-control" id="status" name="status" readonly>
             </div>
 
@@ -40,88 +39,83 @@
             <div class="row">
                 <!-- Plaintiff Information -->
                 <div class="col-md-6">
-                    <h4>PLANTIFF INFORMATION</h4>
+                    <h4>वादीको जानकारी</h4>
                     <div class="form-group">
-                        <label for="plantiff_name">Plaintiff Name</label>
+                        <label for="plantiff_name">वादीको नाम</label>
                         <input type="text" class="form-control" id="plantiff_name" name="plantiff_name">
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_address">Plaintiff Address</label>
-                        <textarea class="form-control" id="plantiff_address" name="plantiff_address"
-                            rows="2"></textarea>
+                        <label for="plantiff_address">वादीको ठेगाना</label>
+                        <textarea class="form-control" id="plantiff_address" name="plantiff_address" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_ward_number">Plaintiff Ward Number</label>
+                        <label for="plantiff_ward_number">वादीको वडा नम्बर</label>
                         <input type="text" class="form-control" id="plantiff_ward_number" name="plantiff_ward_number">
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_mobile">Plaintiff Mobile</label>
+                        <label for="plantiff_mobile">वादीको मोबाइल</label>
                         <input type="text" pattern="\d{10}" class="form-control" id="plantiff_mobile"
-                            name="plantiff_mobile" placeholder="10-digit mobile number" readonly>
+                            name="plantiff_mobile" placeholder="१०-अंकीय मोबाइल नम्बर" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_email">Plaintiff Email</label>
+                        <label for="plantiff_email">वादीको इमेल</label>
                         <input type="email" class="form-control" id="plantiff_email" name="plantiff_email"
-                            placeholder="Enter Email" readonly>
+                            placeholder="इमेल प्रविष्ट गर्नुहोस्" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_citizenship_id">Plaintiff Citizenship ID</label>
+                        <label for="plantiff_citizenship_id">वादीको नागरिकता प्रमाणपत्र नम्बर</label>
                         <input type="text" class="form-control" id="plantiff_citizenship_id" name="plantiff_citizenship_id">
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_father_name">Plaintiff Father Name</label>
+                        <label for="plantiff_father_name">वादीको बाबुको नाम</label>
                         <input type="text" class="form-control" id="plantiff_father_name" name="plantiff_father_name">
                     </div>
                     <div class="form-group">
-                        <label for="plantiff_grandfather_name">Plaintiff Grandfather Name</label>
-                        <input type="text" class="form-control" id="plantiff_grandfather_name"
-                            name="plantiff_grandfather_name">
+                        <label for="plantiff_grandfather_name">वादीको हजुरबुबाको नाम</label>
+                        <input type="text" class="form-control" id="plantiff_grandfather_name" name="plantiff_grandfather_name">
                     </div>
                 </div>
                 <!-- Defendant Information -->
                 <div class="col-md-6">
-                    <h4>DEFENDANT INFORMATION</h4>
+                    <h4>प्रतिवादीको जानकारी</h4>
                     <div class="form-group">
-                        <label for="defendant_name">Defendant Name</label>
+                        <label for="defendant_name">प्रतिवादीको नाम</label>
                         <input type="text" class="form-control" id="defendant_name" name="defendant_name">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_address">Defendant Address</label>
-                        <textarea class="form-control" id="defendant_address" name="defendant_address"
-                            rows="2"></textarea>
+                        <label for="defendant_address">प्रतिवादीको ठेगाना</label>
+                        <textarea class="form-control" id="defendant_address" name="defendant_address" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="defendant_ward_number">Defendant Ward Number</label>
+                        <label for="defendant_ward_number">प्रतिवादीको वडा नम्बर</label>
                         <input type="text" class="form-control" id="defendant_ward_number" name="defendant_ward_number">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_mobile">Defendant Mobile</label>
-                        <input type="text" pattern="\d{10}" class="form-control" id="defendant_mobile"
-                            name="defendant_mobile" placeholder="10-digit mobile number">
+                        <label for="defendant_mobile">प्रतिवादीको मोबाइल</label>
+                        <input type="text" pattern="\d{10}" class="form-control" id="defendant_mobile" name="defendant_mobile" placeholder="१०-अंकीय मोबाइल नम्बर">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_email">Defendant Email</label>
+                        <label for="defendant_email">प्रतिवादीको इमेल</label>
                         <input type="email" class="form-control" id="defendant_email" name="defendant_email">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_citizenship_id">Defendant Citizenship ID</label>
+                        <label for="defendant_citizenship_id">प्रतिवादीको नागरिकता प्रमाणपत्र नम्बर</label>
                         <input type="text" class="form-control" id="defendant_citizenship_id" name="defendant_citizenship_id">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_father_name">Defendant Father Name</label>
+                        <label for="defendant_father_name">प्रतिवादीको बाबुको नाम</label>
                         <input type="text" class="form-control" id="defendant_father_name" name="defendant_father_name">
                     </div>
                     <div class="form-group">
-                        <label for="defendant_grandfather_name">Defendant Grandfather Name</label>
-                        <input type="text" class="form-control" id="defendant_grandfather_name"
-                            name="defendant_grandfather_name">
+                        <label for="defendant_grandfather_name">प्रतिवादीको हजुरबुबाको नाम</label>
+                        <input type="text" class="form-control" id="defendant_grandfather_name" name="defendant_grandfather_name">
                     </div>
                 </div>
             </div>
 
-            <!-- Submit Button -->
-            <button type="button" class="btn btn-info my-2" id="viewFilesButton">View Uploaded Files</button>
-            <button type="button" class="btn btn-warning my-2" id="editFormButton">Edit Form</button>
+            <!-- Submit Buttons -->
+            <button type="button" class="btn btn-info my-2" id="viewFilesButton">अपलोड गरिएका फाइलहरू हेर्नुहोस्</button>
+            <button type="button" class="btn btn-warning my-2" id="editFormButton">फारम सम्पादन गर्नुहोस्</button>
         </form>
     </div>
 

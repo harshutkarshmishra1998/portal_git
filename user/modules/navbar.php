@@ -3,7 +3,7 @@
         <!-- Left Side: Logo + Brand Name -->
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="<?php echo $base_url; ?>/modules/img/logo.png" alt="Government Logo" class="logo-img">
-            <span class="ms-2 brand-name">Nyayik Samiti of Kathmandu</span>
+            <span class="ms-2 brand-name">धनपालथान गाउँपालिका</span>
         </a>
 
         <!-- Mobile Toggle Button -->
@@ -12,55 +12,45 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Right Side: Navigation Options + Search Bar -->
+        <!-- Right Side: Navigation Options -->
         <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
             <ul class="navbar-nav align-items-lg-center">
+                <!-- Home Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php">Home</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php">गृहपृष्ठ</a>
                 </li>
+                <!-- About Us Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#jury-about-samiti">About Us</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#jury-about-samiti">हाम्रो बारेमा</a>
                 </li>
+                <!-- Members Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#members-nyayik-samiti">Members</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#members-nyayik-samiti">सदस्यहरू</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#dispute-categories">Dispute Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#downloads">Downloads</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#faq">FAQs</a>
-                </li>
-                <!-- Mobile-only Options -->
-                <li class="nav-item mobile-only">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/application/registerApplication/complaintRegistration.php">Register Complaint</a>
-                </li>
-                <li class="nav-item mobile-only">
-                    <a class="nav-link" href="#">Track Complaint</a>
-                </li>
-                <!-- <li class="nav-item mobile-only">
-                    <a class="nav-link" href="#">View/Edit Complaint</a>
-                </li> -->
-                <!-- <li class="nav-item mobile-only">
-                    <a class="nav-link" href="#">Daily Hearings</a>
-                </li>
-                <li class="nav-item mobile-only">
-                    <a class="nav-link" href="#">Weekly Hearings</a>
-                </li> -->
-                <li class="nav-item mobile-only">
-                    <a class="nav-link" href="#">Act/Rule</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                <!-- Dropdown for Complaints -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Language (English)
+                        गुनासो
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
-                        <li><a class="dropdown-item" href="#" data-lang="np">Nepali</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/application/registerApplication/complaintRegistration.php">गुनासो दर्ता गर्नुहोस्</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/application/trackApplication/complaintTracker.php">गुनासो ट्र्याक गर्नुहोस्</a></li>
                     </ul>
+                </li>
+                <!-- Act/Rule Link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $base_url; ?>/public/rules/index.php">ऐन/नियम</a>
+                </li>
+                <!-- Additional commented links remain unchanged -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#dispute-categories">Dispute Categories</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#downloads">Downloads</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#faq">FAQs</a>
                 </li> -->
             </ul>
         </div>

@@ -1,23 +1,22 @@
 <?php include '../../modules/header.php'; ?>
+<link rel="stylesheet" href="complaintRegistration.css">
 
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
     <div class="content" id="mainContent">
-        <h1 class="mt-4 mb-3">UPLOADED FILES FOR COMPLAINT NUMBER:
-            <?php echo isset($_GET['ref_id']) ? htmlspecialchars($_GET['ref_id']) : ''; ?>
-        </h1>
+        <h1 class="mt-4 mb-3">गुनासो नम्बर: <?php echo isset($_GET['ref_id']) ? htmlspecialchars($_GET['ref_id']) : ''; ?> का लागि अपलोड गरिएका फाइलहरू</h1>
 
         <!-- Search Bar -->
         <div class="mb-3">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search files..." />
+            <input type="text" id="searchInput" class="form-control" placeholder="फाइलहरू खोज्नुहोस्..." />
         </div>
 
         <div id="alertContainer">
             <?php
             // Check for ref_id parameter in URL
             if (!isset($_GET['ref_id']) || empty(trim($_GET['ref_id']))) {
-                echo '<div class="alert alert-danger">Reference ID not provided.</div>';
+                echo '<div class="alert alert-danger">सन्दर्भ आईडी उपलब्ध छैन।</div>';
                 exit;
             }
             $refId = trim($_GET['ref_id']);
@@ -31,7 +30,7 @@
                 $stmt->execute();
                 $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $e) {
-                echo '<div class="alert alert-danger">Error fetching files: ' . htmlspecialchars($e->getMessage()) . '</div>';
+                echo '<div class="alert alert-danger">फाइलहरू ल्याउँदा त्रुटि: ' . htmlspecialchars($e->getMessage()) . '</div>';
                 exit;
             }
 
@@ -78,13 +77,13 @@
                 switch (strtolower($category)) {
                     case 'plantiff_citizenship':
                     case 'plaintiff_citizenship':
-                        return 'Plaintiff Citizenship Proof';
+                        return 'वादीको नागरिकता प्रमाण';
                     case 'defendant_citizenship':
-                        return 'Defendant Citizenship Proof';
+                        return 'प्रतिवादीको नागरिकता प्रमाण';
                     case 'general_files':
-                        return 'General Files';
+                        return 'सामान्य फाइलहरू';
                     case 'decision_files':
-                        return 'Decision Files';
+                        return 'निर्णय फाइलहरू';
                     default:
                         return ucwords(str_replace('_', ' ', $category));
                 }
@@ -114,14 +113,14 @@
                                     echo '<div class="card-body">';
                                     echo '<p class="card-text">' . htmlspecialchars($file) . '</p>';
                                     // Adjust the path to the uploads folder as necessary.
-                                    echo '<a href="../../../uploads/' . urlencode($file) . '" target="_blank" class="btn btn-primary btn-sm">Download</a>';
+                                    echo '<a href="../../../uploads/' . urlencode($file) . '" target="_blank" class="btn btn-primary btn-sm">डाउनलोड गर्नुहोस्</a>';
                                     echo '</div>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
                                 echo '</div>';
                             } else {
-                                echo '<p>No files found in this category.</p>';
+                                echo '<p>यस वर्गमा कुनै फाइल फेला परेन।</p>';
                             }
                             echo '</div>'; // End of groupB block
                         }
@@ -134,14 +133,14 @@
                     echo '</div>'; // End of card for groupD
                 }
             } else {
-                echo '<div class="alert alert-info">No files found for this application.</div>';
+                echo '<div class="alert alert-info">यस आवेदनका लागि कुनै फाइल फेला परेन।</div>';
             }
             ?>
         </div><!-- /#alertContainer -->
 
         <div class="text-center mt-4">
             <a href="fileUpload.php?ref_id=<?php echo urlencode($refId); ?>" target="_blank">
-                <button class="btn btn-secondary m-2">Upload Additional Files</button>
+                <button class="btn btn-secondary m-2">थप फाइलहरू अपलोड गर्नुहोस्</button>
             </a>
         </div>
     </div>

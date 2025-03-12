@@ -151,6 +151,58 @@
         }
     }
 
+    /* Dropdown container */
+.nav-item.dropdown {
+    position: relative;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    display: none; /* Hide initially */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dropdown links */
+.dropdown-item {
+    position: relative;
+    padding: 10px 20px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Underline effect for dropdown items */
+.dropdown-item::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color); /* Adjust this to match your theme */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+/* Apply underline effect on hover */
+.dropdown-item:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-item.dropdown .nav-link::after {
+    display: none;
+}
+
     @media (max-width: 991px) {
         .mobile-only {
             display: block !important;
@@ -195,7 +247,7 @@
         width: 150px;
         /* Adjust size as needed */
         height: 200px;
-        opacity: 0.5;
+        /* opacity: 0.5; */
     }
 
     /* Hero Text Styling */

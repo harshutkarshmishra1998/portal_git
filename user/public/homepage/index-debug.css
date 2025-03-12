@@ -1,22 +1,26 @@
-/* Global Styles */
-:root {
-    /* Colors derived from the Nepal flag (used as subtle accents) */
+/* ============================
+    ✅ Global Variables & Colors
+   ============================ */
+   :root {
+    /* Primary Theme Colors - Inspired by Nepal Flag */
     --primary-color: #B71C1C;
-    /* Deep Red (used for headings, buttons) */
+    /* Deep Red */
     --secondary-color: #0277bd;
-    /* Deep Blue (used for hover states, accents) */
+    /* Deep Blue */
     --background-color: #FFFFFF;
-    /* White background */
-    --text-color: #333333;
-    /* Dark gray text for readability */
-    --bg-color: rgba(255, 255, 255, 0.8);
-    /* Glassmorphic background */
-    --border-color: #e0e0e0;
-    /* Light border color for separation */
     --text-color: #333;
+    --bg-color: rgba(255, 255, 255, 0.8);
+    --border-color: #e0e0e0;
 }
 
-/* Global Body Settings */
+/* ============================
+    ✅ Global Body & Typography
+   ============================ */
+/* Add smooth scrolling to anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -27,25 +31,22 @@ body {
     padding: 0;
 }
 
-/* Headings */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--text-color);
-    margin-top: 0;
+    margin: 0;
     margin-bottom: 0.5em;
 }
 
-/* Paragraphs */
 p {
     margin-bottom: 1em;
 }
 
-/* Links */
 a {
     color: var(--primary-color);
     text-decoration: none;
@@ -56,12 +57,14 @@ a:hover {
     color: var(--secondary-color);
 }
 
-/* Buttons */
+/* ============================
+    ✅ Global Button Styles
+   ============================ */
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: #fff;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -69,119 +72,82 @@ a:hover {
     border-color: var(--secondary-color);
 }
 
-/* Utility Classes */
+/* ============================
+    ✅ Utility Classes
+   ============================ */
 .border-light {
     border-color: var(--border-color) !important;
 }
 
-/* About Nyayik Samiti */
-:root {
-    --jury-primary-color: #B71C1C;
-    /* Deep Red from Nepal flag */
-    --jury-secondary-color: #0277bd;
-    /* Subtle Government-inspired Blue */
-    --jury-text-color: #333;
-    --jury-bg-color: #f9f9f9;
+.text-center {
+    text-align: center;
 }
 
-/* Section Container */
+/* ============================
+    ✅ Section: About Nyayik Samiti
+   ============================ */
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+}
+
 .jury-about-samiti {
-    background-color: var(--jury-bg-color);
+    background-color: #f9f9f9;
+    padding: 3rem 0;
 }
 
-/* Section Title */
 .jury-about-title {
     font-family: 'Poppins', sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    color: var(--jury-primary-color);
+    color: var(--primary-color);
     text-align: left;
 }
 
-/* About Text */
 .jury-about-text {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
-    color: var(--jury-text-color);
+    color: var(--text-color);
     line-height: 1.6;
     text-align: justify;
     margin-bottom: 1rem;
 }
 
-/* Video Container for Responsive YouTube Embed */
+/* Video Container (Responsive YouTube Embed) */
 .jury-video-container {
     position: relative;
     padding-bottom: 56.25%;
-    /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
-    border: 2px solid var(--jury-primary-color);
+    /* border: 2px solid var(--primary-color); */
     border-radius: 8px;
 }
 
-.jury-video-container .jury-video {
+.jury-video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: 0;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .jury-about-samiti .row {
-        text-align: center;
-    }
-
-    .jury-about-title,
-    .jury-about-text {
-        text-align: center;
-    }
-}
-
-
-/* Ward Members */
-.about-nyayik-samiti {
-    background-color: var(--bg-color);
-    ;
-}
-
-.heading-container {
-    background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.8), rgba(var(--secondary-color-rgb), 0.8));
-    /* Subtle gradient, added rgba variables for opacity*/
-    color: #333;
-    /* Darker text for contrast on lighter background */
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    /* Reduced padding */
-    border-radius: 1rem;
-    /* Reduced border-radius */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    /* Softer shadow */
-    font-weight: 500;
-    /* reduced font weight, for less emphasis*/
-    display: block;
-    /* Ensures margin: auto works */
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    /* Centers the text within */
-}
-
-.section-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
-}
-
+/* ============================
+    ✅ Section: Ward Members Cards
+   ============================ */
 .nyayik-card {
     border: none;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
+}
+
+.nyayik-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .nyayik-card .card-body {
@@ -191,48 +157,25 @@ a:hover {
     justify-content: space-between;
 }
 
-.nyayik-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
 .nyayik-card .card-img-top {
     min-height: 400px;
     width: 100%;
     object-fit: cover;
 }
 
-.card-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    font-family: 'Roboto', sans-serif;
-    color: var(--text-color);
-}
-
-.card-text small {
-    color: #777;
-}
-
-/* Dispute Categories Recognized by the Judicial Committee */
+/* ============================
+    ✅ Section: Dispute Categories
+   ============================ */
 .dispute-categories {
     background-color: var(--bg-color);
+    padding: 3rem 0;
 }
 
-.dispute-categories h2,
-.dispute-categories h5 {
+.dispute-categories h2 {
     text-align: center;
-}
-
-.section-title {
     font-family: 'Poppins', sans-serif;
     font-size: 2rem;
     color: var(--primary-color);
-    font-weight: 700;
 }
 
 .category-title {
@@ -250,8 +193,8 @@ a:hover {
     font-size: 1rem;
     color: var(--text-color);
     margin-bottom: 0.5rem;
-    line-height: 1.4;
     list-style: none;
+    transition: color 0.3s ease;
 }
 
 .category-list li:hover {
@@ -259,19 +202,12 @@ a:hover {
     cursor: pointer;
 }
 
-/* FAQ and Documents */
-/* Resources & Downloads Section */
+/* ============================
+    ✅ Section: Resources & Downloads
+   ============================ */
 .jury-resources {
-    background-color: var(--jury-bg-color);
+    background-color: #f9f9f9;
     padding: 3rem 0;
-}
-
-.jury-resources .jury-section-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    color: var(--jury-primary-color);
-    font-weight: 700;
-    margin-bottom: 2rem;
 }
 
 .jury-download-card {
@@ -279,9 +215,15 @@ a:hover {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     min-height: 400px;
     max-height: 450px;
+}
+
+.jury-download-card .card-img-top {
+    min-height: 200px;
+    max-height: 250px; 
+    object-fit: cover;
 }
 
 .jury-download-card:hover {
@@ -289,136 +231,46 @@ a:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.jury-download-card .card-img-top {
-    min-height: 200px;
-    max-height: 250px;
-    object-fit: cover;
-}
-
-.jury-download-card .card-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.jury-download-card .card-text {
-    font-family: 'Roboto', sans-serif;
-    color: var(--jury-text-color);
-    font-size: 1rem;
-}
-
-.jury-more-downloads p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: var(--jury-text-color);
-    margin-top: 1.5rem;
-    font-style: italic;
-    opacity: 0.7;
-}
-
-/* FAQs Section */
+/* ============================
+    ✅ Section: FAQs (Accordion)
+   ============================ */
 .jury-faq {
     background-color: var(--jury-bg-color);
     padding: 3rem 0;
 }
 
-.jury-faq .jury-section-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    color: var(--jury-primary-color);
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-
-/* Accordion (using Bootstrap defaults with minor customization) */
 .accordion-button {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    color: var(--jury-text-color);
+    color: var(--text-color);
     background-color: #fff;
     border: 1px solid var(--jury-bg-color);
 }
 
 .accordion-button:not(.collapsed) {
-    color: var(--jury-primary-color);
+    color: var(--primary-color);
     background-color: #fff;
 }
 
-.accordion-body {
-    font-family: 'Roboto', sans-serif;
-    color: var(--jury-text-color);
-    font-size: 1rem;
-    text-align: justify;
-}
+/* ============================
+    ✅ Responsive Design
+   ============================ */
+@media (max-width: 768px) {
 
-/* Placeholder for future FAQs */
-.jury-more-faq p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: var(--jury-text-color);
-    margin-top: 1.5rem;
-    font-style: italic;
-    opacity: 0.7;
-}
+    .jury-about-title,
+    .jury-about-text {
+        text-align: center;
+    }
 
-/* Footer */
-:root {
-    --jury-footer-bg: #1a1a1a;
-    --jury-footer-text: #f2f2f2;
-    --jury-footer-link: #f2f2f2;
-    --jury-footer-link-hover: #B71C1C;
-}
+    .jury-about-samiti .row {
+        text-align: center;
+    }
 
-/* Footer Section */
-.jury-footer {
-    background-color: #1a1a1a;
-    color: #f2f2f2;
-    padding: 3rem 0;
-}
+    .jury-download-card {
+        margin-bottom: 1.5rem;
+    }
 
-h5 {
-    color: #f2f2f2;
-    /* padding: 3rem 0; */
-}
-
-.jury-footer-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-/* Contact Details Section */
-.jury-footer ul {
-    padding: 0;
-    list-style: none;
-}
-
-.jury-footer ul li {
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Quick Links Section */
-.jury-footer-link {
-    color: var(--jury-footer-link);
-    text-decoration: none;
-    font-size: 0.95rem;
-    display: block;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
-}
-
-.jury-footer-link:hover {
-    color: var(--jury-footer-link-hover);
-    text-decoration: underline;
-}
-
-/* Bottom Footer */
-.jury-footer-bottom {
-    border-top: 1px solid #333;
-    padding-top: 1rem;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    height: 5px;
+    .nyayik-card .card-img-top {
+        min-height: 300px;
+    }
 }

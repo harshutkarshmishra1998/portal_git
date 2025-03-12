@@ -1,5 +1,5 @@
 <?php require_once '../../modules/header.php'; ?>
-<link rel="stylesheet" href="index-debug.css">
+<link rel="stylesheet" href="index.css">
 
 <body>
 
@@ -9,7 +9,7 @@
 
     <?php require_once '../../modules/subnavbar.php'; ?>
 
-    <section class="jury-about-samiti py-5">
+    <section class="jury-about-samiti py-5" id="jury-about-samiti">
         <div class="container">
             <div class="row align-items-center">
                 <!-- Left Side: About Nyayik Samiti Text -->
@@ -53,7 +53,7 @@
     </section>
 
     <!-- Members -->
-    <section class="about-nyayik-samiti position-relative py-5">
+    <section class="about-nyayik-samiti position-relative py-5" id="members-nyayik-samiti">
         <div class="container-fluid px-4r">
 
             <!-- Modern Heading -->
@@ -115,7 +115,7 @@
     </section>
 
     <!-- Dispute Categories Recognized by the Judicial Committee -->
-    <section class="dispute-categories py-5">
+    <section class="dispute-categories py-5" id="dispute-categories">
         <div class="container">
             <h2 class="heading-container section-title text-center mb-5">
                 DISPUTE CATEGORIES REGOZNIZED BY THE JUDICIAL COMMITTEE
@@ -126,29 +126,27 @@
                 <div class="col-md-6 mb-4">
                     <h5 class="category-title">Family & Care Disputes</h5>
                     <ul class="list-unstyled category-list">
-                        <li>Not paid wages (ज्याला मजदुरी नदिएको)</li>
-                        <li>Not providing care and support to senior citizens (जेष्ठ नागरिकको पालन पोषण तथा हेरचाह
-                            नगरेको)</li>
-                        <li>Not providing education and guidance (शिक्षा दिशा नदिएको)</li>
-                        <li>Not providing food and shelter (खान लाउन नदिएको)</li>
-                        <li>Domestic violence (घरेलु हिंसा)</li>
-                        <li>Husband-wife relationship issues (पति पत्नीको सम्बन्ध)</li>
+                        <li>Not paid wages</li>
+                        <li>Not providing care and support to senior citizens</li>
+                        <li>Not providing education and guidance</li>
+                        <li>Not providing food and shelter</li>
+                        <li>Domestic violence</li>
+                        <li>Husband-wife relationship issues</li>
                     </ul>
                 </div>
 
                 <div class="col-md-6 mb-4">
                     <h5 class="category-title">Property & Land Disputes</h5>
                     <ul class="list-unstyled category-list">
-                        <li>Map dispute (नक्सामाफ रेको)</li>
-                        <li>Border dispute (सीमाना विवाद)</li>
-                        <li>House rent dispute (घर बहाल विवाद)</li>
-                        <li>Building construction encroaching land (जग्गा मिचि भवन निर्माण)</li>
-                        <li>Not complying with construction standards (मापदण्ड विपरित निर्माण राेकाे)</li>
-                        <li>Planting trees affecting surroundings (असर पर्नेगरी रूख रोकेको)</li>
-                        <li>Water drainage affecting property (पानी झरेर असर परेको)</li>
-                        <li>Placing bricks, tiles, or roofing against standards (मापदण्ड विपरित इट्टा टायल टप राखेको)
-                        </li>
-                        <li>Right to use public land/road (सार्वजनिक जग्गा बाटोको प्रयोग गर्न पाँउ)</li>
+                        <li>Map dispute</li>
+                        <li>Border dispute</li>
+                        <li>House rent dispute</li>
+                        <li>Building construction encroaching land</li>
+                        <li>Not complying with construction standards</li>
+                        <li>Planting trees affecting surroundings</li>
+                        <li>Water drainage affecting property</li>
+                        <li>Placing bricks, tiles, or roofing against standards</li>
+                        <li>Right to use public land/road</li>
                     </ul>
                 </div>
             </div>
@@ -158,17 +156,16 @@
                 <div class="col-md-6 mb-4">
                     <h5 class="category-title">Criminal / Violence</h5>
                     <ul class="list-unstyled category-list">
-                        <li>Physical assault (कुटपिट)</li>
-                        <li>Verbal abuse or defamation (गाली बेइज्जत)</li>
-                        <li>Looting (लुटपाट)</li>
+                        <li>Physical assault</li>
+                        <li>Verbal abuse or defamation</li>
+                        <li>Looting</li>
                     </ul>
                 </div>
 
                 <div class="col-md-6 mb-4">
                     <h5 class="category-title">Social / Others</h5>
                     <ul class="list-unstyled category-list">
-                        <li>Impact caused by animals or birds (पशुपंक्षीबाट असर परेको)</li>
-                        <!-- Add more items if needed -->
+                        <li>Impact caused by animals or birds</li>
                     </ul>
                 </div>
             </div>
@@ -176,7 +173,7 @@
     </section>
 
     <!-- Downloads -->
-    <section class="about-nyayik-samiti position-relative py-5">
+    <section class="about-nyayik-samiti position-relative py-5" id="downloads">
         <div class="container-fluid px-4r">
 
             <!-- Modern Heading -->
@@ -192,7 +189,7 @@
                             alt="Complaint Form">
                         <div class="card-body">
                             <h5 class="card-title">Complaint Form</h5>
-                            <p class="card-text">Download the complaint form in PDF format.</p>
+                            <p class="card-text">Download the complaint form in PDF format (offline copy)</p>
                             <!-- <br> -->
                             <a href="#" class="btn btn-primary">Download</a>
                         </div>
@@ -224,7 +221,7 @@
     </section>
 
     <!-- FAQ -->
-    <section class="about-nyayik-samiti position-relative py-5">
+    <section class="about-nyayik-samiti position-relative py-5" id="faq">
         <div class="container-fluid px-4r">
 
             <!-- Modern Heading -->
@@ -321,50 +318,6 @@
         </div>
     </section>
 </body>
-
-<footer class="jury-footer py-5">
-    <div class="container-fluid px-4r">
-        <div class="row">
-            <!-- Left Side: Contact Details -->
-            <div class="col-md-6">
-                <h5 class="jury-footer-title">Judicial Committee, [Your Municipality Name]</h5>
-                <ul class="list-unstyled">
-                    <li><strong>Address:</strong> Ward No. 5, City Area, District Name, Nepal</li>
-                    <li><strong>Phone:</strong> +977-1234567890</li>
-                    <li><strong>Email:</strong> contact@municipality.gov.np</li>
-                    <li><strong>Office Hours:</strong> Sunday - Friday (10 AM to 5 PM)</li>
-                </ul>
-            </div>
-
-            <!-- Right Side: Quick Links -->
-            <div class="col-md-3">
-                <h5 class="jury-footer-title">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="jury-footer-link">Home</a></li>
-                    <li><a href="#" class="jury-footer-link">File a Complaint</a></li>
-                    <li><a href="#" class="jury-footer-link">Track Complaint</a></li>
-                    <li><a href="#" class="jury-footer-link">Resources & Downloads</a></li>
-                    <li><a href="#" class="jury-footer-link">FAQs</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5 class="jury-footer-title">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="jury-footer-link">Home</a></li>
-                    <li><a href="#" class="jury-footer-link">File a Complaint</a></li>
-                    <li><a href="#" class="jury-footer-link">Track Complaint</a></li>
-                    <li><a href="#" class="jury-footer-link">Resources & Downloads</a></li>
-                    <li><a href="#" class="jury-footer-link">FAQs</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- Bottom Bar -->
-        <div class="jury-footer-bottom text-center mt-4">
-            <p class="mb-0">&copy; 2025 Judicial Committee, [Your Municipality Name]. All Rights Reserved.</p>
-        </div>
-    </div>
-</footer>
-
 
 <?php require_once '../../modules/footer.php'; ?>
 
