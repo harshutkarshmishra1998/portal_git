@@ -3,9 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/config.php';
+
 class SecureSession {
-    // Hardcoded secure key (will be moved to env later)
-    protected static $encryptionKey = 'c7f8a3b1e6d2c48f1a9e7b5d3c6f8a2d4b9e5c7f1a3d8b7e4f6c2a1d9e3b5c8';
+    protected static $encryptionKey = ENCRYPTION_KEY;
 
     public static function init() {
         // Derive a 32-byte key

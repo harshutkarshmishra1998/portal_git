@@ -1,2 +1,3 @@
 1. Gatekeepers - Done
 2. Header checks - Done
+3. Env file setup - Done (Any changes in env file location should be made in config.php; right now it is outside portal folder)

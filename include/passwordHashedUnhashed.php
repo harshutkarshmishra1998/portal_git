@@ -1,13 +1,15 @@
 <?php
 
+require_once __DIR__ . '/config.php';
+
 class PasswordEncrypter
 {
     private $encryptionKey;
-    private $cipher = 'AES-256-CBC';
+    private $cipher = CIPHER;
 
     public function __construct($key)
     {
-        $this->encryptionKey = hash('sha256', $key, true);
+        $this->encryptionKey = hash(HASH, $key, true);
     }
 
     public function encryptAndStore($plaintext)
@@ -41,7 +43,7 @@ class PasswordEncrypter
     }
 }
 
-$encryptionKey = "c7f8a3b1e6d2c48f1a9e7b5d3c6f8a2d4b9e5c7f1a3d8b7e4f6c2a1d9e3b5c8";
+$encryptionKey = ENCRYPTION_KEY;
 $encrypter = new PasswordEncrypter($encryptionKey);
 
 // $plaintext = "my_password123";

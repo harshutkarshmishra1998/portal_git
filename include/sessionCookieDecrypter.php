@@ -17,18 +17,18 @@ class SecureSessionDecrypter extends SecureSession {
         if ($decodedData === false) {
             return $data;
         }
-        $ivlen = openssl_cipher_iv_length("AES-256-GCM");
+        $ivlen = openssl_cipher_iv_length(CIPHER);
         $iv = substr($decodedData, 0, $ivlen);
         $tag = substr($decodedData, $ivlen, 16);
         $hmac = substr($decodedData, $ivlen + 16, 32);
         $ciphertext = substr($decodedData, $ivlen + 48);
 
         // Verify HMAC integrity
-        $calculatedHmac = hash_hmac('sha256', $ciphertext, self::$encryptionKey, true);
+        $calculatedHmac = hash_hmac(HASH, $ciphertext, self::$encryptionKey, true);
         if (!hash_equals($hmac, $calculatedHmac)) {
             return false; // Integrity check failed
         }
-        $plaintext = openssl_decrypt($ciphertext, "AES-256-GCM", self::$encryptionKey, OPENSSL_RAW_DATA, $iv, $tag);
+        $plaintext = openssl_decrypt($ciphertext, CIPHER, self::$encryptionKey, OPENSSL_RAW_DATA, $iv, $tag);
         if ($plaintext === false) {
             return false;
         }

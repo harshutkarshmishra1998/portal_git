@@ -1,26 +1,25 @@
 <?php
-// Database credentials
-$host = "localhost"; // Hostname (usually localhost)
-$db   = 'portal';  // Database name
-$user = "root"; // MySQL username (default is 'root' for local)
-$pass = ""; // MySQL password (default is empty for XAMPP/MAMP)
+require_once __DIR__ . '/config.php';
+
+$host = DB_HOST;
+$db   = DB_NAME;
+$user = DB_USER;
+$pass = DB_PASS;
 $charset = 'utf8mb4';
 
-// Set up DSN (Data Source Name)
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-
-// Options for PDO connection
 $options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Error mode set to exceptions
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Fetch associative arrays
-    PDO::ATTR_EMULATE_PREPARES   => false,                  // Disable emulation of prepared statements
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
 try {
-    // Create PDO instance
     $pdo = new PDO($dsn, $user, $pass, $options);
-    // echo "Connected successfully to the $db database.";
+    // echo "I'm connected";
 } catch (PDOException $e) {
-    echo "Database connection failed: " . $e->getMessage();
+    error_log("Database connection error: " . $e->getMessage(), 0);
+    http_response_code(500);
+    exit("Internal Server Error. Please try again later.");
 }
 ?>

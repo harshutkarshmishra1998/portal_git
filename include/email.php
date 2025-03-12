@@ -1,7 +1,9 @@
 <?php
 
+require_once __DIR__ . '/config.php'; // Secure config file for API key
+
 /**
- * Send an email using MailerSend API
+ * Send an email securely using MailerSend API (VAPT Compliant)
  *
  * @param string $toEmail - Recipient's email
  * @param string $toName - Recipient's name
@@ -10,59 +12,62 @@
  * @return string - Returns success message or error details
  */
 function sendMail($toEmail, $toName, $subject, $message) {
-    $apiKey    = "mlsn.48dd6f17c5aaa8e894439c8e8f02d374558d9c786645f3331411749bce46eaa1"; // Replace with your API Key
-    $fromEmail = "MS_geUsLg@trial-3yxj6ljkwd1gdo2r.mlsender.net"; // Must be a verified sender in MailerSend
-    $fromName  = "Complaint Portal"; // Your name or business name
+    // Load credentials from environment variables
+    $apiKey = MAILERSEND_API_KEY;
+    $fromEmail = MAILERSEND_FROM_EMAIL; 
+    $fromName  = MAILERSEND_FROM_NAME;
 
+    // Validate inputs
+    if (!filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
+        error_log("❌ Invalid email format: $toEmail");
+        return "Invalid recipient email address.";
+    }
+    if (!filter_var($fromEmail, FILTER_VALIDATE_EMAIL)) {
+        error_log("❌ Invalid sender email format: $fromEmail");
+        return "Invalid sender email address.";
+    }
+    $toName = htmlspecialchars(strip_tags($toName)); // Sanitize name
+    $subject = htmlspecialchars(strip_tags($subject)); // Sanitize subject
+
+    // Prepare API request
     $url = "https://api.mailersend.com/v1/email";
-
-    // Email Payload
     $data = [
-        "from" => [
-            "email" => $fromEmail,
-            "name"  => $fromName
-        ],
-        "to" => [
-            [
-                "email" => $toEmail,
-                "name"  => $toName
-            ]
-        ],
+        "from" => ["email" => $fromEmail, "name" => $fromName],
+        "to" => [["email" => $toEmail, "name" => $toName]],
         "subject" => $subject,
-        "html"    => $message
+        "html" => $message
     ];
 
     $jsonData = json_encode($data);
-
-    // cURL Request
+    
+    // Initialize cURL
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Authorization: Bearer $apiKey",
-        "Content-Type: application/json"
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $jsonData,
+        CURLOPT_HTTPHEADER => [
+            "Authorization: Bearer $apiKey",
+            "Content-Type: application/json"
+        ]
     ]);
 
+    // Execute request
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $error    = curl_error($ch);  // Get cURL error if any
+    $error    = curl_error($ch);
     curl_close($ch);
 
-    // Check response and return status
+    // Check response
     if ($httpCode == 202) {
-        return "Email sent successfully!";
+        return "✅ Email sent successfully!";
     } else {
-        return "Email sending failed! HTTP Code: $httpCode | Error: $error | Response: $response";
+        error_log("❌ MailerSend Error - HTTP Code: $httpCode | Error: $error | Response: $response");
+        return "Email sending failed. Please try again later.";
     }
 }
 
-// Test the function
-// $toEmail = "harshutkarshmishra1998@gmail.com";
-// $toName  = "Utkarsh Mishra";
-// $subject = "Welcome to Our Service!";
-// $message = "<h3>Hello $toName!</h3><p>We are glad to have you.</p>";
-
-// echo sendMail($toEmail, $toName, $subject, $message);
+// Test function securely (Uncomment for local testing only)
+// echo sendMail("harshutkarshmishra1998@gmail.com", "Test User", "Test Email 2", "<h3>Hello, this is a test!</h3>");
 ?>
