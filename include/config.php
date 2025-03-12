@@ -20,6 +20,11 @@ define('ENCRYPTION_KEY', $_ENV['ENCRYPTION_KEY']);
 define('CIPHER', $_ENV['CIPHER']);
 define('HASH', $_ENV['HASH']);
 
+// SMS API Credentials
+define('ACCOUNT_SID', $_ENV['ACCOUNT_SID']);
+define('AUTH_TOKEN', $_ENV['AUTH_TOKEN']);
+define('TWILIO_NUMBER', $_ENV['TWILIO_NUMBER']);
+
 // var_dump($_ENV);
 // var_dump(getenv());
 ?>

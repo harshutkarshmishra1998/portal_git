@@ -1,12 +1,13 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php'; // Adjust path if needed
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/config.php';
 
 use Twilio\Rest\Client;
 
 // Twilio API Credentials (Replace with your actual credentials)
-$accountSid = "ACa5c03d8f8ee883d9485a8d2e408b8d54"; // Your Twilio Account SID
-$authToken  = "ebc0cfdbb434101689abb0a0c4db6757";  // Your Twilio Auth Token
-$twilioNumber = "+13158473288"; // Your Twilio Number
+$accountSid = ACCOUNT_SID; // Your Twilio Account SID
+$authToken  = AUTH_TOKEN ; // Your Twilio Auth Token
+$twilioNumber = TWILIO_NUMBER; // Your Twilio Number
 
 $client = new Client($accountSid, $authToken);
 
