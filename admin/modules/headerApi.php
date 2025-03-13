@@ -51,24 +51,3 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
 //     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 // }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <title>Dashboard with Table Filters</title>
-    <link rel="shortcut icon" href="#">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- For File Uploads Only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <!-- DataTables CSS -->
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <!-- DataTables Buttons CSS -->
-    <link href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" rel="stylesheet" />
-    <!-- (Optional) Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Frontend CSS File -->
-    <?php require_once "frontendStyles.css.php"; ?>
-</head>

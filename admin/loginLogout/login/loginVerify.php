@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['mobile'] = $user['mobile'];
                     $_SESSION['login_timestamp'] = time();
                     $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
                     setcookie("PHPSESSID", session_id(), time() + (86400 * 1), "/", "", true, true);
 

@@ -1,10 +1,11 @@
-<?php require_once '../../modules/header.php'; ?>
-<?php require_once 'sqlQueries.php'; ?>
+<?php
+require_once __DIR__ . '/../../modules/header.php';
+require_once __DIR__ . '/sqlQueries.php';
 ?>
 
 <body>
-    <?php require_once '../../modules/navbar.php'; ?>
-    <?php require_once '../../modules/sidebar.php'; ?>
+    <?php require_once __DIR__ . '/../../modules/navbar.php'; ?>
+    <?php require_once __DIR__ . '/../../modules/sidebar.php'; ?>
 
     <!-- MAIN CONTENT -->
     <div class="content" id="mainContent">
@@ -28,7 +29,6 @@
                     <option value="">-- Select Value --</option>
                 </select>
             </div>
-            <!-- Align the clear button at the bottom -->
             <div class="col-md-4 d-flex align-items-end">
                 <button id="clearFilters" class="btn btn-secondary w-100">Clear Filters</button>
             </div>
@@ -46,42 +46,41 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>
-            <td>{$row['name']}</td>
-            <td>{$row['email']}</td>
-            <td>{$row['mobile']}</td>
-            <td>{$row['created_at']}</td>
-            <td>
-                <button class='btn btn-warning btn-sm' 
-                        onclick=\"updateAdmin({
-                            email: '" . htmlspecialchars($row['email'], ENT_QUOTES) . "',
-                            name: '" . htmlspecialchars($row['name'], ENT_QUOTES) . "',
-                            mobile: '" . htmlspecialchars($row['mobile'], ENT_QUOTES) . "',
-                            hashed_password: '" . htmlspecialchars($row['password'], ENT_QUOTES) ."'";
-                    echo "})\">
-                    Update
-                </button>
-                <button class='btn btn-danger btn-sm' 
-                        onclick=\"deleteAdmin('" . htmlspecialchars($row['email'], ENT_QUOTES) . "')\">
-                    Delete
-                </button>
-            </td>
-        </tr>";
-                }
-                ?>
+                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($row['mobile'], ENT_QUOTES, 'UTF-8') ?></td>
+                        <td><?= htmlspecialchars($row['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
+                        <td>
+                            <form method="POST" action="adminUpdate.php" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="name" value="<?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="mobile" value="<?= htmlspecialchars($row['mobile'], ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="hashed_password" value="<?= htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8') ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                            </form>
+
+                            <form method="POST" action="adminDelete.php" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8') ?>">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this admin?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
             </tbody>
         </table>
+
         <!-- CSV Export Button -->
         <button id="exportCSV" class="btn btn-primary mt-3">Export CSV</button>
-        <button class="btn btn-info mt-3"><a href="adminCreate.php">Add Admin</a></button>
+        <a href="adminCreate.php" class="btn btn-info mt-3">Add Admin</a>
     </div>
 
-    <?php require_once 'adminList.js.php'; ?>
-
-    <?php require_once '../../modules/footer.php'; ?>
-
+    <?php require_once __DIR__ . '/adminList.js.php'; ?>
+    <?php require_once __DIR__ . '/../../modules/footer.php'; ?>
 </body>
-
 </html>
