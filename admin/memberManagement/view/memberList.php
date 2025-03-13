@@ -46,7 +46,7 @@
             </thead>
             <tbody>
                 <?php
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($row = $stmt->fetch()) {
                     $role = $row['role'];
                     if ($role === 'ward_member') {
                         $role = 'Ward Member';
@@ -71,12 +71,16 @@
                                         mobile: '" . htmlspecialchars($row['mobile'], ENT_QUOTES) . "',
                                         ward_number: '" . htmlspecialchars($row['ward_number'], ENT_QUOTES) . "',
                                         role: '" . htmlspecialchars($row['role'], ENT_QUOTES) . "',
+                                        csrf_token: '" . htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES) . "',
                                         hashed_password: '" . htmlspecialchars($row['password'], ENT_QUOTES) . "'
                                     })\">
                                 Update
                             </button>
                             <button class='btn btn-danger btn-sm' 
-                                    onclick=\"deleteMember('" . htmlspecialchars($row['email'], ENT_QUOTES) . "')\">
+                                    onclick=\"deleteMember({
+                                        email: '" . htmlspecialchars($row['email'], ENT_QUOTES) . "',
+                                        csrf_token: '" . htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES) . "',
+                                    })\">
                                 Delete
                             </button>
                         </td>

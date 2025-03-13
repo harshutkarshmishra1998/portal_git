@@ -8,6 +8,7 @@
         <h4 class="mb-4">Create Member</h4>
 
         <form id="memberForm">
+        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
                 <input type="text" class="form-control" id="fullName" name="fullName" required>

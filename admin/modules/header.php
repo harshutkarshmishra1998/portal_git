@@ -14,6 +14,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+function generateCSRFToken() {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // 2. Define constant for one day in seconds
 define('ONE_DAY_IN_SECONDS', 86400);
 
@@ -72,6 +76,8 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
 // if (!isset($_SESSION['csrf_token'])) {
 //     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 // }
+
+// $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <!DOCTYPE html>

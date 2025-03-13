@@ -1,8 +1,15 @@
 <?php
 require_once '../../../include/db.php'; // require_once DB connection
+require_once __DIR__ . '/../../modules/headerApi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     $email = $_POST['email'];
+    $csrfToken = $_POST['csrf_token'];
+
+    if ($csrfToken !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
+
 
     // Delete all entries linked to the email
     $deleteSql = "DELETE FROM member WHERE email = :email";
