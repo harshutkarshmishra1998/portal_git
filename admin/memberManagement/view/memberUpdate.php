@@ -12,9 +12,9 @@ $readablePassword = $encrypter->decryptStored($hashedPassword);
 $readonly = (!empty($email)) ? 'readonly' : ''; // Make email readonly
 $csrfToken = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
 
-if ($csrfToken !== $_SESSION['csrf_token']) {
-    die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
-}
+// if ($csrfToken !== $_SESSION['csrf_token']) {
+//     die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+// }
 
 // Convert role back to database format
 if ($role === 'Ward Member') {

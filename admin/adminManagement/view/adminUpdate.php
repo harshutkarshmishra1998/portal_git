@@ -2,10 +2,10 @@
 require_once __DIR__ . '/../../../include/passwordHashedUnhashed.php';
 require_once __DIR__ . '/../../modules/header.php'; 
 
-// Ensure CSRF Token is present
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
-    die(json_encode(['status' => 'error', 'message' => 'Invalid CSRF token.']));
-}
+// // Ensure CSRF Token is present
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+//     die(json_encode(['status' => 'error', 'message' => 'Invalid CSRF token.']));
+// }
 
 // Initialize Variables Securely
 $fullName = isset($_POST['name']) ? trim($_POST['name']) : '';

@@ -77,7 +77,7 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
 //     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 // }
 
-// $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <!DOCTYPE html>

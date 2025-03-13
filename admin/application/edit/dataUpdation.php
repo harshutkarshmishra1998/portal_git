@@ -54,9 +54,9 @@
                 $('html, body').animate({
                     scrollTop: 0
                 }, 'slow');
-                // setTimeout(function() {
-                //     window.close(); // Close the current tab
-                // }, 2000); // 2 seconds delay
+                setTimeout(function() {
+                    window.close(); // Close the current tab
+                }, 2000); // 2 seconds delay
             },
             error: function(xhr, status, error) {
                 console.error('Error occurred:', error);
