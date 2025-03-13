@@ -19,7 +19,7 @@ error_reporting(E_ALL);
 require_once '../../../include/db.php'; // Include your database connection
 
 // Use an absolute path for the upload directory
-$uploadDir = __DIR__ . '/../../../uploads/';
+$uploadDir = $file_upload_url;
 
 // Log the upload directory path for debugging
 error_log("Upload directory: " . $uploadDir);

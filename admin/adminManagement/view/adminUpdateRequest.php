@@ -3,11 +3,6 @@ require_once __DIR__ . '/../../../include/db.php'; // Secure absolute path
 require_once __DIR__ . '/../../../include/passwordHashedUnhashed.php'; // If needed for encryption
 require_once __DIR__.'/../../modules/headerApi.php';
 
-// Start the session if it's not already running
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Ensure request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));

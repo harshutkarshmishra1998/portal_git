@@ -18,8 +18,30 @@ if (session_status() === PHP_SESSION_NONE) {
 define('ONE_DAY_IN_SECONDS', 86400);
 
 // 3. Construct the base URL correctly
-$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
-$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/portal/admin/";
+function findInitPath($maxDepth = 6) {
+    for ($depth = 0; $depth <= $maxDepth; $depth++) {
+        $path = __DIR__;
+        for ($i = 0; $i < $depth; $i++) {
+            $path .= '/..';
+        }
+        $path .= '/init.php';
+
+        if (file_exists(realpath($path))) {
+            return realpath($path);
+        }
+    }
+    return false; // init.php not found within maxDepth
+}
+
+$initPath = findInitPath();
+
+if ($initPath) {
+    require_once $initPath;
+    // echo "init.php found and included successfully.";
+} else {
+    echo "Error: init.php not found within the specified depth.";
+    exit;
+}
 
 // 4. If any one of the required session variables is not set, logout
 if (

@@ -10,6 +10,7 @@
         const defendantMobile = document.getElementById('defendant_mobile').value;
         const plaintiffName = document.getElementById('plaintiff_name').value;
         const defendantName = document.getElementById('defendant_name').value;
+        const csrfToken = document.getElementById('csrf_token').value;
 
         const data = {
             sendTo: sendTo,
@@ -22,8 +23,9 @@
             defendantMobile: defendantMobile,
             plaintiffName: plaintiffName,
             defendantName: defendantName,
+            csrfToken: csrfToken,
         };
-        // console.log("Notification Data:", data); // Corrected variable
+        console.log("Notification Data:", data); // Corrected variable
 
         // Example of a fetch request (adapt to your server-side logic)
         $.ajax({

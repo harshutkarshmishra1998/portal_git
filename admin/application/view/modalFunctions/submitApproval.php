@@ -1,5 +1,6 @@
 <?php
 require_once '../../../../include/db.php';
+require_once __DIR__.'/../../../modules/headerApi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true); // Decode JSON data
@@ -13,6 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $editorEmail = $data['editor_email'];
     $editorMobile = $data['editor_mobile'];
     $status = $data['status'];
+    $csrfToken = $data['csrf_token'];
+
+    if($csrfToken !== $_SESSION['csrf_token'])
+    {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // echo json_encode($data);
     // exit;
