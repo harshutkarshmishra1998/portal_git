@@ -17,10 +17,9 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once '../../../include/db.php'; // Include your database connection
-require_once __DIR__.'/../../modules/headerApi.php';
 
 // Use an absolute path for the upload directory
-// $uploadDir = '../../../../uploads/';
+$uploadDir = '../../../../uploads/';
 
 // Log the upload directory path for debugging
 error_log("Upload directory: " . $uploadDir);
