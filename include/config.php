@@ -29,5 +29,18 @@ define('TWILIO_NUMBER', $_ENV['TWILIO_NUMBER']);
 // var_dump(getenv());
 ?>
 
+<?php
+$uploadPath = __DIR__ . '/../../uploads/'; // Moves two levels up from portal/include
+
+// List files in the uploads directory
+// $files = scandir($uploadPath);
+
+// foreach ($files as $file) {
+//     if ($file !== '.' && $file !== '..') {
+//         echo "<a href='/uploads/$file' download>$file</a><br>";
+//     }
+// }
+?>
+
 
 
