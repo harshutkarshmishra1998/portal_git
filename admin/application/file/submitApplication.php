@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $editorEmail = $formData['editor_email'] ?? null;
         $editorMobile= $formData['editor_mobile'] ?? null;
         $fileUploads = $formData['file_uploads'] ?? [];
+        $csrfToken = $formData['csrf_token'] ?? null;
 
         // Handle uploaded files
         $files = $_FILES;
@@ -60,6 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $generalFiles         = $files['general_files_application_admin'] ?? null;
 
         $movedFiles = []; // To store info about moved files
+
+        if ($csrfToken !== $_SESSION['csrf_token']) {
+            die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+        }
 
         // A helper function to extract the original file name with extension
         function getFileName($fileInfo) {

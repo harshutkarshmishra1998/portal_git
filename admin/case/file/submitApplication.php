@@ -17,9 +17,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once '../../../include/db.php'; // Include your database connection
+require_once __DIR__ . '/../../modules/headerApi.php';
 
 // Use an absolute path for the upload directory
-$uploadDir = __DIR__ . '/../../../uploads/';
+// $uploadDir = __DIR__ . '/../../../uploads/';
 
 // Log the upload directory path for debugging
 error_log("Upload directory: " . $uploadDir);
@@ -45,24 +46,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formData = json_decode($_POST['formData'], true);
 
         // Extract variables
-        $refId       = $formData['reference_id'] ?? null;
-        $editorName  = $formData['editor_name'] ?? null;
+        $refId = $formData['reference_id'] ?? null;
+        $editorName = $formData['editor_name'] ?? null;
         $editorEmail = $formData['editor_email'] ?? null;
-        $editorMobile= $formData['editor_mobile'] ?? null;
+        $editorMobile = $formData['editor_mobile'] ?? null;
         $fileUploads = $formData['file_uploads'] ?? [];
         $status = $formData['status'] ?? null;
+        $csrfToken = $formData['csrf_token'] ?? null;
 
         // Handle uploaded files
         $files = $_FILES;
 
         $plaintiffCitizenship = $files['plantiff_citizenship_case_admin'] ?? null;
         $defendantCitizenship = $files['defendant_citizenship_case_admin'] ?? null;
-        $generalFiles         = $files['general_files_case_admin'] ?? null;
+        $generalFiles = $files['general_files_case_admin'] ?? null;
 
         $movedFiles = []; // To store info about moved files
 
+        if ($csrfToken !== $_SESSION['csrf_token']) {
+            die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+        }
+
         // A helper function to extract the original file name with extension
-        function getFileName($fileInfo) {
+        function getFileName($fileInfo)
+        {
             return pathinfo($fileInfo['name'], PATHINFO_FILENAME) . '.' . pathinfo($fileInfo['name'], PATHINFO_EXTENSION);
         }
 
@@ -149,13 +156,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Prepare and return response
         $response = [
-            'status'       => 'success',
-            'ref_id'       => $refId,
-            'editor_name'  => $editorName,
-            'email'        => $editorEmail,
-            'mobile'       => $editorMobile,
+            'status' => 'success',
+            'ref_id' => $refId,
+            'editor_name' => $editorName,
+            'email' => $editorEmail,
+            'mobile' => $editorMobile,
             'file_uploads' => $fileUploads,
-            'moved_files'  => $movedFiles,
+            'moved_files' => $movedFiles,
         ];
 
         header('Content-Type: application/json');
@@ -172,5 +179,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
 ?>
-
-

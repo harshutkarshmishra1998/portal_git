@@ -14,6 +14,11 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once '../../../include/db.php';
 
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
+
 try {
     // Retrieve JSON data from POST
     if (!isset($_POST['formData'])) {
@@ -25,7 +30,10 @@ try {
     }
     $refId = $formData['reference_id'];
 
-
+    if ($formData['csrf_token'] !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
+    
     // echo json_encode($formData);
     // exit;
 

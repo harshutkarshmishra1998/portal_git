@@ -12,6 +12,7 @@
         const defendantName = document.getElementById('defendant_name').value;
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
+        const csrfToken = document.getElementById('csrf_token').value;
 
         const data = {
             sendTo: sendTo,
@@ -24,6 +25,7 @@
             defendantMobile: defendantMobile,
             plaintiffName: plaintiffName,
             defendantName: defendantName,
+            csrf_token: csrfToken,
             status: status,
         };
         // console.log("Notification Data:", data); // Corrected variable
