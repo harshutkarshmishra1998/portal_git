@@ -12,3 +12,5 @@ session_destroy();
 header("Location: " . $base_url . "public/homepage/index.php");
 exit;
 ?>
+
+<?php //include "include/config.php"; ?>

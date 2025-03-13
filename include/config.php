@@ -29,8 +29,13 @@ define('TWILIO_NUMBER', $_ENV['TWILIO_NUMBER']);
 // var_dump(getenv());
 ?>
 
+<!-- Path Setup -->
+
 <?php
-$uploadPath = __DIR__ . '/../../uploads/'; // Moves two levels up from portal/include
+$uploadPath = __DIR__ . '/../../uploads/'; // C:\xampp\htdocs\portal\include/../../uploads/
+$basePath = __DIR__ ;  //C:\xampp\htdocs\portal\include
+
+echo $basePath;
 
 // List files in the uploads directory
 // $files = scandir($uploadPath);
