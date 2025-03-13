@@ -1,5 +1,6 @@
 <?php
 require_once '../../../../include/db.php';
+require_once __DIR__ . '/../../../modules/headerApi.php';
 
 function updateStatus($status)
 {
@@ -51,6 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hearingDate = $data['hearing_date']; // or however you get the hearing date
     $hearingTime = $data['hearing_time']; // or however you get the hearing time
     $hearingLocation = $data['hearing_location']; // or however you get the hearing location
+    $csrfToken = $data['csrf_token'];
+
+    if($csrfToken !== $_SESSION['csrf_token'])
+    {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // echo json_encode($data);
     // exit;

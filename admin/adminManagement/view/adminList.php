@@ -46,7 +46,7 @@ require_once __DIR__ . '/sqlQueries.php';
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <?php while ($row = $stmt->fetch()): ?>
                     <tr>
                         <td><?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?></td>
                         <td><?= htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8') ?></td>

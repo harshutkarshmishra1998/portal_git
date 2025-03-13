@@ -1,4 +1,8 @@
 <?php
+// --- Start the session ---
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $editorName = isset($_SESSION["name"]) ? $_SESSION["name"] : "Default Name";
 $editorEmail = isset($_SESSION["email"]) ? $_SESSION["email"] : "Default Email";
 $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobile";
@@ -11,6 +15,7 @@ $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobi
             editor_name: "<?php echo $editorName; ?>",
             editor_email: "<?php echo $editorEmail; ?>",
             editor_mobile: "<?php echo $editorMobile; ?>",
+            status: "<?php echo $_GET['status']; ?>",
             file_uploads: []
         };
 
@@ -19,31 +24,31 @@ $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobi
 
         const plaintiffFileInput = document.getElementById('plantiff_citizenship');
         if (plaintiffFileInput.files.length > 0) {
-            fd.append('plantiff_citizenship_admin', plaintiffFileInput.files[0]);
+            fd.append('plantiff_citizenship_resolved_admin', plaintiffFileInput.files[0]);
             formJson.file_uploads.push({
-                field: 'plantiff_citizenship_admin',
+                field: 'plantiff_citizenship_resolved_admin',
                 oldName: plaintiffFileInput.files[0].name,
-                newName: generateUniqueFileName('plantiff_citizenship_admin', plaintiffFileInput.files[0].name)
+                newName: generateUniqueFileName('plantiff_citizenship_resolved_admin', plaintiffFileInput.files[0].name)
             });
         }
 
         const defendantFileInput = document.getElementById('defendant_citizenship');
         if (defendantFileInput.files.length > 0) {
-            fd.append('defendant_citizenship_admin', defendantFileInput.files[0]);
+            fd.append('defendant_citizenship_resolved_admin', defendantFileInput.files[0]);
             formJson.file_uploads.push({
-                field: 'defendant_citizenship_admin',
+                field: 'defendant_citizenship_resolved_admin',
                 oldName: defendantFileInput.files[0].name,
-                newName: generateUniqueFileName('defendant_citizenship_admin', defendantFileInput.files[0].name)
+                newName: generateUniqueFileName('defendant_citizenship_resolved_admin', defendantFileInput.files[0].name)
             });
         }
 
         const generalFileInput = document.getElementById('file_upload');
         for (let i = 0; i < generalFileInput.files.length; i++) {
-            fd.append('general_files_admin[]', generalFileInput.files[i]);
+            fd.append('general_files_resolved_admin[]', generalFileInput.files[i]);
             formJson.file_uploads.push({
-                field: 'general_files_admin[]',
+                field: 'general_files_resolved_admin[]',
                 oldName: generalFileInput.files[i].name,
-                newName: generateUniqueFileName('general_files_admin', generalFileInput.files[i].name)
+                newName: generateUniqueFileName('general_files_resolved_admin', generalFileInput.files[i].name)
             });
         }
 

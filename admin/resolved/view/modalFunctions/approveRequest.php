@@ -36,6 +36,7 @@ function getOrdinalSuffix($number)
 <script>
     function submitApplication1() {
         var referenceId = '<?= htmlspecialchars($referenceId, ENT_QUOTES, "UTF-8") ?>';
+        var csrfToken = $("#csrf_token").val().trim();
         var status = '<?= htmlspecialchars($_GET['status'], ENT_QUOTES, "UTF-8") ?>';
         var comment = $("#comment1").val().trim();
         var hearing_date = $("#hearing_date").val();
@@ -50,6 +51,7 @@ function getOrdinalSuffix($number)
         // Create a data object
         var data = {
             reference_id: referenceId,
+            csrf_token: csrfToken,
             comment: comment,
             hearing_date: hearing_date,
             hearing_time: hearing_time,

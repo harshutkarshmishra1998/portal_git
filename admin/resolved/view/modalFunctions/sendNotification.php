@@ -10,12 +10,14 @@
         const defendantMobile = document.getElementById('defendant_mobile').value;
         const plaintiffName = document.getElementById('plaintiff_name').value;
         const defendantName = document.getElementById('defendant_name').value;
+        const csrfToken = document.getElementById('csrf_token').value;
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
 
         const data = {
             sendTo: sendTo,
             sendVia: sendVia,
+            csrf_token: csrfToken,
             comment: comment,
             referenceId: referenceId,
             plaintiffEmail: plaintiffEmail,

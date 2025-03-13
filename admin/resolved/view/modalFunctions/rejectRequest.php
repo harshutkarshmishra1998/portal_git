@@ -4,6 +4,7 @@
     function submitApplication2() {
         var referenceId = '<?= htmlspecialchars($referenceId, ENT_QUOTES, "UTF-8") ?>';
         var status = "Approved (Resolved)";
+        var csrfToken = $("#csrf_token").val().trim();
         var status = '<?= htmlspecialchars($_GET['status'], ENT_QUOTES, "UTF-8") ?>';
         var comment = $("#comment2").val().trim();
         var hearing_date = $("#hearing_date2").val();
@@ -19,6 +20,7 @@
         var data = {
             reference_id: referenceId,
             comment: comment,
+            csrf_token: csrfToken,
             hearing_date: hearing_date,
             hearing_time: hearing_time,
             hearing_location: hearing_location,

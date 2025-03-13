@@ -4,6 +4,7 @@
     function submitApplication3() {
         var referenceId = '<?= htmlspecialchars($referenceId, ENT_QUOTES, "UTF-8") ?>';
         var comment = $("#comment3").val().trim();
+        var csrfToken = $("#csrf_token").val().trim();
         var status = '<?= isset($_GET['status']) ? htmlspecialchars($_GET['status'], ENT_QUOTES, "UTF-8") : "Default Name" ?>';
         var editorName = '<?= isset($_SESSION["name"]) ? htmlspecialchars($_SESSION["name"], ENT_QUOTES, "UTF-8") : "Default Name" ?>';
         var editorEmail = '<?= isset($_SESSION["email"]) ? htmlspecialchars($_SESSION["email"], ENT_QUOTES, "UTF-8") : "Default Email" ?>';
@@ -16,6 +17,7 @@
             editor_name: editorName,
             editor_email: editorEmail,
             editor_mobile: editorMobile,
+            csrf_token: csrfToken,
             status: status
         };
 

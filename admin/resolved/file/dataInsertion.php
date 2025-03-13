@@ -16,6 +16,7 @@ $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobi
             editor_email: "<?php echo $editorEmail; ?>",
             editor_mobile: "<?php echo $editorMobile; ?>",
             status: "<?php echo $_GET['status']; ?>",
+            csrf_token: document.getElementById('csrf_token').value.trim(),
             file_uploads: []
         };
 
