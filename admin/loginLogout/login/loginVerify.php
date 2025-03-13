@@ -1,8 +1,19 @@
 <?php
-// --- Start the session ---
+// Security Headers
+header("X-Frame-Options: DENY"); // Prevents clickjacking
+header("X-XSS-Protection: 1; mode=block"); // Enables XSS protection in older browsers
+header("X-Content-Type-Options: nosniff"); // Prevents MIME-type sniffing
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload"); // Enforces HTTPS for a year
+header("Referrer-Policy: strict-origin-when-cross-origin"); // Limits referrer data exposure
+header("Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()"); // Blocks unnecessary browser permissions
+?>
+
+<?php
+// 1. Start the session if it's not already running
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 require_once '../../../include/db.php';
 require_once '../../../include/passwordHashedUnhashed.php';
 
@@ -11,10 +22,15 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $readablePassword = trim($_POST['password']);
+    $csrfToken = trim($_POST['csrf_token']);
 
     if (empty($email) || empty($readablePassword)) {
         echo json_encode(["status" => "error", "message" => "Email and password are required."]);
         exit;
+    }
+
+    if (!$csrfToken) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
     }
 
     try {
@@ -34,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['mobile'] = $user['mobile'];
                     $_SESSION['login_timestamp'] = time();
                     $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
-                    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+                    $_SESSION['csrf_token'] = $csrfToken;
 
                     setcookie("PHPSESSID", session_id(), time() + (86400 * 1), "/", "", true, true);
 

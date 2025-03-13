@@ -10,6 +10,7 @@
         <h2>Forgot Password</h2>
     </div>
     <form id="forgotPasswordForm">
+    <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo bin2hex(random_bytes(32)); ?>">
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email" required>
@@ -93,10 +94,12 @@ $(document).ready(function() {
             return;
         }
 
+        var csrf_token = $("#csrf_token").val();
+
         $.ajax({
             type: "POST",
             url: "resetPassword.php", // Create this file
-            data: { email: userEmail, password: newPassword },
+            data: {email: userEmail, password: newPassword, csrf_token: csrf_token},
             dataType: "json",
             success: function(response) {
                 if (response.status === "success") {
