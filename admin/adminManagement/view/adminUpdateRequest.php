@@ -56,7 +56,7 @@ try {
             die(json_encode(['status' => 'error', 'message' => 'Password must be at least 8 characters, including letters and numbers.']));
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $hashedPassword = $encrypter->encryptAndStore($password);
         $sql .= ", password = :password";
         $params['password'] = $hashedPassword;
     }
