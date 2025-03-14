@@ -20,9 +20,6 @@
 <!-- jQuery Validation (Form Validation) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
-<!-- Custom Frontend JS -->
-<?php require_once 'frontendJs.js.php'; ?>
-
 <footer class="jury-footer py-5">
     <div class="container-fluid px-4r">
         <div class="row">
@@ -47,28 +44,28 @@
             <div class="col-md-3">
                 <h5 class="jury-footer-title">छिटो नेभिगेसन</h5>
                 <ul class="list-unstyled">
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php"
                             class="jury-footer-link">गृहपृष्ठ</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php#jury-about-samiti"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php#jury-about-samiti"
                             class="jury-footer-link">हाम्रो बारेमा</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php#members-nyayik-samiti"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php#members-nyayik-samiti"
                             class="jury-footer-link">सदस्यहरू</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php#dispute-categories"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php#dispute-categories"
                             class="jury-footer-link">विवादका प्रकारहरू</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php#downloads"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php#downloads"
                             class="jury-footer-link">डाउनलोड</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/homepage/index.php#faq"
+                    <li><a href="<?php echo $base_url; ?>user/public/homepage/index.php#faq"
                             class="jury-footer-link">बारम्बार सोधिने प्रश्नहरू</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5 class="jury-footer-title">छिटो लिंकहरू</h5>
                 <ul class="list-unstyled">
-                    <li><a href="<?php echo $base_url; ?>/application/registerApplication/complaintRegistration.php"
+                    <li><a href="<?php echo $base_url; ?>user/application/registerApplication/complaintRegistration.php"
                             class="jury-footer-link">गुनासो दर्ता गर्नुहोस्</a></li>
-                    <li><a href="<?php echo $base_url; ?>/application/trackApplication/complaintTracker.php"
+                    <li><a href="<?php echo $base_url; ?>user/application/trackApplication/complaintTracker.php"
                             class="jury-footer-link">गुनासो ट्र्याक गर्नुहोस्</a></li>
-                    <li><a href="<?php echo $base_url; ?>/public/rules/index.php" class="jury-footer-link">ऐन/नियम</a>
+                    <li><a href="<?php echo $base_url; ?>user/public/rules/index.php" class="jury-footer-link">ऐन/नियम</a>
                     </li>
                 </ul>
             </div>

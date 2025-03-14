@@ -2,5 +2,5 @@
 // Security: Construct base URL correctly
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 $base_url = $protocol.$_SERVER['HTTP_HOST']."/portal/"; //http://localhost/portal/
-$uploadDir = '../../../../uploads/'; //For admin/{application, case, resolved}/file/
+$uploadDir = '../../../../uploads/'; //For {admin,resolved}/{application, case, resolved}/file/
 ?>

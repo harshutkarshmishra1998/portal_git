@@ -2,7 +2,7 @@
     <div class="container-fluid px-4">
         <!-- Left Side: Logo + Brand Name -->
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="<?php echo $base_url; ?>/modules/img/logo.png" alt="Government Logo" class="logo-img">
+            <img src="<?php echo $base_url; ?>user/modules/img/logo.png" alt="Government Logo" class="logo-img">
             <span class="ms-2 brand-name">धनपालथान गाउँपालिका</span>
         </a>
 
@@ -17,15 +17,15 @@
             <ul class="navbar-nav align-items-lg-center">
                 <!-- Home Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php">गृहपृष्ठ</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/homepage/index.php">गृहपृष्ठ</a>
                 </li>
                 <!-- About Us Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#jury-about-samiti">हाम्रो बारेमा</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/homepage/index.php#jury-about-samiti">हाम्रो बारेमा</a>
                 </li>
                 <!-- Members Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/homepage/index.php#members-nyayik-samiti">सदस्यहरू</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/homepage/index.php#members-nyayik-samiti">सदस्यहरू</a>
                 </li>
                 <!-- Dropdown for Complaints -->
                 <li class="nav-item dropdown">
@@ -34,23 +34,23 @@
                         गुनासो
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/application/registerApplication/complaintRegistration.php">गुनासो दर्ता गर्नुहोस्</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/application/trackApplication/complaintTracker.php">गुनासो ट्र्याक गर्नुहोस्</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>user/application/registerApplication/complaintRegistration.php">गुनासो दर्ता गर्नुहोस्</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>user/application/trackApplication/complaintTracker.php">गुनासो ट्र्याक गर्नुहोस्</a></li>
                     </ul>
                 </li>
                 <!-- Act/Rule Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>/public/rules/index.php">ऐन/नियम</a>
+                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/rules/index.php">ऐन/नियम</a>
                 </li>
                 <!-- Additional commented links remain unchanged -->
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#dispute-categories">Dispute Categories</a>
+                    <a class="nav-link" href="<?php //echo $base_url; ?>user/public/homepage/index.php#dispute-categories">Dispute Categories</a>
                 </li> -->
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#downloads">Downloads</a>
+                    <a class="nav-link" href="<?php //echo $base_url; ?>user/public/homepage/index.php#downloads">Downloads</a>
                 </li> -->
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?php //echo $base_url; ?>/public/homepage/index.php#faq">FAQs</a>
+                    <a class="nav-link" href="<?php //echo $base_url; ?>user/public/homepage/index.php#faq">FAQs</a>
                 </li> -->
             </ul>
         </div>

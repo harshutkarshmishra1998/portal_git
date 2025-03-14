@@ -7,7 +7,7 @@
 
     <?php require_once '../../modules/hero.php'; ?>
 
-    <?php require_once '../../modules/subnavbar.php'; ?>
+    <?php //require_once '../../modules/subnavbar.php'; ?>
 
     <section class="py-5">
         <div class="container">

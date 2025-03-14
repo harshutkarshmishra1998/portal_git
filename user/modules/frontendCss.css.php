@@ -219,7 +219,7 @@
     .hero-section {
         width: 100%;
         min-height: 250px;
-        background: url("<?php echo $base_url; ?>/modules/img/hero-background.png") no-repeat center center;
+        background: url("<?php echo $base_url; ?>user/modules/img/hero-background.png") no-repeat center center;
         background-size: cover;
         position: relative;
         overflow: hidden;
