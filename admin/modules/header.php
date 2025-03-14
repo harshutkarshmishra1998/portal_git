@@ -194,6 +194,58 @@ if (!isset($_SESSION['csrf_token'])) {
     }
 </script>
 
+<script>
+    // Run as early as possible, ideally in the head
+    (function () {
+        // Function to force an element's display to none with !important
+        function forceHide(el) {
+            if (el && el.style) {
+                el.style.setProperty('display', 'none', 'important');
+            }
+        }
+
+        // Callback for mutations
+        function mutationCallback(mutations) {
+            mutations.forEach(mutation => {
+                // For new nodes added
+                if (mutation.type === "childList") {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Check if the node matches our selectors
+                            if (node.matches && node.matches('#goog-gt-original-text, #goog-gt-tt')) {
+                                forceHide(node);
+                            }
+                            // Also check its descendants
+                            node.querySelectorAll && node.querySelectorAll('#goog-gt-original-text, #goog-gt-tt').forEach(forceHide);
+                        }
+                    });
+                }
+                // For attribute changes on existing nodes
+                if (mutation.type === "attributes" && mutation.attributeName === "style") {
+                    const target = mutation.target;
+                    if (target.matches && target.matches('#goog-gt-original-text, #goog-gt-tt')) {
+                        forceHide(target);
+                    }
+                }
+            });
+        }
+
+        // Create the observer on document.body (or document.documentElement if needed)
+        const observer = new MutationObserver(mutationCallback);
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style']
+        });
+
+        // Also, check if the elements already exist on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('#goog-gt-original-text, #goog-gt-tt').forEach(forceHide);
+        });
+    })();
+</script>
+
 <style>
     /* Hide any element with the skiptranslate class */
     .skiptranslate {

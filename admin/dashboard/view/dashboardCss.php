@@ -13,14 +13,13 @@
     }
 
     .chart-container {
-        width: 100%;
+        /* width: 100%; */
         height: 500px;
-        /* Fixed height for all charts */
     }
 
     canvas {
         display: block;
-        width: 100% !important;
+        /* width: 100% !important; */
         height: 100% !important;
     }
 </style>

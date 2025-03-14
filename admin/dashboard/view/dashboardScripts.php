@@ -1,3 +1,4 @@
+<!-- jQuery UI for Datepicker -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 <script>
@@ -9,9 +10,13 @@
     });
 </script>
 
+<!-- Chart 1: Single Bar Chart -->
 <script>
-    const complaintStats = <?php echo $jsData; ?>; // Get data from PHP
+    // Define a global default font and color (optional)
+    Chart.defaults.font.family = 'Arial, sans-serif';
+    Chart.defaults.color = '#333'; // Axis/label color
 
+    const complaintStats = <?php echo $jsData; ?>; // Data from PHP
     const labels = Object.keys(complaintStats);
     const values = Object.values(complaintStats);
 
@@ -20,69 +25,81 @@
         datasets: [{
             label: 'Complaint Statistics',
             data: values,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)', // Customize color
-            borderColor: 'rgba(54, 162, 235, 1)',      // Customize color
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1
         }]
     };
 
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
-        type: 'bar', // Use bar chart
+        type: 'bar',
         data: chartData,
         options: {
+            // High-DPI rendering
+            devicePixelRatio: window.devicePixelRatio || 2,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
                     grid: { display: false },
                     title: {
                         display: true,
-                        text: 'Total Count' // Y-axis label
+                        text: 'Total Count',
+                        font: {
+                            size: 14
+                        }
                     },
                     ticks: {
-                        stepSize: 1 // Force integer steps
+                        stepSize: 1,
+                        font: {
+                            size: 12
+                        }
                     }
                 },
                 x: {
                     grid: { display: false },
                     title: {
                         display: true,
-                        // text: "Hello" // X-axis label
+                        // text: 'Months',
+                        font: {
+                            size: 14
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            size: 12
+                        }
                     }
                 }
             },
-            responsive: true,
             plugins: {
                 legend: {
-                    display: false, // Hide legend since there's only one bar
+                    display: false // Hide legend since there's only one dataset
                 },
                 title: {
                     display: true,
-                    // text: 'Complaint Sample Type Count'
+                    // text: 'Complaint Sample Type Count',
+                    font: {
+                        size: 16
+                    }
                 }
             }
         }
     });
 </script>
 
+<!-- Chart 2: Stacked Bar Chart -->
 <script>
     (function () {
-        // Assume jsData2 is already defined as a JSON object via PHP
-        var jsData2 = <?php echo $jsData2 ?>;
-
-        // var jsData2 = { 
-        //     "Dec-24": { "approve": 7, "pending": 7, "reject": 8 }, 
-        //     "Feb-25": { "approve": 12, "pending": 2, "reject": 4 }, 
-        //     "Jan-25": { "approve": 9, "pending": 9, "reject": 5 }, 
-        //     "Mar-25": { "approve": 9, "pending": 8, "reject": 4 }, 
-        //     "Nov-24": { "approve": 4, "pending": 9, "reject": 6 }
-        // }; 
-        // This is just for testing. Remove in production.
+        // PHP data for second chart
+        var jsData2 = <?php echo $jsData2; ?>;
 
         // Extract month-year as x-axis labels
         var monthLabels = Object.keys(jsData2);
 
-        // Extract all unique status categories (approve, pending, reject)
+        // Extract all unique status categories (approve, pending, reject, etc.)
         var statusSet = new Set();
         monthLabels.forEach(function (month) {
             Object.keys(jsData2[month]).forEach(function (status) {
@@ -96,46 +113,65 @@
             approve: 'rgba(54, 162, 235, 0.8)',   // Blue
             pending: 'rgba(255, 206, 86, 0.8)',   // Yellow
             reject: 'rgba(255, 99, 132, 0.8)'     // Red
+            // Add more if you have other statuses
         };
 
         // Build datasets for Chart.js
         var datasets = statuses.map(function (status) {
             var data = monthLabels.map(function (month) {
-                // Default to 0 if a status doesn't exist for a month
-                return jsData2[month][status] || 0;
+                return jsData2[month][status] || 0; // default to 0 if missing
             });
-
             return {
-                label: status.charAt(0).toUpperCase() + status.slice(1),  // Capitalize labels
+                label: status.charAt(0).toUpperCase() + status.slice(1),
                 data: data,
                 backgroundColor: statusColors[status] || 'rgba(100, 100, 100, 0.8)',
                 stack: 'Stack 0'
             };
         });
 
-        // Create the Chart.js stacked bar chart
+        // Create the stacked bar chart
         var ctx2 = document.getElementById('myChart2').getContext('2d');
-        var myChart2 = new Chart(ctx2, {
+        new Chart(ctx2, {
             type: 'bar',
             data: {
                 labels: monthLabels,
                 datasets: datasets
             },
             options: {
+                devicePixelRatio: window.devicePixelRatio || 2,
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     title: {
                         display: true,
-                        // text: 'Case Status By Month'
+                        // text: 'Case Status By Month',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
                     }
                 },
-                responsive: true,
                 scales: {
                     x: {
                         grid: { display: false },
                         stacked: true,
                         title: {
                             display: true,
-                            // text: 'Month-Year'
+                            // text: 'Month-Year',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     },
                     y: {
@@ -144,10 +180,16 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Total Count'
+                            text: 'Total Count',
+                            font: {
+                                size: 14
+                            }
                         },
                         ticks: {
-                            stepSize: 1 // Force integer steps
+                            stepSize: 1,
+                            font: {
+                                size: 12
+                            }
                         }
                     }
                 }
