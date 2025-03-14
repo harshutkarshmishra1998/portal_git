@@ -1,15 +1,21 @@
+<?php include '../../modules/headerApi.php'; ?>
+
 <?php
 // Enable error reporting for debugging (remove in production)
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-include '../../../include/db.php';
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+require_once '../../../include/db.php';
 require_once '../../../include/email.php';
 require_once '../../../include/sms.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 try {
     // Create uploads folder if not exists
     // $uploadDir = __DIR__ . '../../../uploads';
-    $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads';
+    // $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads';
     if (!file_exists($uploadDir)) {
         if (!mkdir($uploadDir, 0755, true)) {
             throw new Exception("Failed to create uploads directory.");
@@ -25,41 +31,47 @@ try {
         throw new Exception("Invalid JSON data.");
     }
     $refId = $formData['reference_id'];
+    $csrfToken = $formData['csrf_token'];
+
+    if($csrfToken !== $_SESSION['csrf_token'])
+    {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // Check for duplicacy errors
-    try {
-        // Decode JSON data
-        $formData = json_decode($_POST['formData'], true);
+    // try {
+    //     // Decode JSON data
+    //     $formData = json_decode($_POST['formData'], true);
 
-        if (!isset($formData['plantiff']['email']) || !isset($formData['plantiff']['mobile'])) {
-            throw new Exception("Invalid input data.");
-        }
+    //     if (!isset($formData['plantiff']['email']) || !isset($formData['plantiff']['mobile'])) {
+    //         throw new Exception("Invalid input data.");
+    //     }
 
-        $plantiff_email = $formData['plantiff']['email'];
-        $plantiff_mobile = $formData['plantiff']['mobile'];
+    //     $plantiff_email = $formData['plantiff']['email'];
+    //     $plantiff_mobile = $formData['plantiff']['mobile'];
 
-        // Check for duplicacy errors
-        $query = "SELECT created_at FROM application WHERE plantiff_email = :plantiff_email OR plantiff_mobile = :plantiff_mobile ORDER BY created_at DESC LIMIT 1";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':plantiff_email', $plantiff_email, PDO::PARAM_STR);
-        $stmt->bindParam(':plantiff_mobile', $plantiff_mobile, PDO::PARAM_STR);
-        $stmt->execute();
+    //     // Check for duplicacy errors
+    //     $query = "SELECT created_at FROM application WHERE plantiff_email = :plantiff_email OR plantiff_mobile = :plantiff_mobile ORDER BY created_at DESC LIMIT 1";
+    //     $stmt = $pdo->prepare($query);
+    //     $stmt->bindParam(':plantiff_email', $plantiff_email, PDO::PARAM_STR);
+    //     $stmt->bindParam(':plantiff_mobile', $plantiff_mobile, PDO::PARAM_STR);
+    //     $stmt->execute();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
-            $created_at = strtotime($row['created_at']);
-            $time_diff = time() - $created_at;
+    //     if ($row) {
+    //         $created_at = strtotime($row['created_at']);
+    //         $time_diff = time() - $created_at;
 
-            if ($time_diff < 86400) { // Less than 1 day
-                echo json_encode(["status" => "error", "message" => "An entry with this email or mobile exists within the last 24 hours."]);
-                exit;  // ✅ STOP further execution
-            }
-        }
-    } catch (Exception $e) {
-        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
-        exit;  // ✅ Stop execution on error
-    }
+    //         if ($time_diff < 86400) { // Less than 1 day
+    //             echo json_encode(["status" => "error", "message" => "An entry with this email or mobile exists within the last 24 hours."]);
+    //             exit;  // ✅ STOP further execution
+    //         }
+    //     }
+    // } catch (Exception $e) {
+    //     echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+    //     exit;  // ✅ Stop execution on error
+    // }
 
     // throw new Exception("Stop");
 
@@ -185,17 +197,21 @@ try {
         }
     }
 
+    // echo json_encode(array('status' => 'success', 'message' => 'Application submitted successfully.'));
+    // exit();
     // Send Mail and Message of confirmation
     try {
         $toEmail = $formData['plantiff']['email'];
         $toMobile = "+91" . $formData['plantiff']['mobile'];
 
         if (!sendMail($formData['plantiff']['email'], $formData['plantiff']['name'], "Application Registered: $refId", "Your Application has been registered successfully")) {
-            throw new Exception("sendMail failed");
+            // throw new Exception("sendMail failed");
+            echo json_encode(array('status' => 'success', 'message' => 'Application submitted successfully. But mail was not sent successfully'));
         }
 
         if (!sendSMS($toMobile, "Your Application has been registered successfully: $refId")) {
-            throw new Exception("sendSMS failed");
+            // throw new Exception("sendSMS failed");
+            echo json_encode(array('status' => 'success', 'message' => 'Application submitted successfully. But SMS was not sent successfully'));
         }
         
     } catch (Exception $e) {

@@ -4,8 +4,13 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 include '../../../include/db.php'; // Include your database connection
+include '../../modules/headerApi.php';
 
-$uploadDir = '../../../uploads/'; // Adjust the path to your upload directory
+// $uploadDir = '../../../uploads/'; // Adjust the path to your upload directory
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 // Handle JSON data if it's sent
 if (isset($_POST['formData'])) {
@@ -13,6 +18,11 @@ if (isset($_POST['formData'])) {
     if ($formData) {
         $refId = $formData['reference_id'];
         $existingFiles = []; // Create an empty array for existing files
+        $csrfToken = $formData['csrf_token'];
+
+        if ($csrfToken !== $_SESSION['csrf_token']) {
+            die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+        }
 
         try {
             // Add new file names from the formData to the existing array and move files.

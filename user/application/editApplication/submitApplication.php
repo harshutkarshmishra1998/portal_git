@@ -3,6 +3,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include '../../../include/db.php';
+require_once '../../modules/headerApi.php';
+
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 try {
     // Retrieve JSON data from POST
@@ -14,6 +20,11 @@ try {
         throw new Exception("Invalid JSON data.");
     }
     $refId = $formData['reference_id'];
+    $csrfToken = $formData['csrf_token'];
+
+    if ($csrfToken !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // Update record in applications table
     $stmt = $pdo->prepare("UPDATE application SET
@@ -24,8 +35,8 @@ try {
         plantiff_name = :plantiff_name,
         plantiff_address = :plantiff_address,
         plantiff_ward_number = :plantiff_ward_number,
-        plantiff_mobile = :plantiff_mobile,
-        plantiff_email = :plantiff_email,
+        -- plantiff_mobile = :plantiff_mobile,
+        -- plantiff_email = :plantiff_email,
         plantiff_citizenship_id = :plantiff_citizenship_id,
         plantiff_father_name = :plantiff_father_name,
         plantiff_grandfather_name = :plantiff_grandfather_name,
@@ -48,8 +59,8 @@ try {
     $stmt->bindParam(':plantiff_name', $formData['plantiff']['name']);
     $stmt->bindParam(':plantiff_address', $formData['plantiff']['address']);
     $stmt->bindParam(':plantiff_ward_number', $formData['plantiff']['ward_number']);
-    $stmt->bindParam(':plantiff_mobile', $formData['plantiff']['mobile']);
-    $stmt->bindParam(':plantiff_email', $formData['plantiff']['email']);
+    // $stmt->bindParam(':plantiff_mobile', $formData['plantiff']['mobile']);
+    // $stmt->bindParam(':plantiff_email', $formData['plantiff']['email']);
     $stmt->bindParam(':plantiff_citizenship_id', $formData['plantiff']['citizenship_id']);
     $stmt->bindParam(':plantiff_father_name', $formData['plantiff']['father_name']);
     $stmt->bindParam(':plantiff_grandfather_name', $formData['plantiff']['grandfather_name']);

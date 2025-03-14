@@ -4,12 +4,14 @@
         const refId = document.getElementById('reference_id').value.trim();
         const mobile = document.getElementById('plantiff_mobile').value.trim();
         const email = document.getElementById('plantiff_email').value.trim();
+        const csrf_token = document.getElementById('csrf_token').value.trim();
 
         // Create a JSON object with these fields
         const formJson = {
             reference_id: refId,
             plantiff_mobile: mobile,
-            plantiff_email: email
+            plantiff_email: email,
+            csrf_token: csrf_token
         };
 
         // ✅ Function to check if any field is empty
@@ -123,6 +125,7 @@
                                 <th>Created Date</th>
                                 <th>Status</th>
                                 <th>Comment</th>
+                                <th>Point of Contact</th>
                             </tr>
                         </thead>
                         <tbody>`;
@@ -134,6 +137,7 @@
                                 <td>${row.created_at}</td>
                                 <td>${row.status}</td>
                                 <td>${row.comment}</td>
+                                <td>${row.editor_name} (${row.editor_mobile})</td>
                             </tr>`;
                     });
                 } else {

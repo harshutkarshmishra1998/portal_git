@@ -10,26 +10,33 @@
         <p>*गुनासो स्वीकृत हुनु अघि मात्र सम्पादन गर्न सकिन्छ।</p>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <!-- General Fields -->
             <div class="form-group">
                 <label for="reference_id">सन्दर्भ आईडी</label>
-                <input type="text" class="form-control" id="reference_id" name="reference_id" placeholder="सन्दर्भ आईडी प्रविष्ट गर्नुहोस्">
+                <input type="text" class="form-control" id="reference_id" name="reference_id"
+                    placeholder="सन्दर्भ आईडी प्रविष्ट गर्नुहोस्">
             </div>
             <div class="form-group">
                 <label for="plantiff_mobile">वादीको मोबाइल</label>
                 <div class="input-group">
-                    <input type="number" pattern="\d{10}" class="form-control" id="plantiff_mobile" name="plantiff_mobile" placeholder="मोबाइल नम्बर प्रविष्ट गर्नुहोस् (+977 बिना)">
+                    <input type="number" pattern="\d{10}" class="form-control" id="plantiff_mobile"
+                        name="plantiff_mobile" placeholder="मोबाइल नम्बर प्रविष्ट गर्नुहोस् (+977 बिना)">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary" id="verifyMobileBtn">ओटिपी प्रमाणित गर्नुहोस्</button>
+                        <button type="button" class="btn btn-outline-secondary" id="verifyMobileBtn">ओटिपी प्रमाणित
+                            गर्नुहोस्</button>
                     </div>
                 </div>
                 <div class="invalid-feedback" id="plantiff_mobile_error"></div>
                 <!-- Mobile OTP Section -->
                 <div class="mt-2" id="mobile-otp-section" style="display: none;">
-                    <input type="text" class="form-control mb-2" id="mobile_otp_input" placeholder="मोबाइल ओटिपी प्रविष्ट गर्नुहोस्">
+                    <input type="text" class="form-control mb-2" id="mobile_otp_input"
+                        placeholder="मोबाइल ओटिपी प्रविष्ट गर्नुहोस्">
                     <div class="d-flex">
-                        <button type="button" class="btn btn-success btn-sm mr-2" id="submitMobileOTP">ओटिपी पेश गर्नुहोस्</button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="cancelMobileOTP">रद्द गर्नुहोस्</button>
+                        <button type="button" class="btn btn-success btn-sm mr-2" id="submitMobileOTP">ओटिपी पेश
+                            गर्नुहोस्</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="cancelMobileOTP">रद्द
+                            गर्नुहोस्</button>
                     </div>
                     <small id="mobileOTPStatus" aria-live="polite" class="form-text text-success"></small>
                 </div>
@@ -37,18 +44,23 @@
             <div class="form-group">
                 <label for="plantiff_email">वादीको इमेल</label>
                 <div class="input-group">
-                    <input type="email" class="form-control" id="plantiff_email" name="plantiff_email" placeholder="इमेल प्रविष्ट गर्नुहोस्">
+                    <input type="email" class="form-control" id="plantiff_email" name="plantiff_email"
+                        placeholder="इमेल प्रविष्ट गर्नुहोस्">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary" id="verifyEmailBtn">ओटिपी प्रमाणित गर्नुहोस्</button>
+                        <button type="button" class="btn btn-outline-secondary" id="verifyEmailBtn">ओटिपी प्रमाणित
+                            गर्नुहोस्</button>
                     </div>
                 </div>
                 <div class="invalid-feedback" id="plantiff_email_error"></div>
                 <!-- Email OTP Section -->
                 <div class="mt-2" id="email-otp-section" style="display: none;">
-                    <input type="text" class="form-control mb-2" id="email_otp_input" placeholder="इमेल ओटिपी प्रविष्ट गर्नुहोस्">
+                    <input type="text" class="form-control mb-2" id="email_otp_input"
+                        placeholder="इमेल ओटिपी प्रविष्ट गर्नुहोस्">
                     <div class="d-flex">
-                        <button type="button" class="btn btn-success btn-sm mr-2" id="submitEmailOTP">ओटिपी पेश गर्नुहोस्</button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="cancelEmailOTP">रद्द गर्नुहोस्</button>
+                        <button type="button" class="btn btn-success btn-sm mr-2" id="submitEmailOTP">ओटिपी पेश
+                            गर्नुहोस्</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="cancelEmailOTP">रद्द
+                            गर्नुहोस्</button>
                     </div>
                     <small id="emailOTPStatus" aria-live="polite" class="form-text text-success"></small>
                 </div>

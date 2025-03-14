@@ -1,6 +1,7 @@
 <script>
     function submitApplication() {
         const formJson = {
+            csrf_token: document.getElementById('csrf_token').value.trim(),
             reference_id: document.getElementById('reference_id').value.trim(),
             title: document.getElementById('title').value.trim(),
             subject: document.getElementById('subject').value.trim(),
@@ -70,15 +71,16 @@
             throw new Error("Form validation failed."); // ✅ Completely stop execution
             return;
         } else {
-            console.log("Form data ready to be submitted:", formJson);
+            // console.log("Form data ready to be submitted:", formJson);
+            console.log("Form data ready to be submitted:");
         }
 
-        if(emailOTP === null || mobileOTP === null)
-        {
-            alert("OTP not verified");
-            throw new Error("Form validation failed."); // ✅ Completely stop execution
-            return;
-        }
+        // if(emailOTP === null || mobileOTP === null)
+        // {
+        //     alert("OTP not verified");
+        //     throw new Error("Form validation failed."); // ✅ Completely stop execution
+        //     return;
+        // }
 
 
         const fd = new FormData();

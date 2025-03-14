@@ -3,6 +3,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include '../../../include/db.php';
+require_once '../../modules/headerApi.php';
 
 header('Content-Type: application/json');
 
@@ -14,6 +15,16 @@ if (!isset($_POST['reference_id'])) {
 }
 
 $refId = $_POST['reference_id'];
+$csrf_token = $_POST['csrf_token'];
+
+if ($csrf_token !== $_SESSION['csrf_token']) {
+    die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+}
+
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 try {
     // Join applications and application_status tables by reference_id.

@@ -9,6 +9,7 @@
         <h1 class="mt-4 mb-3">गुनासो दर्ता फारम</h1>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
+        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <!-- General Fields -->
             <div class="form-group">
                 <label for="reference_id">सन्दर्भ आईडी</label>

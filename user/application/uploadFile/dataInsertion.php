@@ -2,6 +2,7 @@
     function submitApplication() {
         const formJson = {
             reference_id: document.getElementById('reference_id').value.trim(),
+            csrf_token: document.getElementById('csrf_token').value.trim(),
             file_uploads: []
         };
 

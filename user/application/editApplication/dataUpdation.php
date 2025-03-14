@@ -1,6 +1,7 @@
 <script>
     function submitApplication() {
         const formJson = {
+            csrf_token: document.getElementById('csrf_token').value.trim(),
             reference_id: document.getElementById('reference_id').value.trim(),
             title: document.getElementById('title').value.trim(),
             subject: document.getElementById('subject').value.trim(),
@@ -10,8 +11,8 @@
                 name: document.getElementById('plantiff_name').value.trim(),
                 address: document.getElementById('plantiff_address').value.trim(),
                 ward_number: document.getElementById('plantiff_ward_number').value.trim(),
-                mobile: document.getElementById('plantiff_mobile').value.trim(),
-                email: document.getElementById('plantiff_email').value.trim(),
+                // mobile: document.getElementById('plantiff_mobile').value.trim(),
+                // email: document.getElementById('plantiff_email').value.trim(),
                 citizenship_id: document.getElementById('plantiff_citizenship_id').value.trim(),
                 father_name: document.getElementById('plantiff_father_name').value.trim(),
                 grandfather_name: document.getElementById('plantiff_grandfather_name').value.trim()
