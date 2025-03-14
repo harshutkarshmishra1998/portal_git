@@ -17,9 +17,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once '../../../include/db.php'; // Include your database connection
+require_once __DIR__.'/../../modules/headerApi.php';
 
 // Use an absolute path for the upload directory
-$uploadDir = __DIR__ . '/../../../uploads/';
+// $uploadDir = '../../../../uploads/';
 
 // Log the upload directory path for debugging
 error_log("Upload directory: " . $uploadDir);
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $editorEmail = $formData['editor_email'] ?? null;
         $editorMobile= $formData['editor_mobile'] ?? null;
         $fileUploads = $formData['file_uploads'] ?? [];
+        $csrfToken = $formData['csrf_token'] ?? null;
 
         // Handle uploaded files
         $files = $_FILES;
@@ -59,6 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $generalFiles         = $files['general_files_application_member'] ?? null;
 
         $movedFiles = []; // To store info about moved files
+
+        if ($csrfToken !== $_SESSION['csrf_token']) {
+            die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+        }
 
         // A helper function to extract the original file name with extension
         function getFileName($fileInfo) {
@@ -128,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }, $fileUploads);
         $newFileNamesJson = json_encode($newFileNames);
 
-        $stmtStatus = $pdo->prepare("INSERT INTO application_status (reference_id, status, comment, editor_name, editor_email, editor_mobile, file_upload, created_at) VALUES (:ref_id, 'Pending', 'File Uploaded by Member', :editor_name, :editor_email, :editor_mobile, :file_upload, NOW())");
+        $stmtStatus = $pdo->prepare("INSERT INTO application_status (reference_id, status, comment, editor_name, editor_email, editor_mobile, file_upload, created_at) VALUES (:ref_id, 'Pending', 'File Uploaded by member', :editor_name, :editor_email, :editor_mobile, :file_upload, NOW())");
         $stmtStatus->bindParam(':ref_id', $refId);
         $stmtStatus->bindParam(':editor_name', $editorName);
         $stmtStatus->bindParam(':editor_email', $editorEmail);

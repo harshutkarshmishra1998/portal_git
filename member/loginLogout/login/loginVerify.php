@@ -11,10 +11,15 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $readablePassword = trim($_POST['password']);
+    $csrfToken = trim($_POST['csrf_token']);
 
     if (empty($email) || empty($readablePassword)) {
         echo json_encode(["status" => "error", "message" => "Email and password are required."]);
         exit;
+    }
+
+    if (!$csrfToken) {
+        echo json_encode(["status" => "error", "message" => "Invalid CSRF token"]);
     }
 
     try {
@@ -36,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['role'] = $user['role'];
                     $_SESSION['login_timestamp'] = time();
                     $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
+                    $_SESSION['authenicated'] = true;
 
                     setcookie("PHPSESSID", session_id(), time() + (86400 * 1), "/", "", true, true);
 

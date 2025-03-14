@@ -1,5 +1,4 @@
-<?php 
-// print_r($params);
+<?php //print_r($statusHistory[0]['status']); 
 ?>
 
 <div class="content" id="mainContent">

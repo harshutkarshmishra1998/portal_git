@@ -1,8 +1,6 @@
 <?php
 // --- Start the session and output buffering ---
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../../../modules/headerApi.php';
 ob_start();
 
 require_once '../../../../include/email.php';
@@ -33,16 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $editorName = isset($_SESSION['name']) ? $_SESSION['name'] : 'Default Editor';
     $editorEmail = isset($_SESSION['email']) ? $_SESSION['email'] : 'Default Editor';
     $editorMobile = isset($_SESSION['mobile']) ? $_SESSION['mobile'] : 'Default Mobile';
+    $csrfToken = $data['csrfToken'];
+
+    if ($csrfToken !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
+
 
     $notificationDetails = [
         'referenceId' => $referenceId,
         'sendVia' => $sendVia,
         'comment' => $comment,
         'editor' => [
-            'name' => $editorName,
-            'email' => $editorEmail,
-            'mobile' => $editorMobile,
-        ],
+                'name' => $editorName,
+                'email' => $editorEmail,
+                'mobile' => $editorMobile,
+            ],
     ];
 
     // Store plaintiff or defendant details based on sendTo
@@ -50,25 +54,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $notificationDetails['recipient'] = [
             'name' => $data['plaintiffName'],
             'email' => $data['plaintiffEmail'],
-            'mobile' => "+91".$data['plaintiffMobile'],
+            'mobile' => "+91" . $data['plaintiffMobile'],
         ];
     } elseif ($sendTo === 'defendant') {
         $notificationDetails['recipient'] = [
             'name' => $data['defendantName'],
             'email' => $data['defendantEmail'],
-            'mobile' => "+91".$data['defendantMobile'],
+            'mobile' => "+91" . $data['defendantMobile'],
         ];
     } elseif ($sendTo === 'both') {
         $notificationDetails['recipients'] = [
             [
                 'name' => $data['plaintiffName'],
                 'email' => $data['plaintiffEmail'],
-                'mobile' => "+91".$data['plaintiffMobile'],
+                'mobile' => "+91" . $data['plaintiffMobile'],
             ],
             [
                 'name' => $data['defendantName'],
                 'email' => $data['defendantEmail'],
-                'mobile' => "+91".$data['defendantMobile'],
+                'mobile' => "+91" . $data['defendantMobile'],
             ],
         ];
     }
@@ -141,9 +145,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = 'Pending'; // Set status to Pending
 
             if ($comment === "") {
-                $comment = "Notification Send By Member via " . $sendVia;
+                $comment = "Notification Send By member via " . $sendVia;
             } else {
-                $comment = $comment . " (Notification Send By Member) via " . $sendVia;
+                $comment = $comment . " (Notification Send By member) via " . $sendVia;
             }
 
             // Note: There are 6 columns in the table so we use 6 placeholders.

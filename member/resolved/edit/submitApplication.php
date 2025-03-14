@@ -1,8 +1,5 @@
 <?php
-// --- Start the session ---
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../../modules/headerApi.php';
 $editorName = isset($_SESSION["name"]) ? $_SESSION["name"] : "Default Name";
 $editorEmail = isset($_SESSION["email"]) ? $_SESSION["email"] : "Default Email";
 $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobile";
@@ -10,9 +7,14 @@ $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobi
 
 <?php
 // Enable error reporting for debugging (remove in production)
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 require_once '../../../include/db.php';
+
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 try {
     // Retrieve JSON data from POST
@@ -25,6 +27,9 @@ try {
     }
     $refId = $formData['reference_id'];
 
+    if ($formData['csrf_token'] !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // echo json_encode($formData);
     // exit;
@@ -80,7 +85,7 @@ try {
         throw new Exception("Failed to update applications table.");
     }
 
-    $stmtStatus = $pdo->prepare("INSERT INTO resolved_status (reference_id, status, comment, editor_name, editor_email, editor_mobile) VALUES (:reference_id, :status, 'Application Edited by Member', :editor_name, :editor_email, :editor_mobile)");
+    $stmtStatus = $pdo->prepare("INSERT INTO resolved_status (reference_id, status, comment, editor_name, editor_email, editor_mobile) VALUES (:reference_id, :status, 'Application Edited by Admin', :editor_name, :editor_email, :editor_mobile)");
     $stmtStatus->bindParam(':reference_id', $formData['reference_id']);
     $stmtStatus->bindParam(':status', $formData['status']);
     $stmtStatus->bindParam(':editor_name', $editorName);

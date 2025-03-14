@@ -15,6 +15,11 @@ if (!isset($_POST['reference_id'])) {
 
 $refId = $_POST['reference_id'];
 
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
+
 try {
     // Join applications and application_status tables by reference_id.
     // (Ensure your table names are correct: here, we use "applications" and "application_status")

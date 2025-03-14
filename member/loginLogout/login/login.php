@@ -1,7 +1,6 @@
 <?php include 'header.php'; ?>
 
 <body>
-
     <div class="login-container">
         <div class="mobile-view d-md-none">
             <h2>Login</h2>
@@ -10,6 +9,7 @@
             <h2>Login</h2>
         </div>
         <form id="loginForm">
+        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo bin2hex(random_bytes(32)); ?>">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter email">
@@ -26,7 +26,6 @@
             <div id="responseMessage"></div>
         </form>
     </div>
-
 </body>
 
 <?php include 'footer.php'; ?>
@@ -40,6 +39,7 @@ $(document).ready(function () {
 
         var email = $("#email").val();
         var password = $("#password").val();
+        var csrf_token = $("#csrf_token").val();
         var loginButton = $("#loginButton");
 
         loginButton.prop("disabled", true).text("Logging In...");
@@ -47,7 +47,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "loginVerify.php",
-            data: { email: email, password: password },
+            data: { email: email, password: password, csrf_token: csrf_token},
             dataType: "json",
             success: function (response) {
                 console.log("Response:", response);
@@ -55,7 +55,7 @@ $(document).ready(function () {
                 if (response.status === "success") {
                     $("#responseMessage").html('<div class="alert alert-success">' + response.message + '</div>');
                     setTimeout(function() {
-                        window.location.href = "../../dashboard/index.php";
+                        window.location.href = "../../";
                     }, 2000);
                 } else {
                     $("#responseMessage").html('<div class="alert alert-danger">' + response.message + '</div>');

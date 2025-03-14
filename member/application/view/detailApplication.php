@@ -1,5 +1,4 @@
 <?php require_once '../../modules/header.php'; ?>
-<?php $referenceId = $_GET['reference_id'] ?>
 <?php require_once 'sqlQuery.php'; ?>
 
 <?php //print_r($complaint_list); 

@@ -22,7 +22,7 @@
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
             <input type="hidden" id="reference_id" name="reference_id"
                 value="<?php echo htmlspecialchars($_GET['ref_id']); ?>">
-
+            <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="form-group">
                 <label for="plantiff_citizenship">Plaintiff Citizenship Proof</label>
                 <div class="custom-file">

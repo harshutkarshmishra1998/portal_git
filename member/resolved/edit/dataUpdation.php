@@ -2,6 +2,7 @@
     function submitApplication() {
         const formJson = {
             reference_id: document.getElementById('reference_id').value.trim(),
+            csrf_token: document.getElementById('csrf_token').value.trim(),
             title: document.getElementById('title').value.trim(),
             subject: document.getElementById('subject').value.trim(),
             type: document.getElementById('type').value.trim(),

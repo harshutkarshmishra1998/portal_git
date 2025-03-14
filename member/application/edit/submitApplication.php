@@ -13,6 +13,12 @@ $editorMobile = isset($_SESSION["mobile"]) ? $_SESSION["mobile"] : "Default Mobi
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once '../../../include/db.php';
+require_once __DIR__ . '/../../modules/headerApi.php';
+
+// Ensure request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
+}
 
 try {
     // Retrieve JSON data from POST
@@ -24,6 +30,10 @@ try {
         throw new Exception("Invalid JSON data.");
     }
     $refId = $formData['reference_id'];
+
+    if ($formData['csrf_token'] !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // Update record in applications table
     $stmt = $pdo->prepare("UPDATE application SET
@@ -76,7 +86,7 @@ try {
         throw new Exception("Failed to update applications table.");
     }
 
-    $stmtStatus = $pdo->prepare("INSERT INTO application_status (reference_id, status, comment, editor_name, editor_email, editor_mobile) VALUES (:reference_id, 'Pending', 'Application Edited by Member', :editor_name, :editor_email, :editor_mobile)");
+    $stmtStatus = $pdo->prepare("INSERT INTO application_status (reference_id, status, comment, editor_name, editor_email, editor_mobile) VALUES (:reference_id, 'Pending', 'Application Edited by member', :editor_name, :editor_email, :editor_mobile)");
     $stmtStatus->bindParam(':reference_id', $formData['reference_id']);
     $stmtStatus->bindParam(':editor_name', $editorName);
     $stmtStatus->bindParam(':editor_email', $editorEmail);

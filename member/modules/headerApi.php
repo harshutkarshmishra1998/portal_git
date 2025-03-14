@@ -52,7 +52,7 @@ if (
     !isset($_SESSION['ip_address'])
 ) {
     session_destroy();
-    header("Location: " . $base_url . "admin/loginLogout/login/login.php");
+    header("Location: " . $base_url . "member/loginLogout/login/login.php");
     exit;
 }
 
@@ -64,7 +64,7 @@ $userIP = $_SERVER['REMOTE_ADDR'];
 
 if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address'] !== $userIP) {
     session_destroy();
-    header("Location: " . $base_url . "admin/loginLogout/login/login.php");
+    header("Location: " . $base_url . "member/loginLogout/login/login.php");
     exit;
 }
 

@@ -1,5 +1,6 @@
 <?php
 require_once '../../../../include/db.php';
+require_once __DIR__.'/../../../modules/headerApi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true); // Decode JSON data
@@ -8,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     
     $referenceId = $data['reference_id'];
-    $comment = $data['comment']." (Resolved by Member)";
+    $comment = $data['comment']." (Resolved by member)";
     $editorName = $data['editor_name'];
     $editorEmail = $data['editor_email'];
     $editorMobile = $data['editor_mobile'];
@@ -18,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hearingDate = $data['hearing_date']; // or however you get the hearing date
     $hearingTime = $data['hearing_time']; // or however you get the hearing time
     $hearingLocation = $data['hearing_location']; // or however you get the hearing location
+    $csrfToken = $data['csrf_token'];
+
+    if ($csrfToken !== $_SESSION['csrf_token']) {
+        die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
+    }
 
     // echo json_encode($data);
     // exit;

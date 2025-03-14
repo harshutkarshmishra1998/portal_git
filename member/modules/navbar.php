@@ -18,7 +18,7 @@
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile" class="profile-pic rounded-circle" width="40" height="40" />
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item text-danger" href="<?php echo $base_url;?>/loginLogout/logout/index.php">Logout</a></li>
+                <li><a class="dropdown-item text-danger" href="<?php echo $base_url;?>member/loginLogout/logout/index.php">Logout</a></li>
             </ul>
         </div>
     </div>

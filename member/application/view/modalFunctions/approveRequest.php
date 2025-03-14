@@ -5,13 +5,14 @@
         var commentInput = $("#comment1").val().trim();
 
         if (commentInput === "") {
-            var comment = "Approved by Member";
+            var comment = "Approved by member";
         } else {
-            var comment = commentInput + " (Approved by Member)";
+            var comment = commentInput + " (Approved by member)";
         }
         var editorName = '<?= isset($_SESSION["name"]) ? htmlspecialchars($_SESSION["name"], ENT_QUOTES, "UTF-8") : "Default Name" ?>';
         var editorEmail = '<?= isset($_SESSION["email"]) ? htmlspecialchars($_SESSION["email"], ENT_QUOTES, "UTF-8") : "Default Email" ?>';
         var editorMobile = '<?= isset($_SESSION["mobile"]) ? htmlspecialchars($_SESSION["mobile"], ENT_QUOTES, "UTF-8") : "Default Mobile" ?>';
+        var csrfToken = $("#csrf_token").val().trim();
 
         // Create a data object
         var data = {
@@ -20,13 +21,14 @@
             editor_name: editorName,
             editor_email: editorEmail,
             editor_mobile: editorMobile,
-            status: "Approved"
+            status: "Approved",
+            csrf_token: csrfToken
         };
 
         // Convert data to JSON string
         var jsonData = JSON.stringify(data);
 
-        // console.log("Approval");
+        // console.log(jsonData);
 
         $.ajax({
             url: 'modalFunctions/submitApproval.php',
