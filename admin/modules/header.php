@@ -14,11 +14,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function generateCSRFToken()
-{
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
 // 2. Define constant for one day in seconds
 define('ONE_DAY_IN_SECONDS', 86400);
 

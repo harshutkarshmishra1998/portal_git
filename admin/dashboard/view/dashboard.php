@@ -1,3 +1,11 @@
+<?php
+// // Tester
+// session_start();
+// print_r($_SESSION);
+// die();
+?>
+
+
 <?php require_once '../../modules/header.php'; ?>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

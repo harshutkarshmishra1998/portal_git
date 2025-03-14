@@ -49,8 +49,11 @@ if (
     !isset($_SESSION['email']) ||
     !isset($_SESSION['mobile']) ||
     !isset($_SESSION['login_timestamp']) ||
-    !isset($_SESSION['ip_address'])
-) {
+    !isset($_SESSION['ip_address']) ||
+    !isset($_SESSION['session_token_1']) ||
+    !isset($_SESSION['session_token_2']) ||
+    !isset($_SESSION['session_token_3']))
+{
     session_destroy();
     header("Location: " . $base_url . "admin/loginLogout/login/login.php");
     exit;
@@ -67,6 +70,36 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
     header("Location: " . $base_url . "admin/loginLogout/login/login.php");
     exit;
 }
+
+// 6. Real Game
+$encryptedKey = $_SESSION['session_token_1'];
+$encryptedCipher = $_SESSION['session_token_2'];
+$encryptedToken = $_SESSION['session_token_3'];
+
+// require_once $base_url . 'include/cipherSelection.php';
+require_once BASE_PATH . 'include/dataHasher.php';
+require_once BASE_PATH . 'include/passwordHashedUnhashed.php';
+
+$decryptedKey = $encrypter->decryptStored($encryptedKey);
+$decryptedCipher = $encrypter->decryptStored($encryptedCipher);
+
+$hasher = new DataHasher($decryptedKey, $decryptedCipher);
+$decryptedToken = $hasher->decrypt($encryptedToken);
+
+if($decryptedToken !== $_POST['csrf_token'])
+{
+    // session_destroy();
+    // header("Location: " . $base_url . "admin/loginLogout/login/login.php");
+    // exit;
+    die(json_encode(['status' => 'error', 'message' => 'Session Hijacking Detected']));
+}
+
+// echo "Selected Cipher: " . htmlspecialchars($decryptedCipher) . "<br>";
+// echo "Encryption Key (hex): " . htmlspecialchars(bin2hex($decryptedKey)) . "<br>";
+// echo "Encrypted Text: " . htmlspecialchars($encryptedToken) . "<br>";
+// echo "Decrypted Text: " . htmlspecialchars($decryptedToken) . "<br>";
+
+// die();
 
 // 6. Generate CSRF token if it doesn't exist
 // if (!isset($_SESSION['csrf_token'])) {

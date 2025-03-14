@@ -1,26 +1,30 @@
 <?php
-// test.php
-require_once __DIR__ . '/config.php';       // Ensure this file defines ENCRYPTION_KEY
 require_once __DIR__ . '/cipherSelection.php';
 require_once __DIR__ . '/dataHasher.php';
+require_once __DIR__ . '/passwordHashedUnhashed.php';
 
-$plainText = "This is a secret message";
-
-// Select a random cipher using our whitelist.
+$userSalt = bin2hex(rand(100, 10000));
+$key = generateEncryptionKey($userSalt);
 $cipher = selectRandomCipher();
+$hasher = new DataHasher($key, $cipher);
 
-// Instantiate DataHasher with the selected cipher.
-$hasher = new DataHasher($cipher);
+// The things which will be stored in SESSION variables
+$encryptedKey = $encrypter->encryptAndStore($key);
+$encryptedCipher = $encrypter->encryptAndStore($cipher);
+$plainText = "This is a secret message";
+$encryptedToken = $hasher->encrypt($plainText);
 
-// Encrypt the plain text.
-$encrypted = $hasher->encrypt($plainText);
+// Tester
+$decryptedToken = $hasher->decrypt($encryptedToken);
+$decryptedKey = $encrypter->decryptStored($encryptedKey);
+$decryptedCipher = $encrypter->decryptStored($encryptedCipher);
 
-// Decrypt the encrypted text.
-$decrypted = $hasher->decrypt($encrypted);
 
 // Output the results.
 echo "Plain Text: " . htmlspecialchars($plainText) . "<br>";
-echo "Selected Cipher: " . htmlspecialchars($cipher) . "<br>";
-echo "Encrypted Text: " . htmlspecialchars($encrypted) . "<br>";
-echo "Decrypted Text: " . htmlspecialchars($decrypted) . "<br>";
+echo "Selected Cipher: " . htmlspecialchars($decryptedCipher) . "<br>";
+echo "Encryption Key (hex): " . htmlspecialchars($decryptedKey) . "<br>";
+echo "Encrypted Text: " . htmlspecialchars($encryptedToken) . "<br>";
+echo "Decrypted Text: " . htmlspecialchars($decryptedToken) . "<br>";
 ?>
+

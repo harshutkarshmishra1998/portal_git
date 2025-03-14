@@ -15,6 +15,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../../../include/db.php';
+require_once '../../../include/cipherSelection.php';
+require_once '../../../include/dataHasher.php';
 require_once '../../../include/passwordHashedUnhashed.php';
 
 header('Content-Type: application/json');
@@ -32,6 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$csrfToken) {
         die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
     }
+
+    $userSalt = bin2hex(rand(100, 10000));
+    $key = generateEncryptionKey($userSalt);
+    $cipher = selectRandomCipher();
+    $hasher = new DataHasher($key, $cipher);
+
+    $encryptedKey = $encrypter->encryptAndStore($key);
+    $encryptedCipher = $encrypter->encryptAndStore($cipher);
+    $encryptedToken = $hasher->encrypt($csrfToken);
 
     try {
         $sql = "SELECT * FROM admin WHERE email = :email";
@@ -52,11 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
                     $_SESSION['csrf_token'] = $csrfToken;
                     $_SESSION['authenticated'] = true;
+                    $_SESSION['session_token_1'] = $encryptedKey;
+                    $_SESSION['session_token_2'] = $encryptedCipher;
+                    $_SESSION['session_token_3'] = $encryptedToken;
 
                     setcookie("PHPSESSID", session_id(), time() + (86400 * 1), "/", "", true, true);
 
-                    // Redirect on success (currently commented out)
-                    // echo json_encode(["status" => "success", "message" => "Login successful.", "redirect" => "../index.php"]);
                     echo json_encode(["status" => "success", "message" => "Login successful."]);
                 } else {
                     echo json_encode(["status" => "error", "message" => "Invalid email or password."]);

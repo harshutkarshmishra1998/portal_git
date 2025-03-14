@@ -40,3 +40,38 @@ function selectRandomCipher() {
     
     return $availableCiphers[array_rand($availableCiphers)];
 }
+
+/**
+ * Generates an encryption key based on a user-provided salt and various factors.
+ *
+ * Combines:
+ * - A provided user salt,
+ * - User IP address,
+ * - Browser (User-Agent),
+ * - Session ID,
+ * - Random bytes,
+ * - Current microtime and timestamp.
+ *
+ * Uses a server-side secret (ENCRYPTION_KEY defined in config.php) as "info" in HKDF.
+ *
+ * @param string $userSalt A salt specific to the user.
+ * @return string A binary encryption key (32 bytes).
+ */
+function generateEncryptionKey($userSalt) {
+    $ipAddress   = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+    $userAgent   = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown_agent';
+    $sessionId   = session_id();
+    $randomBytes = random_bytes(32);
+    $microtime   = microtime();
+    $timestamp   = time();
+
+    // Combine all the components into one string.
+    $combinedData = $userSalt . '|' . $ipAddress . '|' . $userAgent . '|' . $sessionId . '|' . $randomBytes . '|' . $microtime . '|' . $timestamp;
+    
+    // Use HKDF with SHA-256 to derive a 32-byte key.
+    // Parameters: algorithm, input keying material, length, context info, salt.
+    // Here we use ENCRYPTION_KEY as both context info and salt.
+    $encryptionKey = hash_hkdf('sha256', $combinedData, 32, ENCRYPTION_KEY, 32);
+    
+    return $encryptionKey;
+}

@@ -1,19 +1,18 @@
 <?php
 // dataHasher.php
-require_once __DIR__ . '/config.php';
 
 class DataHasher {
     private $encryptionKey;
     private $cipher;
 
-    public function __construct($cipher) {
+    // Constructor now receives the encryption key (generated externally) and the cipher.
+    public function __construct($key, $cipher) {
         $this->cipher = $cipher;
-        // Derive a key based on ENCRYPTION_KEY from config.php
-        $this->encryptionKey = $this->deriveKey(ENCRYPTION_KEY, $cipher);
+        $this->encryptionKey = $this->deriveKey($key, $cipher);
     }
 
     /**
-     * Derives a key of proper length from the provided key string.
+     * Derives a key of proper length from the provided key data.
      */
     private function deriveKey($key, $cipher) {
         $keyLength = $this->getKeyLength($cipher);
