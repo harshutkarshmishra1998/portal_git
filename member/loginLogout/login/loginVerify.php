@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if($user['active'] == 0)
+        {
+            echo json_encode(["status" => "error", "message" => "User is inactive"]);
+            return;
+        }
+
         if ($user) {
             try {
                 $unhashedPassword = $encrypter->decryptStored($user['password']);

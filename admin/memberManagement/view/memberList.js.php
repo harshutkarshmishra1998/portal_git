@@ -21,7 +21,7 @@
     }
 
     function deleteMember(data) {
-        if (confirm("Are you sure you want to delete this member?")) {
+        if (confirm("Are you sure you want to active/deactivate this member?")) {
             // Create a form and submit it to deleteAdmin.php
             var form = document.createElement('form');
             form.method = 'POST';

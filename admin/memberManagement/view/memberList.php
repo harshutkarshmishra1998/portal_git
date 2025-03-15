@@ -19,6 +19,7 @@
                     <option value="3">Ward Number</option>
                     <option value="4">Role</option>
                     <option value="5">Created Date</option>
+                    <option value="6">Active</option>
                 </select>
             </div>
             <div class="col-md-4" id="valueFilterContainer">
@@ -41,6 +42,7 @@
                     <th>Ward Number</th>
                     <th>Role</th>
                     <th>Created Date</th>
+                    <th>Active Status</th>
                     <th class="noExport">Actions</th>
                 </tr>
             </thead>
@@ -63,6 +65,7 @@
                         <td>{$row['ward_number']}</td>
                         <td>{$role}</td>
                         <td>{$row['created_at']}</td>
+                        <td>{$row['active']}</td>
                         <td>
                             <button class='btn btn-warning btn-sm' 
                                     onclick=\"updateMember({
@@ -76,12 +79,13 @@
                                     })\">
                                 Update
                             </button>
-                            <button class='btn btn-danger btn-sm' 
+                            <button class='btn btn-info btn-sm my-2' 
                                     onclick=\"deleteMember({
                                         email: '" . htmlspecialchars($row['email'], ENT_QUOTES) . "',
+                                        active: '" . htmlspecialchars($row['active'], ENT_QUOTES) . "',
                                         csrf_token: '" . htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES) . "',
                                     })\">
-                                Delete
+                                Activate/Deactivate
                             </button>
                         </td>
                     </tr>";

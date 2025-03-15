@@ -1,5 +1,5 @@
 <?php
-require_once '../../../include/db.php'; // require_once DB connection
+require_once '../../../include/db.php';  // DB connection
 require_once __DIR__ . '/../../modules/headerApi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
@@ -10,20 +10,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
     }
 
+    // Toggle "active" column: if 0 => 1, if 1 => 0
+    // You can use a CASE expression or arithmetic trick (active = 1 - active)
+    $updateSql = "
+        UPDATE member
+        SET active = CASE WHEN active = 0 THEN 1 ELSE 0 END
+        WHERE email = :email
+    ";
+    
+    $updateStmt = $pdo->prepare($updateSql);
+    $updateStmt->bindParam(':email', $email, PDO::PARAM_STR);
 
-    // Delete all entries linked to the email
-    $deleteSql = "DELETE FROM member WHERE email = :email";
-    $deleteStmt = $pdo->prepare($deleteSql);
-    $deleteStmt->bindParam(':email', $email, PDO::PARAM_STR);
-
-    if ($deleteStmt->execute()) {
+    if ($updateStmt->execute()) {
         echo "<script>
-        alert('All member entries associated with this email have been deleted successfully.');
-        window.location.href = 'memberList.php';
+            alert('Member status toggled successfully.');
+            window.location.href = 'memberList.php';
         </script>";
-        exit; // Important: Stop further execution after redirecting
+        exit; // Stop further execution after redirect
     } else {
-        echo "Error deleting member entries.";
+        echo "Error updating member status.";
     }
 }
 ?>
