@@ -71,7 +71,7 @@ try {
 <!-- Fetch members list -->
 <?php
 try {
-    $stmt = $pdo->query("SELECT * FROM member");
+    $stmt = $pdo->query("SELECT * FROM member WHERE active = 1");
     $members = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Encode the fetched data as JSON
