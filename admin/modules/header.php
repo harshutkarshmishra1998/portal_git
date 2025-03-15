@@ -41,7 +41,7 @@ if ($initPath) {
     // echo "init.php found and included successfully.";
 } else {
     echo "Error: init.php not found within the specified depth.";
-    exit;
+    die();
 }
 
 // 4. If any one of the required session variables is not set, logout

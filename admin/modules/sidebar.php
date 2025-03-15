@@ -7,6 +7,7 @@
         <a class="nav-link" href="<?php echo $base_url;?>admin/resolved/view/listApplication.php">Resolved Cases</a>
         <a class="nav-link" href="<?php echo $base_url;?>admin/adminManagement/view/adminList.php">Admin Management</a>
         <a class="nav-link" href="<?php echo $base_url;?>admin/memberManagement/view/memberList.php">Member Management</a>
+        <a class="nav-link" href="<?php echo $base_url;?>admin/mediatorManagement/view/listApplication.php">Mediator Management</a>
         <a class="nav-link" href="<?php echo $base_url;?>admin/loginLogout/logout/index.php">Logout</a>
     </nav>
 </div>
