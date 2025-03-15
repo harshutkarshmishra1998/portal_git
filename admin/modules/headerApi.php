@@ -86,13 +86,13 @@ $decryptedCipher = $encrypter->decryptStored($encryptedCipher);
 $hasher = new DataHasher($decryptedKey, $decryptedCipher);
 $decryptedToken = $hasher->decrypt($encryptedToken);
 
-if($decryptedToken !== $_POST['csrf_token'])
-{
-    // session_destroy();
-    // header("Location: " . $base_url . "admin/loginLogout/login/login.php");
-    // exit;
-    die(json_encode(['status' => 'error', 'message' => 'Session Hijacking Detected']));
-}
+// if($decryptedToken !== $_POST['csrf_token'])
+// {
+//     // session_destroy();
+//     // header("Location: " . $base_url . "admin/loginLogout/login/login.php");
+//     // exit;
+//     die(json_encode(['status' => 'error', 'message' => 'Session Hijacking Detected']));
+// }
 
 // echo "Selected Cipher: " . htmlspecialchars($decryptedCipher) . "<br>";
 // echo "Encryption Key (hex): " . htmlspecialchars(bin2hex($decryptedKey)) . "<br>";

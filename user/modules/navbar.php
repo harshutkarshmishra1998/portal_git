@@ -21,23 +21,58 @@
                 </li>
                 <!-- About Us Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/homepage/index.php#jury-about-samiti">हाम्रो बारेमा</a>
+                    <a class="nav-link"
+                        href="<?php echo $base_url; ?>user/public/homepage/index.php#jury-about-samiti">हाम्रो
+                        बारेमा</a>
                 </li>
                 <!-- Members Link -->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $base_url; ?>user/public/homepage/index.php#members-nyayik-samiti">सदस्यहरू</a>
+                    <a class="nav-link"
+                        href="<?php echo $base_url; ?>user/public/homepage/index.php#members-nyayik-samiti">सदस्यहरू</a>
                 </li>
                 <!-- Dropdown for Complaints -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownComplaint" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         गुनासो
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>user/application/registerApplication/complaintRegistration.php">गुनासो दर्ता गर्नुहोस्</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>user/application/trackApplication/complaintTracker.php">गुनासो ट्र्याक गर्नुहोस्</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownComplaint">
+                        <li>
+                            <a class="dropdown-item"
+                                href="<?php echo $base_url; ?>user/application/registerApplication/complaintRegistration.php">
+                                गुनासो दर्ता गर्नुहोस्
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="<?php echo $base_url; ?>user/application/trackApplication/complaintTracker.php">
+                                गुनासो ट्र्याक गर्नुहोस्
+                            </a>
+                        </li>
                     </ul>
                 </li>
+
+                <!-- Dropdown for Mediators -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMediator" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        मध्यस्थकर्ताहरू
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMediator">
+                        <li>
+                            <a class="dropdown-item"
+                                href="<?php echo $base_url; ?>user/application/registerMediator/mediatorRegistration.php">
+                                मध्यस्थकर्ताहरू सूची
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo $base_url; ?>user/application/">
+                                मध्यस्थकर्ताहरू दर्ता
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Act/Rule Link -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $base_url; ?>user/public/rules/index.php">ऐन/नियम</a>
