@@ -95,6 +95,7 @@
                 }
                 if (data.status && data.status.toLowerCase() === "approved") {
                     html += '<button class="btn btn-success m-2" onclick="window.location.href=\'../viewApplication/complaintView.php?ref_id=' + data.reference_id + '\'">View Details</button>';
+                    html += '<button class="btn btn-success m-2" onclick="window.open(\'requestDate.php?ref_id=' + data.reference_id + '\', \'_blank\')">Request Date</button>';
                 }
                 html += '<button class="btn btn-info m-2" onclick="window.location.href=\'../uploadFile/fileView.php?ref_id=' + data.reference_id + '\'">View Uploaded Files</button>';
                 html += '<button class="btn btn-info m-2" onclick="window.open(\'../uploadFile/fileUpload.php?ref_id=' + data.reference_id + '\', \'_blank\')">Upload Files</button>';
