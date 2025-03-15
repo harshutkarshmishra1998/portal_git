@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/cipherSelection.php';
-require_once __DIR__ . '/dataHasher.php';
-require_once __DIR__ . '/passwordHashedUnhashed.php';
+require_once __DIR__ . '/../include/cipherSelection.php';
+require_once __DIR__ . '/../include/dataHasher.php';
+require_once __DIR__ . '/../include/passwordHashedUnhashed.php';
 
 $userSalt = bin2hex(rand(100, 10000));
 $key = generateEncryptionKey($userSalt);
