@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     $(document).ready(function() {
         // Get ref_id from URL query parameters
         const urlParams = new URLSearchParams(window.location.search);

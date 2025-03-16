@@ -1,5 +1,5 @@
-<script>
-    $(document).ready(function() {
+<script nonce="<?= $nonce ?>">
+    $(document).ready(function () {
         // Get ref_id from URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
         const refId = urlParams.get('ref_id');
@@ -15,7 +15,7 @@
                     reference_id: refId
                 },
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     // Populate the form fields with the data received
                     $('#title').val(data.title);
                     $('#subject').val(data.subject);
@@ -40,7 +40,7 @@
                     // Extra field for status
                     $('#status').val(data.status);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("Error fetching details:", error);
                     $('#alertContainer').html('<div class="alert alert-danger">Error fetching application details.</div>');
                 }
@@ -49,4 +49,30 @@
             $('#alertContainer').html('<div class="alert alert-danger">No Reference ID provided in the URL.</div>');
         }
     });
+</script>
+
+<script nonce="<?= $nonce ?>">
+    function makeInputsReadonly() {
+        const inputFields = document.querySelectorAll('input');
+        inputFields.forEach(input => {
+            input.readOnly = true;
+        });
+
+        const textareaFields = document.querySelectorAll('textarea');
+        textareaFields.forEach(textarea => {
+            textarea.readOnly = true;
+        });
+
+        const selectFields = document.querySelectorAll('select');
+        selectFields.forEach(select => {
+            select.disabled = true; // Use 'disabled' for select fields
+        });
+    }
+
+    // Call the function when the page loads
+    window.onload = makeInputsReadonly;
+
+    // You can also call it at a specific time or based on an event if needed:
+    // document.addEventListener('DOMContentLoaded', makeInputsReadonly);
+    // document.getElementById('someButton').addEventListener('click', makeInputsReadonly);
 </script>

@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     function submitApplication() {
         const formJson = {
             csrf_token: document.getElementById('csrf_token').value.trim(),

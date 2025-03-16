@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     $(document).ready(function() {
         // Fixing the id in HTML: ensure your submit button has id="submitButton" (without #)
         document.getElementById('file_upload').addEventListener('change', function(event) {

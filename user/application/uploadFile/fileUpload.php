@@ -56,7 +56,7 @@
 </html>
 
 <!-- Script to update custom file label on file selection -->
-<script>
+<script nonce="<?= $nonce ?>">
     $(".custom-file-input").on("change", function () {
         let files = $(this)[0].files;
         if (files.length > 1) {

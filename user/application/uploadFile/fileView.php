@@ -140,7 +140,7 @@
 
         <div class="text-center mt-4">
             <a href="fileUpload.php?ref_id=<?php echo urlencode($refId); ?>" target="_blank">
-                <button class="btn btn-secondary m-2">थप फाइलहरू अपलोड गर्नुहोस्</button>
+                <button class="btn btn-info m-2">थप फाइलहरू अपलोड गर्नुहोस्</button>
             </a>
         </div>
     </div>
@@ -150,7 +150,7 @@
 
 </html>
 
-<script>
+<script nonce="<?= $nonce ?>">
     document.getElementById('searchInput').addEventListener('input', function () {
         var filter = this.value.toLowerCase();
         var fileItems = document.getElementsByClassName('file-item');

@@ -4,7 +4,7 @@
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
-    <div class="content" id="mainContent">
+    <div class="content p-md-5" id="mainContent">
         <h1 class="mt-4 mb-3">गुनासो हेर्नुहोस्</h1>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
@@ -114,8 +114,8 @@
             </div>
 
             <!-- Submit Buttons -->
-            <button type="button" class="btn btn-info my-2" id="viewFilesButton">अपलोड गरिएका फाइलहरू हेर्नुहोस्</button>
             <button type="button" class="btn btn-warning my-2" id="editFormButton">फारम सम्पादन गर्नुहोस्</button>
+            <button type="button" class="btn btn-info my-2" id="viewFilesButton">अपलोड गरिएका फाइलहरू हेर्नुहोस्</button>
         </form>
     </div>
 
@@ -125,7 +125,7 @@
 
 </html>
 
-<script>
+<script nonce="<?= $nonce ?>">
     document.addEventListener("DOMContentLoaded", function () {
         // Function to get URL parameters
         function getUrlParameter(name) {
@@ -139,13 +139,13 @@
             // Set up the "View Files" button
             let viewFilesButton = document.getElementById("viewFilesButton");
             if (viewFilesButton) {
-                viewFilesButton.onclick = () => window.location.href = `../uploadFile/fileView.php?ref_id=${refId}`;
+                viewFilesButton.onclick = () => window.open(`../uploadFile/fileView.php?ref_id=${refId}`, '_blank');
             }
 
             // Set up the "Edit Form" button
             let editFormButton = document.getElementById("editFormButton");
             if (editFormButton) {
-                editFormButton.onclick = () => window.location.href = `../editApplication/complaintEdit.php?ref_id=${refId}`;
+                editFormButton.onclick = () => window.open(`../editApplication/complaintEdit.php?ref_id=${refId}`, '_blank');
             }
         }
 

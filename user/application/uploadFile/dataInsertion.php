@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     function submitApplication() {
         const formJson = {
             reference_id: document.getElementById('reference_id').value.trim(),

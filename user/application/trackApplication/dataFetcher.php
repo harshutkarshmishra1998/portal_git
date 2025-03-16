@@ -58,11 +58,11 @@
             // console.log("Form data ready to be submitted:", formJson);
         }
 
-        // if (emailOTP === null || mobileOTP === null) {
-        //     alert("OTP not verified");
-        //     throw new Error("Form validation failed."); // ✅ Completely stop execution
-        //     return;
-        // }
+        if (emailOTP === null || mobileOTP === null) {
+            alert("OTP not verified");
+            throw new Error("Form validation failed."); // ✅ Completely stop execution
+            return;
+        }
 
         // Send an AJAX POST request to fetchApplication.php with these fields
         $.ajax({
@@ -90,6 +90,7 @@
 
                 const applicationDetailsDiv = $('#applicationDetails');
                 applicationDetailsDiv.empty(); // Clear previous content
+                applicationDetailsDiv.append(html);
 
                 if (data.status && data.status.toLowerCase().includes("pending")) {
                     const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details/Edit</button>');

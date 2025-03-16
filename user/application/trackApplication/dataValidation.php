@@ -24,33 +24,33 @@
             emailInput.classList.add('is-invalid');
             return;
         }
-        
+
         // Generate OTP (6-digit) for email
         emailOTP = Math.floor(100000 + Math.random() * 900000);
-        console.log("Generated Email OTP:", emailOTP);
         emailInput.disabled = true;
         $('#email-otp-section').slideDown('slow');
 
-    //     // Call backend to send Email
-    //     fetch('../registerApplication/sendMail.php', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             toEmail: email,
-    //             toName: "Track Applicant", // Add a name if available
-    //             subject: "OTP Verification",
-    //             message: "Your OTP is: " + emailOTP
-    //         })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log("Data received from sendMail.php:", data);
-    //         })
-    //         .catch(error => {
-    //             console.error("Error sending Email:", error);
-    //         });
+        //     // Call backend to send Email
+            fetch('../registerApplication/sendMail.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    toEmail: email,
+                    toName: "Track Applicant", // Add a name if available
+                    subject: "OTP Verification",
+                    message: "Your OTP is: " + emailOTP
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data received from sendMail.php:", data);
+                })
+                .catch(error => {
+                    console.error("Error sending Email:", error);
+                });
+                // console.log("Generated Email OTP:", emailOTP);
     });
 
     document.getElementById('submitEmailOTP').addEventListener('click', function () {
@@ -88,29 +88,28 @@
             return;
         }
         mobileOTP = Math.floor(100000 + Math.random() * 900000);
-        console.log("Generated Mobile OTP:", mobileOTP);
         mobileInput.disabled = true;
         $('#mobile-otp-section').slideDown('slow');
 
-    //     // Call backend to send SMS
-    //     fetch('../registerApplication/sendSMS.php', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             recipient: mobile,
-    //             otp: mobileOTP
-    //         })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log("Data received from sendSMS.php:", data);
-    //         })
-    //         .catch(error => {
-    //             console.error("Error sending SMS:", error);
-    //         });
-    //     // console.log("Mobile OTP:", mobileOTP); // For debugging; remove in production.
+        // Call backend to send SMS
+        fetch('../registerApplication/sendSMS.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                recipient: mobile,
+                otp: mobileOTP
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data received from sendSMS.php:", data);
+            })
+            .catch(error => {
+                console.error("Error sending SMS:", error);
+            });
+        // console.log("Generated Mobile OTP:", mobileOTP); // For debugging; remove in production.
     });
 
     document.getElementById('submitMobileOTP').addEventListener('click', function () {
