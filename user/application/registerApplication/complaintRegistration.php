@@ -89,8 +89,8 @@
                                 <button type="button" class="btn btn-outline-secondary" id="verifyMobileBtn">ओटिपी
                                     प्रमाणित गर्नुहोस्</button>
                             </div>
+                            <div class="invalid-feedback" id="plantiff_mobile_error"></div>
                         </div>
-                        <div class="invalid-feedback" id="plantiff_mobile_error"></div>
                         <!-- Mobile OTP Section -->
                         <div class="mt-2" id="mobile-otp-section" style="display: none;">
                             <input type="text" class="form-control mb-2" id="mobile_otp_input"
@@ -113,8 +113,8 @@
                                 <button type="button" class="btn btn-outline-secondary" id="verifyEmailBtn">ओटिपी
                                     प्रमाणित गर्नुहोस्</button>
                             </div>
+                            <div class="invalid-feedback" id="plantiff_email_error"></div>
                         </div>
-                        <div class="invalid-feedback" id="plantiff_email_error"></div>
                         <!-- Email OTP Section -->
                         <div class="mt-2" id="email-otp-section" style="display: none;">
                             <input type="text" class="form-control mb-2" id="email_otp_input"

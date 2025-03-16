@@ -56,6 +56,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// print_r([$_SESSION, $_SERVER]);
+// die();
+
 // Reject non-POST requests immediately
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die(json_encode(['status' => 'error', 'message' => 'Invalid request method.']));
@@ -86,8 +89,7 @@ if ($_SERVER['REMOTE_ADDR'] !== $_SESSION['user_ip']) {
     die(json_encode(['error' => 'IP address mismatch detected']));
 }
 
-if ($_SERVER['HTTP_USER_AGENT'] !== $_SESSION['user_agent']) {
-    // http_response_code(403);
+if (stripos($_SERVER['HTTP_USER_AGENT'], $_SESSION['user_agent']) === false) {
     die(json_encode(['error' => 'User-Agent mismatch detected']));
 }
 

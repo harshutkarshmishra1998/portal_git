@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     function submitApplication() {
         const formJson = {
             csrf_token: document.getElementById('csrf_token').value.trim(),
@@ -82,7 +82,6 @@
         //     return;
         // }
 
-
         const fd = new FormData();
         fd.append('formData', JSON.stringify(formJson));
 
@@ -117,6 +116,7 @@
                     console.error("JSON parsing error:", error);
                     return;
                 }
+                console.log('Success function called:', response);
                 if (response.status === "error") {
                     $('#submitButton').prop('disabled', false).text('Submit');
                     $('#alertContainer').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');

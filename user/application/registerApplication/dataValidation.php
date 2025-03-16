@@ -1,5 +1,5 @@
 <!-- Custom JavaScript for OTP, Immediate File Validation, and Other Checks -->
-<script>
+<script nonce="<?= $nonce ?>">
     function autoFillReferenceId() {
         const timestamp = Date.now(); // Get current timestamp in milliseconds
         document.getElementById('reference_id').value = timestamp;
@@ -23,6 +23,7 @@
         if (email === "") {
             emailError.innerText = "Please enter an email address first.";
             emailInput.classList.add('is-invalid');
+            emailInput.value = ""; // Clear the text on error
             return;
         }
         // Validate email format
@@ -30,35 +31,35 @@
         if (!emailRegex.test(email)) {
             emailError.innerText = "Please enter a valid email address.";
             emailInput.classList.add('is-invalid');
+            emailInput.value = ""; // Clear the text on error
             return;
         }
         // Generate OTP (6-digit) for email
         emailOTP = Math.floor(100000 + Math.random() * 900000);
-        // console.log("Generated Email OTP:", emailOTP);
         emailInput.disabled = true;
         $('#email-otp-section').slideDown('slow');
 
         // Call backend to send Email
-        // fetch('sendMail.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         toEmail: email,
-        //         toName: "New Applicant", // Add a name if available
-        //         subject: "OTP Verification",
-        //         message: "Your OTP is: " + emailOTP
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log("Data received from sendMail.php:", data);
-        //     })
-        //     .catch(error => {
-        //         console.error("Error sending Email:", error);
-        //     });
-        console.log("Email OTP:", emailOTP);
+        fetch('sendMail.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                toEmail: email,
+                toName: "New Applicant", // Add a name if available
+                subject: "OTP Verification",
+                message: "Your OTP is: " + emailOTP
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data received from sendMail.php:", data);
+            })
+            .catch(error => {
+                console.error("Error sending Email:", error);
+            });
+        // console.log("Email OTP:", emailOTP);
     });
 
     document.getElementById('submitEmailOTP').addEventListener('click', function () {
@@ -93,33 +94,32 @@
         if (mobile === "" || !/^\d{10}$/.test(mobile)) {
             mobileError.innerText = "Please enter a valid 10-digit mobile number first.";
             mobileInput.classList.add('is-invalid');
+            mobileInput.value = ""; // Clear the text on error
             return;
         }
         mobileOTP = Math.floor(100000 + Math.random() * 900000);
-        // console.log("Generated Mobile OTP:", mobileOTP);
         mobileInput.disabled = true;
         $('#mobile-otp-section').slideDown('slow');
 
-
         // Call backend to send SMS
-        // fetch('sendSMS.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         recipient: mobile,
-        //         otp: mobileOTP
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log("Data received from sendSMS.php:", data);
-        //     })
-        //     .catch(error => {
-        //         console.error("Error sending SMS:", error);
-        //     });
-        console.log("Mobile OTP:", mobileOTP); // For debugging; remove in production.
+        fetch('sendSMS.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                recipient: mobile,
+                otp: mobileOTP
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data received from sendSMS.php:", data);
+            })
+            .catch(error => {
+                console.error("Error sending SMS:", error);
+            });
+        // console.log("Mobile OTP:", mobileOTP); // For debugging; remove in production.
     });
 
     document.getElementById('submitMobileOTP').addEventListener('click', function () {

@@ -8,7 +8,7 @@ ini_set('log_errors', 1);
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (isset($data['recipient']) && isset($data['otp'])) {
-    $recipient = "+91".$data['recipient'];
+    $recipient = $data['recipient'];
     $otp = $data['otp'];
 
     // echo json_encode(['received' => $recipient]);

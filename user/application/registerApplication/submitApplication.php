@@ -1,9 +1,6 @@
 <?php include '../../modules/headerApi.php'; ?>
 
 <?php
-// Enable error reporting for debugging (remove in production)
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
 require_once '../../../include/db.php';
 require_once '../../../include/email.php';
 require_once '../../../include/sms.php';
@@ -13,9 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    // Create uploads folder if not exists
-    // $uploadDir = __DIR__ . '../../../uploads';
-    // $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads';
     if (!file_exists($uploadDir)) {
         if (!mkdir($uploadDir, 0755, true)) {
             throw new Exception("Failed to create uploads directory.");
@@ -33,8 +27,7 @@ try {
     $refId = $formData['reference_id'];
     $csrfToken = $formData['csrf_token'];
 
-    if($csrfToken !== $_SESSION['csrf_token'])
-    {
+    if ($csrfToken !== $_SESSION['csrf_token']) {
         die(json_encode(['status' => 'error', 'message' => "Invalid CSRF token"]));
     }
 
@@ -199,10 +192,11 @@ try {
 
     // echo json_encode(array('status' => 'success', 'message' => 'Application submitted successfully.'));
     // exit();
+
     // Send Mail and Message of confirmation
     try {
         $toEmail = $formData['plantiff']['email'];
-        $toMobile = "+91" . $formData['plantiff']['mobile'];
+        $toMobile = $formData['plantiff']['mobile'];
 
         if (!sendMail($formData['plantiff']['email'], $formData['plantiff']['name'], "Application Registered: $refId", "Your Application has been registered successfully")) {
             // throw new Exception("sendMail failed");
@@ -213,7 +207,6 @@ try {
             // throw new Exception("sendSMS failed");
             echo json_encode(array('status' => 'success', 'message' => 'Application submitted successfully. But SMS was not sent successfully'));
         }
-        
     } catch (Exception $e) {
         error_log("Mail/SMS Error: " . $e->getMessage());
     }
