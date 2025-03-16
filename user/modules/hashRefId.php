@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $cipher = selectRandomCipher();
-$key = $_SESSION['user_ip'];
+$key = $_SESSION['user_ip'].$_SESSION['session_id'];
 global $hasher;
 $hasher = new DataHasher($key, $cipher);
 
