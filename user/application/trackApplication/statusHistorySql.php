@@ -1,7 +1,4 @@
 <?php
-// Enable error reporting for debugging (remove in production)
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 include '../../../include/db.php';
 require_once '../../modules/headerApi.php';
 

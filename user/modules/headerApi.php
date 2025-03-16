@@ -89,9 +89,9 @@ if ($_SERVER['REMOTE_ADDR'] !== $_SESSION['user_ip']) {
     die(json_encode(['error' => 'IP address mismatch detected']));
 }
 
-if (stripos($_SERVER['HTTP_USER_AGENT'], $_SESSION['user_agent']) === false) {
-    die(json_encode(['error' => 'User-Agent mismatch detected']));
-}
+// if (stripos($_SERVER['HTTP_USER_AGENT'], $_SESSION['user_agent']) === false) {
+//     die(json_encode(['error' => 'User-Agent mismatch detected']));
+// }
 
 // Validate server-side details
 if (

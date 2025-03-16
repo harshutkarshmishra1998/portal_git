@@ -1,9 +1,29 @@
 <?php
-require_once '../../../include/db.php';  // Ensure DB connection is included
+require_once '../../../include/db.php'; // Ensure DB connection is included
 
 // Get the reference_id from the URL query parameter
 if (!isset($_GET['ref_id']) || empty(trim($_GET['ref_id']))) {
-    echo "<html><body><div style='padding:20px; text-align:center; font-size:20px; color:red;'>Reference ID not provided.</div></body></html>";
+    echo "<!DOCTYPE html>
+    <html lang='ne'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>त्रुटि</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+        <style>
+            body { background-color: #f8f9fa; }
+            .container { margin-top: 50px; }
+            .error-message { color: #dc3545; font-size: 1.2rem; text-align: center; padding: 20px; background-color: #fdecea; border: 1px solid #f9d7da; border-radius: 5px; }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='error-message'>
+                त्रुटि: सन्दर्भ आईडी प्रदान गरिएको छैन।
+            </div>
+        </div>
+    </body>
+    </html>";
     exit;
 }
 $refId = trim($_GET['ref_id']);
@@ -29,26 +49,58 @@ try {
 
     if ($insertStmt->execute()) {
         // 4. On success, display a success message and close the page after a few seconds
-        echo "<html><body>
-              <div style='padding:20px; text-align:center; font-size:20px; color:green;'>
-                  Your request has been submitted successfully. This page will close automatically in 2 seconds.
-              </div>
-              <script>
-                  setTimeout(function(){
-                      window.close();
-                  }, 2000); // 3 seconds delay
-              </script>
-              </body></html>";
+        echo "<!DOCTYPE html>
+        <html lang='ne'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>अनुरोध पेश गरियो</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+            <style>
+                body { background-color: #f8f9fa; }
+                .container { margin-top: 50px; }
+                .success-message { color: #155724; font-size: 1.2rem; text-align: center; padding: 20px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px; }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='success-message'>
+                    तपाईंको अनुरोध सफलतापूर्वक पेश गरिएको छ। यो पृष्ठ २ सेकेन्डमा स्वतः बन्द हुनेछ।
+                </div>
+            </div>
+            <script>
+                setTimeout(function(){
+                    window.close();
+                }, 2000); // 2 seconds delay
+            </script>
+        </body>
+        </html>";
     } else {
-        throw new Exception("Failed to insert a new application status record.");
+        throw new Exception("नयाँ मुद्दा स्थिति रेकर्ड घुसाउन असफल भयो।");
     }
 } catch (Exception $e) {
     // Log the error if needed and display a friendly error message
-    error_log("Error in requestDate.php: " . $e->getMessage());
-    echo "<html><body>
-          <div style='padding:20px; text-align:center; font-size:20px; color:red;'>
-              Error: " . htmlspecialchars($e->getMessage()) . "
-          </div>
-          </body></html>";
+    error_log("requestDate.php मा त्रुटि: " . $e->getMessage());
+    echo "<!DOCTYPE html>
+    <html lang='ne'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>त्रुटि</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+        <style>
+            body { background-color: #f8f9fa; }
+            .container { margin-top: 50px; }
+            .error-message { color: #dc3545; font-size: 1.2rem; text-align: center; padding: 20px; background-color: #fdecea; border: 1px solid #f9d7da; border-radius: 5px; }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='error-message'>
+                त्रुटि: " . htmlspecialchars($e->getMessage()) . "
+            </div>
+        </div>
+    </body>
+    </html>";
 }
 ?>

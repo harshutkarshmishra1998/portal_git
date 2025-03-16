@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     function submitApplication2() {
         // Gather three fields: reference_id, plantiff.mobile, and plantiff.email
         const refId = document.getElementById('reference_id').value.trim();
@@ -55,7 +55,7 @@
             throw new Error("Form validation failed."); // ✅ Completely stop execution
             return;
         } else {
-            console.log("Form data ready to be submitted:", formJson);
+            // console.log("Form data ready to be submitted:", formJson);
         }
 
         // if (emailOTP === null || mobileOTP === null) {
@@ -81,7 +81,6 @@
 
                 fieldsToShow.forEach(field => {
                     if (data.hasOwnProperty(field)) {
-                        // Sanitize data to prevent XSS
                         const sanitizedValue = $('<div/>').text(data[field]).html();
                         html += '<tr><th>' + field.replace(/_/g, ' ').toUpperCase() + '</th><td>' + sanitizedValue + '</td></tr>';
                     }
@@ -89,18 +88,48 @@
 
                 html += '</table>';
 
-                if (data.status && data.status.toLowerCase() === "pending") {
-                    html += '<button class="btn btn-warning m-2" onclick="window.location.href=\'../editApplication/complaintEdit.php?ref_id=' + data.reference_id + '\'">View Details/Edit</button>';
-                    html += '<button class="btn btn-success m-2" onclick="window.location.href=\'../viewApplication/complaintView.php?ref_id=' + data.reference_id + '\'">View Details</button>';
-                }
-                if (data.status && data.status.toLowerCase() === "approved") {
-                    html += '<button class="btn btn-success m-2" onclick="window.location.href=\'../viewApplication/complaintView.php?ref_id=' + data.reference_id + '\'">View Details</button>';
-                    html += '<button class="btn btn-success m-2" onclick="window.open(\'requestDate.php?ref_id=' + data.reference_id + '\', \'_blank\')">Request Date</button>';
-                }
-                html += '<button class="btn btn-info m-2" onclick="window.location.href=\'../uploadFile/fileView.php?ref_id=' + data.reference_id + '\'">View Uploaded Files</button>';
-                html += '<button class="btn btn-info m-2" onclick="window.open(\'../uploadFile/fileUpload.php?ref_id=' + data.reference_id + '\', \'_blank\')">Upload Files</button>';
+                const applicationDetailsDiv = $('#applicationDetails');
+                applicationDetailsDiv.empty(); // Clear previous content
 
-                $('#applicationDetails').html(html);
+                if (data.status && data.status.toLowerCase().includes("pending")) {
+                    const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details/Edit</button>');
+                    viewButton.on('click', function () {
+                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                    });
+                    applicationDetailsDiv.append(viewButton);
+                }
+                if (data.status && data.status.toLowerCase().includes("approved")) {
+                    const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details</button>');
+                    viewButton.on('click', function () {
+                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                    });
+                    applicationDetailsDiv.append(viewButton);
+
+                    const requestDateButton = $('<button class="btn btn-success m-2" target="_blank">Request Date</button>');
+                    requestDateButton.on('click', function () {
+                        window.open('requestDate.php?ref_id=' + data.reference_id, '_blank');
+                    });
+                    applicationDetailsDiv.append(requestDateButton);
+                }
+                if (data.status && data.status.toLowerCase().includes("resolved")) {
+                    const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details</button>');
+                    viewButton.on('click', function () {
+                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                    });
+                    applicationDetailsDiv.append(viewButton);
+                }
+
+                const viewFilesButton = $('<button class="btn btn-info m-2" target="_blank">View Uploaded Files</button>');
+                viewFilesButton.on('click', function () {
+                    window.open('../uploadFile/fileView.php?ref_id=' + data.reference_id, '_blank');
+                });
+                applicationDetailsDiv.append(viewFilesButton);
+
+                const uploadFilesButton = $('<button class="btn btn-info m-2" target="_blank">Upload Files</button>');
+                uploadFilesButton.on('click', function () {
+                    window.open('../uploadFile/fileUpload.php?ref_id=' + data.reference_id, '_blank');
+                });
+                applicationDetailsDiv.append(uploadFilesButton);
             },
             error: function (xhr, status, error) {
                 console.error("Error fetching details:", error);

@@ -1,4 +1,5 @@
 <?php include '../../modules/header.php'; ?>
+<?php require_once 'translateHeader.php'; ?>
 <link rel="stylesheet" href="complaintRegistration.css">
 
 <body>
@@ -76,7 +77,6 @@
     <?php include '../../modules/footer.php'; ?>
     <?php include 'dataValidation.php'; ?>
     <?php include 'dataFetcher.php'; ?>
-    <?php //include 'dataUpdation.php'; ?>
 </body>
 
 </html>

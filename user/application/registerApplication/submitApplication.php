@@ -32,42 +32,40 @@ try {
     }
 
     // Check for duplicacy errors
-    // try {
-    //     // Decode JSON data
-    //     $formData = json_decode($_POST['formData'], true);
+    try {
+        // Decode JSON data
+        $formData = json_decode($_POST['formData'], true);
 
-    //     if (!isset($formData['plantiff']['email']) || !isset($formData['plantiff']['mobile'])) {
-    //         throw new Exception("Invalid input data.");
-    //     }
+        if (!isset($formData['plantiff']['email']) || !isset($formData['plantiff']['mobile'])) {
+            throw new Exception("Invalid input data.");
+        }
 
-    //     $plantiff_email = $formData['plantiff']['email'];
-    //     $plantiff_mobile = $formData['plantiff']['mobile'];
+        $plantiff_email = $formData['plantiff']['email'];
+        $plantiff_mobile = $formData['plantiff']['mobile'];
 
-    //     // Check for duplicacy errors
-    //     $query = "SELECT created_at FROM application WHERE plantiff_email = :plantiff_email OR plantiff_mobile = :plantiff_mobile ORDER BY created_at DESC LIMIT 1";
-    //     $stmt = $pdo->prepare($query);
-    //     $stmt->bindParam(':plantiff_email', $plantiff_email, PDO::PARAM_STR);
-    //     $stmt->bindParam(':plantiff_mobile', $plantiff_mobile, PDO::PARAM_STR);
-    //     $stmt->execute();
+        // Check for duplicacy errors
+        $query = "SELECT created_at FROM application WHERE plantiff_email = :plantiff_email OR plantiff_mobile = :plantiff_mobile ORDER BY created_at DESC LIMIT 1";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':plantiff_email', $plantiff_email, PDO::PARAM_STR);
+        $stmt->bindParam(':plantiff_mobile', $plantiff_mobile, PDO::PARAM_STR);
+        $stmt->execute();
 
-    //     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //     if ($row) {
-    //         $created_at = strtotime($row['created_at']);
-    //         $time_diff = time() - $created_at;
+        if ($row) {
+            $created_at = strtotime($row['created_at']);
+            $time_diff = time() - $created_at;
 
-    //         if ($time_diff < 86400) { // Less than 1 day
-    //             echo json_encode(["status" => "error", "message" => "An entry with this email or mobile exists within the last 24 hours."]);
-    //             exit;  // ✅ STOP further execution
-    //         }
-    //     }
-    // } catch (Exception $e) {
-    //     echo json_encode(["status" => "error", "message" => $e->getMessage()]);
-    //     exit;  // ✅ Stop execution on error
-    // }
-
-    // throw new Exception("Stop");
-
+            if ($time_diff < 86400) { // Less than 1 day
+                echo json_encode(["status" => "error", "message" => "An entry with this email or mobile exists within the last 24 hours."]);
+                exit;  // ✅ STOP further execution
+            }
+        }
+    } catch (Exception $e) {
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+        exit;  // ✅ Stop execution on error
+    }
+    
     // Initialize an array to store processed file upload details
     $fileUploads = array();
 

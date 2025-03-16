@@ -75,12 +75,12 @@
             console.log("Form data ready to be submitted:");
         }
 
-        // if(emailOTP === null || mobileOTP === null)
-        // {
-        //     alert("OTP not verified");
-        //     throw new Error("Form validation failed."); // ✅ Completely stop execution
-        //     return;
-        // }
+        if(emailOTP === null || mobileOTP === null)
+        {
+            alert("OTP not verified");
+            throw new Error("Form validation failed."); // ✅ Completely stop execution
+            return;
+        }
 
         const fd = new FormData();
         fd.append('formData', JSON.stringify(formJson));

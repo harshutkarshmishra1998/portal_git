@@ -1,5 +1,5 @@
 <!-- Custom JavaScript for OTP, Immediate File Validation, and Other Checks -->
-<script>
+<script nonce="<?= $nonce ?>">
     // Variables to store generated OTPs
     let emailOTP = null;
     let mobileOTP = null;

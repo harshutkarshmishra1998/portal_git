@@ -12,13 +12,18 @@ header("Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 
 // Content Security Policy (CSP) - Prevents XSS and Data Injection
 $nonce = base64_encode(random_bytes(16));
-header("Content-Security-Policy: " . implode("; ", [
+$csp_directives = [
     "default-src 'self'",
-    "script-src 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com",
-    "style-src 'self' https://cdn.jsdelivr.net https://cdn.datatables.net https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'",
+    "script-src 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://translate.google.com https://translate.googleapis.com https://translate-pa.googleapis.com",
+    "style-src 'self' https://cdn.jsdelivr.net https://cdn.datatables.net https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.gstatic.com 'unsafe-inline'",
     "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com",
-    "img-src 'self' data:"
-]));
+    "img-src 'self' data: blob: https://fonts.gstatic.com https://www.gstatic.com https://your-actual-image-domain.com https://www.google.com https://translate.googleapis.com http://translate.google.com",
+    "connect-src 'self' https://translate.googleapis.com https://translate-pa.googleapis.com",
+    "frame-ancestors 'self'",
+];
+
+header("Content-Security-Policy: " . implode("; ", $csp_directives));
+
 
  // Send headers
 ob_end_flush();
@@ -38,12 +43,22 @@ if (session_status() === PHP_SESSION_NONE) {
 // Generate session variables
 $_SESSION['session_id'] = session_id();
 $_SESSION['user_ip'] = $_SERVER['REMOTE_ADDR'];
-$_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+// $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 $_SESSION['server_protocol'] = $_SERVER['SERVER_PROTOCOL']; // HTTP or HTTPS
 $_SESSION['server_name'] = $_SERVER['SERVER_NAME'];
 $_SESSION['server_ip'] = $_SERVER['SERVER_ADDR'];
-$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 $_SESSION['last_activity'] = time();
+
+if (!isset($_SESSION['csrf_token_time'])) {
+    $_SESSION['csrf_token_time'] = time(); // Set it initially
+}
+
+if (!isset($_SESSION['csrf_token']) || (time() - $_SESSION['csrf_token_time']) > 900) {  
+    // Regenerate CSRF token only if it's missing or expired
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token_time'] = time();
+}
 
 $rate_limit_key = "rate_limit_{$_SESSION['session_id']}_{$_SESSION['user_ip']}";
 $_SESSION[$rate_limit_key] = ['count' => 1, 'time' => $_SESSION['last_activity']];
