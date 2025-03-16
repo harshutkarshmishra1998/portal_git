@@ -1,5 +1,6 @@
 <?php
-function findInitPath($maxDepth = 6) {
+function findInitPath($maxDepth = 6)
+{
     for ($depth = 0; $depth <= $maxDepth; $depth++) {
         $path = __DIR__;
         for ($i = 0; $i < $depth; $i++) {
@@ -21,15 +22,31 @@ if ($initPath) {
 } else {
     echo "Error: init.php not found within the specified depth.";
 }
-?>
 
-<?php
-// --- Start the session ---
+require_once BASE_PATH . 'include/dataHasher.php';
+require_once BASE_PATH . 'include/cipherSelection.php';
+
+// Start secure session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// If any condition fails, redirect to login page
-header("Location: " . $base_url . "user/public/homepage/index.php");
-exit;
+$cipher = selectRandomCipher();
+$key = $_SESSION['user_ip'];
+global $hasher;
+$hasher = new DataHasher($key, $cipher);
+
+function hashedReferenceID($id)
+{
+    global $hasher;
+    $encryptedToken = $hasher->encrypt($id);
+    return $encryptedToken;
+}
+
+function unhashedReferenceID($id)
+{
+    global $hasher;
+    $decryptedToken = $hasher->decrypt($id);
+    return $decryptedToken;
+}
 ?>

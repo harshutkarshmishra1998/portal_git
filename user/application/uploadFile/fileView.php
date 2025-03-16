@@ -1,11 +1,26 @@
 <?php include '../../modules/header.php'; ?>
 <link rel="stylesheet" href="complaintRegistration.css">
+<?php require_once '../../modules/hashRefId.php'; ?>
+
+<?php
+require_once '../../modules/hashRefId.php';
+$refIdFromURL = isset($_GET['ref_id']) ? $_GET['ref_id'] : '';
+$refId = $refIdFromURL; // Initialize $refId
+
+if ($refIdFromURL != '') {
+    // Replace spaces with plus signs
+    $refId = str_replace(' ', '+', $refIdFromURL);
+
+    // Now pass the modified $refId to your unhashing function
+    $refId = unhashedReferenceID($refId);
+}
+?>
 
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
     <div class="content" id="mainContent">
-        <h1 class="mt-4 mb-3">गुनासो नम्बर: <?php echo isset($_GET['ref_id']) ? htmlspecialchars($_GET['ref_id']) : ''; ?> का लागि अपलोड गरिएका फाइलहरू</h1>
+        <h1 class="mt-4 mb-3">गुनासो नम्बर: <?php echo $refId; ?> का लागि अपलोड गरिएका फाइलहरू</h1>
 
         <!-- Search Bar -->
         <div class="mb-3">
@@ -19,7 +34,7 @@
                 echo '<div class="alert alert-danger">सन्दर्भ आईडी उपलब्ध छैन।</div>';
                 exit;
             }
-            $refId = trim($_GET['ref_id']);
+            // $refId = trim($_GET['ref_id']);
 
             require_once '../../../include/db.php';
 
@@ -139,7 +154,7 @@
         </div><!-- /#alertContainer -->
 
         <div class="text-center mt-4">
-            <a href="fileUpload.php?ref_id=<?php echo urlencode($refId); ?>" target="_blank">
+            <a href="fileUpload.php?ref_id=<?php echo urlencode($refIdFromURL); ?>" target="_blank">
                 <button class="btn btn-info m-2">थप फाइलहरू अपलोड गर्नुहोस्</button>
             </a>
         </div>

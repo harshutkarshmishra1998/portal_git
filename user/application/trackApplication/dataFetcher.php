@@ -5,14 +5,19 @@
         const mobile = document.getElementById('plantiff_mobile').value.trim();
         const email = document.getElementById('plantiff_email').value.trim();
         const csrf_token = document.getElementById('csrf_token').value.trim();
+        const hashed_refID = document.getElementById('hashed_reference_id').value.trim();
 
         // Create a JSON object with these fields
         const formJson = {
             reference_id: refId,
             plantiff_mobile: mobile,
             plantiff_email: email,
-            csrf_token: csrf_token
+            csrf_token: csrf_token,
+            hashed_reference_id: hashed_refID
         };
+
+        // console.log(formJson);
+        // return;
 
         // ✅ Function to check if any field is empty
         function validateForm(formJson) {
@@ -58,11 +63,11 @@
             // console.log("Form data ready to be submitted:", formJson);
         }
 
-        if (emailOTP === null || mobileOTP === null) {
-            alert("OTP not verified");
-            throw new Error("Form validation failed."); // ✅ Completely stop execution
-            return;
-        }
+        // if (emailOTP === null || mobileOTP === null) {
+        //     alert("OTP not verified");
+        //     throw new Error("Form validation failed."); // ✅ Completely stop execution
+        //     return;
+        // }
 
         // Send an AJAX POST request to fetchApplication.php with these fields
         $.ajax({
@@ -95,40 +100,40 @@
                 if (data.status && data.status.toLowerCase().includes("pending")) {
                     const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details/Edit</button>');
                     viewButton.on('click', function () {
-                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                        window.open('../viewApplication/complaintView.php?ref_id=' + hashed_refID, '_blank');
                     });
                     applicationDetailsDiv.append(viewButton);
                 }
                 if (data.status && data.status.toLowerCase().includes("approved")) {
                     const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details</button>');
                     viewButton.on('click', function () {
-                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                        window.open('../viewApplication/complaintView.php?ref_id=' + hashed_refID, '_blank');
                     });
                     applicationDetailsDiv.append(viewButton);
 
                     const requestDateButton = $('<button class="btn btn-success m-2" target="_blank">Request Date</button>');
                     requestDateButton.on('click', function () {
-                        window.open('requestDate.php?ref_id=' + data.reference_id, '_blank');
+                        window.open('requestDate.php?ref_id=' + hashed_refID, '_blank');
                     });
                     applicationDetailsDiv.append(requestDateButton);
                 }
                 if (data.status && data.status.toLowerCase().includes("resolved")) {
                     const viewButton = $('<button class="btn btn-warning m-2" target="_blank">View Details</button>');
                     viewButton.on('click', function () {
-                        window.open('../viewApplication/complaintView.php?ref_id=' + data.reference_id, '_blank');
+                        window.open('../viewApplication/complaintView.php?ref_id=' + hashed_refID, '_blank');
                     });
                     applicationDetailsDiv.append(viewButton);
                 }
 
                 const viewFilesButton = $('<button class="btn btn-info m-2" target="_blank">View Uploaded Files</button>');
                 viewFilesButton.on('click', function () {
-                    window.open('../uploadFile/fileView.php?ref_id=' + data.reference_id, '_blank');
+                    window.open('../uploadFile/fileView.php?ref_id=' + hashed_refID, '_blank');
                 });
                 applicationDetailsDiv.append(viewFilesButton);
 
                 const uploadFilesButton = $('<button class="btn btn-info m-2" target="_blank">Upload Files</button>');
                 uploadFilesButton.on('click', function () {
-                    window.open('../uploadFile/fileUpload.php?ref_id=' + data.reference_id, '_blank');
+                    window.open('../uploadFile/fileUpload.php?ref_id=' + hashed_refID, '_blank');
                 });
                 applicationDetailsDiv.append(uploadFilesButton);
             },

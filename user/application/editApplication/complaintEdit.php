@@ -1,6 +1,20 @@
 <?php include '../../modules/header.php'; ?>
 <link rel="stylesheet" href="complaintRegistration.css">
 
+<?php
+require_once '../../modules/hashRefId.php';
+$refIdFromURL = isset($_GET['ref_id']) ? $_GET['ref_id'] : '';
+$refId = $refIdFromURL; // Initialize $refId
+
+if ($refIdFromURL != '') {
+    // Replace spaces with plus signs
+    $refId = str_replace(' ', '+', $refIdFromURL);
+
+    // Now pass the modified $refId to your unhashing function
+    $refId = unhashedReferenceID($refId);
+}
+?>
+
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
@@ -9,7 +23,12 @@
         <h1 class="mt-4 mb-3">गुनासो दर्ता फारम</h1>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
-        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <div class="form-group">
+                <label for="hashed_reference_id">ह्यास गरिएको सन्दर्भ आईडी</label>
+                <input type="text" class="form-control" id="hashed_reference_id" name="hashed_reference_id"
+                    placeholder="सन्दर्भ आईडी प्रविष्ट गर्नुहोस्" readonly>
+            </div>
             <!-- General Fields -->
             <div class="form-group">
                 <label for="reference_id">सन्दर्भ आईडी</label>

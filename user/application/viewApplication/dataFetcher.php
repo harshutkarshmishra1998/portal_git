@@ -2,47 +2,69 @@
     $(document).ready(function () {
         // Get ref_id from URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
-        const refId = urlParams.get('ref_id');
+        var refId = urlParams.get('ref_id');
+        refId = refId.replaceAll(' ', '+');
+        $('#hashed_reference_id').val(refId);
 
         if (refId) {
-            // Fill the reference_id field
-            $('#reference_id').val(refId);
-            // Fetch application details using AJAX
             $.ajax({
-                url: 'fetchApplication.php',
+                url: 'unhashRefIdAjax.php',
                 type: 'POST',
-                data: {
-                    reference_id: refId
-                },
+                data: { ref_id: refId },
                 dataType: 'json',
                 success: function (data) {
-                    // Populate the form fields with the data received
-                    $('#title').val(data.title);
-                    $('#subject').val(data.subject);
-                    $('#type').val(data.type);
-                    $('#description').val(data.description);
-                    $('#plantiff_name').val(data.plantiff_name);
-                    $('#plantiff_address').val(data.plantiff_address);
-                    $('#plantiff_ward_number').val(data.plantiff_ward_number);
-                    $('#plantiff_mobile').val(data.plantiff_mobile);
-                    $('#plantiff_email').val(data.plantiff_email);
-                    $('#plantiff_citizenship_id').val(data.plantiff_citizenship_id);
-                    $('#plantiff_father_name').val(data.plantiff_father_name);
-                    $('#plantiff_grandfather_name').val(data.plantiff_grandfather_name);
-                    $('#defendant_name').val(data.defendant_name);
-                    $('#defendant_address').val(data.defendant_address);
-                    $('#defendant_ward_number').val(data.defendant_ward_number);
-                    $('#defendant_mobile').val(data.defendant_mobile);
-                    $('#defendant_email').val(data.defendant_email);
-                    $('#defendant_citizenship_id').val(data.defendant_citizenship_id);
-                    $('#defendant_father_name').val(data.defendant_father_name);
-                    $('#defendant_grandfather_name').val(data.defendant_grandfather_name);
-                    // Extra field for status
-                    $('#status').val(data.status);
+                    if (data && data.hashed_id) {
+                        $('#reference_id').val(data.hashed_id);
+                        var unhashedRefId = document.getElementById('reference_id').value.trim();
+                        // console.log("Updated unhashedRefId:", unhashedRefId);
+
+                        // Now call the second AJAX function here, ensuring unhashedRefId is available
+                        $.ajax({
+                            url: 'fetchApplication.php',
+                            type: 'POST',
+                            data: {
+                                reference_id: unhashedRefId
+                            },
+                            dataType: 'json',
+                            success: function (appData) {
+                                // Populate the form fields with the data received
+                                $('#title').val(appData.title);
+                                $('#subject').val(appData.subject);
+                                $('#type').val(appData.type);
+                                $('#description').val(appData.description);
+                                $('#plantiff_name').val(appData.plantiff_name);
+                                $('#plantiff_address').val(appData.plantiff_address);
+                                $('#plantiff_ward_number').val(appData.plantiff_ward_number);
+                                $('#plantiff_mobile').val(appData.plantiff_mobile);
+                                $('#plantiff_email').val(appData.plantiff_email);
+                                $('#plantiff_citizenship_id').val(appData.plantiff_citizenship_id);
+                                $('#plantiff_father_name').val(appData.plantiff_father_name);
+                                $('#plantiff_grandfather_name').val(appData.plantiff_grandfather_name);
+                                $('#defendant_name').val(appData.defendant_name);
+                                $('#defendant_address').val(appData.defendant_address);
+                                $('#defendant_ward_number').val(appData.defendant_ward_number);
+                                $('#defendant_mobile').val(appData.defendant_mobile);
+                                $('#defendant_email').val(appData.defendant_email);
+                                $('#defendant_citizenship_id').val(appData.defendant_citizenship_id);
+                                $('#defendant_father_name').val(appData.defendant_father_name);
+                                $('#defendant_grandfather_name').val(appData.defendant_grandfather_name);
+                                // Extra field for status
+                                $('#status').val(appData.status);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error fetching details:", error);
+                                $('#alertContainer').html('<div class="alert alert-danger">Error fetching application details.</div>');
+                            }
+                        });
+
+                    } else if (data && data.error) {
+                        console.error("Error unhashing Reference ID:", data.error);
+                    } else {
+                        console.error("Error unhashing Reference ID: Invalid response from server.");
+                    }
                 },
                 error: function (xhr, status, error) {
-                    console.error("Error fetching details:", error);
-                    $('#alertContainer').html('<div class="alert alert-danger">Error fetching application details.</div>');
+                    console.error("AJAX error hashing Reference ID:", error);
                 }
             });
         } else {

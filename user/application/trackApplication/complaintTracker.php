@@ -1,5 +1,6 @@
 <?php include '../../modules/header.php'; ?>
 <?php require_once 'translateHeader.php'; ?>
+<?php include '../../modules/hashRefId.php'; ?>
 <link rel="stylesheet" href="complaintRegistration.css">
 
 <body>
@@ -12,6 +13,11 @@
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <div class="form-group">
+                <label for="hashed_reference_id" translate="no">ह्यास गरिएको सन्दर्भ आईडी</label>
+                <input type="text" class="form-control" id="hashed_reference_id" name="hashed_reference_id"
+                    readonly>
+            </div>
             <!-- General Fields -->
             <div class="form-group">
                 <label for="reference_id">सन्दर्भ आईडी</label>
@@ -73,6 +79,47 @@
             <div id="applicationDetails2"></div>
         </form>
     </div>
+
+    <!-- <script nonce="<?= $nonce ?>">
+        document.getElementById('reference_id').addEventListener('change', function () {
+            const refId = this.value.trim();
+            document.getElementById('hashed_reference_id').value = refId;
+            // In a real application, you would want to hash this value on the server-side.
+            // This example just copies the value for demonstration.
+        });
+    </script> -->
+
+    <script nonce="<?= $nonce ?>">
+    document.getElementById('reference_id').addEventListener('input', function () {
+        const refId = this.value.trim();
+        const hashedRefIdInput = document.getElementById('hashed_reference_id');
+
+        // Send an AJAX POST request to hashRefIdAjax.php to hash the refId
+        $.ajax({
+            url: 'hashRefIdAjax.php',
+            type: 'POST',
+            data: { ref_id: refId },
+            dataType: 'json',
+            success: function (data) {
+                if (data && data.hashed_id) {
+                    hashedRefIdInput.value = data.hashed_id;
+                    // console.log("Plain Reference ID:", refId);
+                    // console.log("Hashed Reference ID:", data.hashed_id);
+                } else if (data && data.error) {
+                    console.error("Error hashing Reference ID:", data.error);
+                    hashedRefIdInput.value = ''; // Clear the hashed field on error
+                } else {
+                    console.error("Error hashing Reference ID: Invalid response from server.");
+                    hashedRefIdInput.value = ''; // Clear the hashed field on error
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error hashing Reference ID:", error);
+                hashedRefIdInput.value = ''; // Clear the hashed field on error
+            }
+        });
+    });
+</script>
 
     <?php include '../../modules/footer.php'; ?>
     <?php include 'dataValidation.php'; ?>

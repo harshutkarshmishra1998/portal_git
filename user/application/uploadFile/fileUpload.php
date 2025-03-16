@@ -1,16 +1,30 @@
 <?php include '../../modules/header.php'; ?>
 <link rel="stylesheet" href="complaintRegistration.css">
 
+<?php
+require_once '../../modules/hashRefId.php';
+$refIdFromURL = isset($_GET['ref_id']) ? $_GET['ref_id'] : '';
+$refId = $refIdFromURL; // Initialize $refId
+
+if ($refIdFromURL != '') {
+    // Replace spaces with plus signs
+    $refId = str_replace(' ', '+', $refIdFromURL);
+
+    // Now pass the modified $refId to your unhashing function
+    $refId = unhashedReferenceID($refId);
+}
+?>
+
 <body>
     <?php include '../../modules/navbar.php'; ?>
 
     <!-- Form Container -->
     <div class="content container" id="mainContent">
-        <h1 class="mt-4 mb-3">गुनासो नम्बर <?php echo isset($_GET['ref_id']) ? htmlspecialchars($_GET['ref_id']) : ''; ?> का लागि फाइलहरू अपलोड गर्नुहोस्</h1>
+        <h1 class="mt-4 mb-3">गुनासो नम्बर <?php echo $refId ?> का लागि फाइलहरू अपलोड गर्नुहोस्</h1>
         <div id="alertContainer"></div>
         <form id="applicationForm" action="/submit" method="post" enctype="multipart/form-data" novalidate>
             <!-- Hidden field to store reference ID -->
-            <input type="hidden" id="reference_id" name="reference_id" value="<?php echo htmlspecialchars($_GET['ref_id']); ?>">
+            <input type="hidden" id="reference_id" name="reference_id" value="<?php echo $refId; ?>">
             <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
             <!-- Plaintiff Citizenship Proof Upload -->
