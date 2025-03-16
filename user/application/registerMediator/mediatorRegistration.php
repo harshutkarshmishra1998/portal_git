@@ -77,6 +77,13 @@
             <hr>
             <h4>आवश्यक कागजातहरू</h4>
 
+            <!-- नागरिकता प्रमाण -->
+            <div class="form-group">
+                <label for="citizenship_certificate">नागरिकता प्रमाण</label>
+                <input type="file" class="form-control-file" id="citizenship_certificate" name="citizenship_certificate" required>
+                <div id="citizenship_certificate_error" class="invalid-feedback d-block"></div>
+            </div>
+
             <!-- शैक्षिक प्रमाणपत्रको फोटोकपी -->
             <div class="form-group">
                 <label for="photocopy_educational_certificate">शैक्षिक प्रमाणपत्रको फोटोकपी</label>

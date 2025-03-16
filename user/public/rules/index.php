@@ -1,13 +1,10 @@
 <?php require_once '../../modules/header.php'; ?>
-<!-- <link rel="stylesheet" href="index.css"> -->
 
 <body>
 
     <?php require_once '../../modules/navbar.php'; ?>
 
     <?php require_once '../../modules/hero.php'; ?>
-
-    <?php //require_once '../../modules/subnavbar.php'; ?>
 
     <section class="py-5">
         <div class="container">
@@ -78,6 +75,7 @@
     </section>
 
 </body>
+
 <?php require_once '../../modules/footer.php'; ?>
 
 </html>

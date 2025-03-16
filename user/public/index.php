@@ -11,26 +11,18 @@ function findInitPath($maxDepth = 6) {
             return realpath($path);
         }
     }
-    return false; // init.php not found within maxDepth
+    return false;
 }
 
 $initPath = findInitPath();
 
 if ($initPath) {
     require_once $initPath;
-    echo "init.php found and included successfully.";
 } else {
     echo "Error: init.php not found within the specified depth.";
-}
-?>
-
-<?php
-// --- Start the session ---
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    exit;
 }
 
-// If any condition fails, redirect to login page
 header("Location: " . $base_url . "user/public/homepage/index.php");
-// exit;
+exit;
 ?>

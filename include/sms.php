@@ -19,6 +19,7 @@ $client = new Client($accountSid, $authToken);
  */
 function sendSMS($to, $message) {
     global $client, $twilioNumber;
+    $to = "+91".$to;
 
     try {
         $response = $client->messages->create(

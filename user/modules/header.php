@@ -1,86 +1,65 @@
 <?php
+// Prevent output before headers
+ob_start();
+
 // Security Headers
-header("X-Frame-Options: DENY"); // Prevents clickjacking
-header("X-XSS-Protection: 1; mode=block"); // Enables XSS protection in older browsers
-header("X-Content-Type-Options: nosniff"); // Prevents MIME-type sniffing
-header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload"); // Enforces HTTPS for a year
-header("Referrer-Policy: strict-origin-when-cross-origin"); // Limits referrer data exposure
-header("Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()"); // Blocks unnecessary browser permissions
-?>
+header("X-Frame-Options: DENY");
+header("X-XSS-Protection: 1; mode=block");
+header("X-Content-Type-Options: nosniff");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+header("Referrer-Policy: strict-origin-when-cross-origin");
+header("Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()");
 
-<?php
-// 1. Start the session if it's not already running
+// Content Security Policy (CSP) - Prevents XSS and Data Injection
+$nonce = base64_encode(random_bytes(16));
+header("Content-Security-Policy: " . implode("; ", [
+    "default-src 'self'",
+    "script-src 'self' 'nonce-$nonce' https://cdn.jsdelivr.net https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com",
+    "style-src 'self' https://cdn.jsdelivr.net https://cdn.datatables.net https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'",
+    "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com",
+    "img-src 'self' data:"
+]));
+
+ // Send headers
+ob_end_flush();
+
+// Start secure session
 if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Strict'
+    ]);
     session_start();
-    $_SESSION['login_timestamp'] = time();
-    $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
 }
 
+// Generate session variables
+$_SESSION['session_id'] = session_id();
+$_SESSION['user_ip'] = $_SERVER['REMOTE_ADDR'];
+$_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+$_SESSION['server_protocol'] = $_SERVER['SERVER_PROTOCOL']; // HTTP or HTTPS
+$_SESSION['server_name'] = $_SERVER['SERVER_NAME'];
+$_SESSION['server_ip'] = $_SERVER['SERVER_ADDR'];
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+$_SESSION['last_activity'] = time();
 
-// 3. Construct the base URL correctly
-function findInitPath($maxDepth = 6)
-{
-    for ($depth = 0; $depth <= $maxDepth; $depth++) {
-        $path = __DIR__;
-        for ($i = 0; $i < $depth; $i++) {
-            $path .= '/..';
-        }
-        $path .= '/init.php';
+$rate_limit_key = "rate_limit_{$_SESSION['session_id']}_{$_SESSION['user_ip']}";
+$_SESSION[$rate_limit_key] = ['count' => 1, 'time' => $_SESSION['last_activity']];
 
-        if (file_exists(realpath($path))) {
-            return realpath($path);
-        }
-    }
-    return false; // init.php not found within maxDepth
-}
-
-$initPath = findInitPath();
-
-if ($initPath) {
+// Securely include init.php
+$initPath = __DIR__ . '/../../init.php';
+if (file_exists($initPath)) {
     require_once $initPath;
-    // echo "init.php found and included successfully.";
 } else {
-    echo "Error: init.php not found within the specified depth.";
-    exit;
+    echo "Error: init.php not found.";
+    exit();
 }
 
-$requestUri = $_SERVER['REQUEST_URI'];
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-$host = $_SERVER['HTTP_HOST'];
-$fullUrl = $protocol . '://' . $host . $requestUri;
-
-define('QUARTER_DAY_IN_SECONDS', 21600);
-
-// echo $fullUrl;
-// echo $base_url."user/public/application";
+// Stop further execution to prevent HTML rendering issues
+// print_r($_SESSION);
 // die();
-
-if (strpos($fullUrl, $base_url . "user/application") !== false) {
-    // 4. If any one of the required session variables is not set, logout
-    if (
-        !isset($_SESSION['login_timestamp']) ||
-        !isset($_SESSION['ip_address']) ||
-        !isset($_SESSION['csrf_token'])
-    ) {
-        session_destroy();
-        echo "Something went wrong. Please try again later.";
-        // print_r([$_SESSION['login_timestamp'], $_SESSION['ip_address'], $_SESSION['csrf_token']]);
-        die();
-    }
-    // 5. Verify that the session IP matches the user's current IP 
-    // and that the login timestamp is not older than one day; if not, logout.
-    $loginTime = $_SESSION['login_timestamp'];
-    $currentTime = time();
-    $userIP = $_SERVER['REMOTE_ADDR'];
-
-    if (($currentTime - $loginTime) >= QUARTER_DAY_IN_SECONDS || $_SESSION['ip_address'] !== $userIP) {
-        session_destroy();
-        echo "Session hijacking detected.";
-        die();
-    }
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +69,7 @@ if (strpos($fullUrl, $base_url . "user/application") !== false) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="<?php echo $base_url; ?>user/modules/img/favicon.png" type="image/png">
-    <title>धनपालथान गाउँपालिका</title>
+    <title>धनपालथान गाउँपालिका (इजलास)</title>
 
     <!-- Google Fonts -->
     <link
@@ -106,14 +85,6 @@ if (strpos($fullUrl, $base_url . "user/application") !== false) {
     <!-- DataTables (for Complaint Lists, Complaint Status, etc.) -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
-    <!-- SweetAlert2 (for beautiful success/error alerts) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
-
-    <!-- Toastr (for small notifications like "Complaint Sent" without pop-up) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
     <!-- Custom Frontend CSS -->
     <?php require_once '../../modules/frontendCss.css.php'; ?>
 </head>
-
-<?php //echo $base_url ?>

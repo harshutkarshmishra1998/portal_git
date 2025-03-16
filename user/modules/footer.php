@@ -4,18 +4,9 @@
 <!-- Bootstrap 5.3.3 (JS) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Popper JS (Required for Modals, Tooltips, etc.) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
-
 <!-- DataTables (for Complaint List, Complaint Status, etc.) -->
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-
-<!-- SweetAlert2 (for Success, Error, Confirmation Popups) -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.js"></script>
-
-<!-- Toastr Notifications (Small Success/Failure Popups) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <!-- jQuery Validation (Form Validation) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
@@ -32,12 +23,14 @@
                     <li><strong>ईमेल:</strong> contact@municipality.gov.np</li>
                     <li><strong>कार्यालय समय:</strong> आइतबार देखि शुक्रबार (१० बजे देखि ५ बजे सम्म)</li>
                 </ul>
-                <!-- <p>
+                <div class="col-md-8">
+                <p style="text-align: justify;">
                     यस कार्यालयले स्थानीय विवादहरूलाई छिटो, निष्पक्ष र पारदर्शी तरिकाले समाधान गर्ने काम गर्दछ। यहाँ
                     अनुभवी कानूनी विशेषज्ञहरू र समुदायका प्रतिनिधिहरू मिलेर न्याय सुनिश्चित गर्न, मध्यस्थता र कानूनी
                     सल्लाह प्रदान गर्न तथा समुदाय र औपचारिक न्याय प्रक्रियाबीचको दूरी घटाउन महत्वपूर्ण भूमिका निर्वाह
                     गर्छन्।
-                </p> -->
+                </p>
+                </div>
             </div>
 
             <!-- Right Side: Quick Navigation -->

@@ -60,13 +60,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMediator">
                         <li>
-                            <a class="dropdown-item"
-                                href="<?php echo $base_url; ?>user/application/registerMediator/mediatorRegistration.php">
+                            <a class="dropdown-item" href="<?php echo $base_url; ?>user/public/rules/mediators.php">
                                 मध्यस्थकर्ताहरू सूची
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="<?php echo $base_url; ?>user/application/">
+                            <a class="dropdown-item"
+                                href="<?php echo $base_url; ?>user/application/registerMediator/mediatorRegistration.php">
                                 मध्यस्थकर्ताहरू दर्ता
                             </a>
                         </li>
@@ -77,6 +77,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $base_url; ?>user/public/rules/index.php">ऐन/नियम</a>
                 </li>
+                
                 <!-- Additional commented links remain unchanged -->
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="<?php //echo $base_url; ?>user/public/homepage/index.php#dispute-categories">Dispute Categories</a>

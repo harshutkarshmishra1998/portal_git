@@ -1,4 +1,4 @@
-<script>
+<script nonce="<?= $nonce ?>">
     function submitMediatorRegistration() {
         // Build JSON object for text-based form fields only:
         const formJson = {
@@ -53,6 +53,11 @@
         fd.append('formData', JSON.stringify(formJson));
 
         // Append file uploads separately:
+        const citizenshipCertInput = document.getElementById('citizenship_certificate');
+        if (citizenshipCertInput && citizenshipCertInput.files.length > 0) {
+            fd.append('citizenship_certificate', citizenshipCertInput.files[0]);
+        }
+
         const photocopyEduInput = document.getElementById('photocopy_educational_certificate');
         if (photocopyEduInput && photocopyEduInput.files.length > 0) {
             fd.append('photocopy_educational_certificate', photocopyEduInput.files[0]);
@@ -84,12 +89,12 @@
         }
 
         // Append filler fields separately if provided.
-        ['filler1', 'filler2', 'filler3', 'filler4', 'filler5'].forEach(function (id) {
-            const input = document.getElementById(id);
-            if (input && input.value.trim() !== "") {
-                fd.append(id, input.value.trim());
-            }
-        });
+        // ['filler1', 'filler2', 'filler3', 'filler4', 'filler5'].forEach(function (id) {
+        //     const input = document.getElementById(id);
+        //     if (input && input.value.trim() !== "") {
+        //         fd.append(id, input.value.trim());
+        //     }
+        // });
 
         // for (let [key, value] of fd.entries()) {
         //     console.log(key, value);
@@ -106,8 +111,8 @@
                 $('#submitButton').prop('disabled', true).text('प्रक्रिया हुँदैछ...');
             },
             success: function (response) {
+                console.log('Success function called:', response);
                 if (response.status === "error") {
-                    $('#submitButton').prop('disabled', false).text('पेश गर्नुहोस्');
                     $('#alertContainer').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
                     $('html, body').animate({ scrollTop: 0 }, 'slow');
                 } else if (response.status === "success") {
@@ -120,7 +125,6 @@
             },
             error: function (xhr, status, error) {
                 console.error('Error occurred:', error);
-                $('#submitButton').prop('disabled', false).text('पेश गर्नुहोस्');
                 $('#alertContainer').html('<div class="alert alert-danger" role="alert">त्रुटि: ' + error + '</div>');
                 $('html, body').animate({ scrollTop: 0 }, 'slow');
             }

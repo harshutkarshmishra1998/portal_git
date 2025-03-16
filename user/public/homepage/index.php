@@ -7,8 +7,6 @@
 
     <?php require_once '../../modules/hero.php'; ?>
 
-    <?php //require_once '../../modules/subnavbar.php'; ?>
-
     <!-- ABOUT NYAYIK SAMITI Section -->
     <section class="jury-about-samiti py-5" id="jury-about-samiti">
         <div class="container">

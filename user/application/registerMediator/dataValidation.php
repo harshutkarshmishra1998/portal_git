@@ -1,5 +1,5 @@
 <!-- Custom JavaScript for OTP, Immediate File Validation, and Other Checks -->
-<script>
+<script nonce="<?= $nonce ?>">
     function autoFillReferenceId() {
         const timestamp = Date.now(); // Get current timestamp in milliseconds
         document.getElementById('reference_id').value = timestamp;
@@ -48,6 +48,10 @@
     });
 
     // --- Immediate File Validation on Selection for Mediator Registration ---
+    document.getElementById('citizenship_certificate').addEventListener('change', function (event) {
+        validateFileUpload(event, 'citizenship_certificate_error');
+    });
+
     document.getElementById('photocopy_educational_certificate').addEventListener('change', function (event) {
         validateFileUpload(event, 'photocopy_educational_certificate_error');
     });

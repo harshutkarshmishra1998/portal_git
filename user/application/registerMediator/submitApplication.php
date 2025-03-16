@@ -1,12 +1,18 @@
 <?php
 // header('Content-Type: application/json');
-// $formData = json_decode($_POST['formData'], true);
-// print_r($formData);
+// if (isset($_POST['formData'])) {
+//     $formData = $_POST['formData'];
+//     echo json_encode(['success' => $formData]); // Echo the JSON string
+// } else {
+//     // Handle the case where 'formData' is not sent
+//     echo json_encode(['error' => 'formData not received']);
+//     http_response_code(400); // Optionally set an error HTTP status code
+// }
 // die();
 ?>
 
 <?php
-include '../../modules/headerApi.php';
+require_once '../../modules/headerApi.php';
 require_once '../../../include/db.php';
 require_once '../../../include/email.php';
 require_once '../../../include/sms.php';
@@ -155,7 +161,7 @@ try {
     // 9. Optionally, send email or SMS to confirm registration
     try {
         $toEmail = $formData['email'];
-        $toMobile = '+91' . $formData['mobile_number']; // adjust country code
+        $toMobile = $formData['mobile_number'];
 
         // If email or mobile is empty, skip
         if (!empty($toEmail)) {
