@@ -1,4 +1,6 @@
 <?php require_once '../../modules/header.php'; ?>
+<?php require_once "../../modules/translateHeader.php"; ?>
+
 <?php require_once 'sqlQuery.php'; ?>
 
 <body>

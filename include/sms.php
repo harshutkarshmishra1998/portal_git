@@ -39,7 +39,7 @@ function sendSMS($to, $message) {
 
 // Example Usage: Sending an OTP
 // $otp = rand(100000, 999999); // Generate 6-digit OTP
-// $recipient = "+918957946660";  // Replace with actual phone number
+// $recipient = "8957946660";  // Replace with actual phone number
 
 // $result = sendSMS($recipient, "Your OTP is: $otp");
 

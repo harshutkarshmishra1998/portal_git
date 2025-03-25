@@ -4,33 +4,33 @@
 
 <div class="login-container">
     <div class="mobile-view d-md-none">
-        <h2>Forgot Password</h2>
+        <h2>प्रविष्ट गर्नुहोस्</h2>
     </div>
     <div class="desktop-view d-none d-md-block">
-        <h2>Forgot Password</h2>
+        <h2>प्रविष्ट गर्नुहोस्</h2>
     </div>
     <form id="forgotPasswordForm">
     <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo bin2hex(random_bytes(32)); ?>">
         <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            <label for="email" class="form-label">इमेल</label>
+            <input type="email" class="form-control" id="email" placeholder="इमेल" required>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-            <button type="button" class="btn btn-primary" id="verifyEmailBtn">Verify Email</button>
+            <button type="button" class="btn btn-primary" id="verifyEmailBtn">इमेल प्रमाणित गर्नुहोस्</button>
         </div>
         <div id="otpSection" style="display:none;">
             <div class="mb-3">
                 <label for="otp" class="form-label">OTP</label>
                 <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
             </div>
-            <button type="button" class="btn btn-success" id="verifyOtpBtn">Verify OTP</button>
+            <button type="button" class="btn btn-success" id="verifyOtpBtn">OTP प्रमाणित गर्नुहोस्</button>
         </div>
         <div id="newPasswordSection" style="display:none;">
             <div class="mb-3">
-                <label for="newPassword" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
+                <label for="newPassword" class="form-label">नयाँ पासवर्ड</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="नयाँ पासवर्ड" required>
             </div>
-            <button type="button" class="btn btn-success" id="resetPasswordBtn">Reset Password</button>
+            <button type="button" class="btn btn-success" id="resetPasswordBtn">नयाँ पासवर्ड</button>
         </div>
     </form>
     <div id="responseMessage" class="mt-3"></div>

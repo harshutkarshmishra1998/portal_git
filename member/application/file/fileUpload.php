@@ -1,4 +1,5 @@
 <?php require_once '../../modules/header.php'; ?>
+<?php require_once "../../modules/translateHeader.php"; ?>
 
 <body>
     <?php require_once '../../modules/navbar.php'; ?>

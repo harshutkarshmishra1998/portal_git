@@ -3,24 +3,24 @@
 <body>
     <div class="login-container">
         <div class="mobile-view d-md-none">
-            <h2>Login</h2>
+            <h2>सदस्य लगइन</h2>
         </div>
         <div class="desktop-view d-none d-md-block">
-            <h2>Login</h2>
+            <h2>सदस्य लगइन</h2>
         </div>
         <form id="loginForm">
         <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo bin2hex(random_bytes(32)); ?>">
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                <label for="email" class="form-label">इमेल</label>
+                <input type="email" class="form-control" id="email" placeholder="इमेल प्रविष्ट गर्नुहोस्">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="password" class="form-label">पासवर्ड</label>
+                <input type="password" class="form-control" id="password" placeholder="पासवर्ड प्रविष्ट गर्नुहोस्">
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button type="submit" class="btn btn-primary">Login</button>
-                <a href="forgotPassword.php" class="text-decoration-none">Forgot password?</a>
+                <button type="submit" class="btn btn-primary">लगइन</button>
+                <a href="forgotPassword.php" class="text-decoration-none">प्रविष्ट गर्नुहोस्?</a>
             </div>
             <br><br>
             <div id="responseMessage"></div>

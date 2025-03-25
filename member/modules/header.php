@@ -41,7 +41,7 @@ $initPath = findInitPath();
 
 if ($initPath) {
     require_once $initPath;
-    echo "init.php found and included successfully.";
+    // echo "init.php found and included successfully.";
 } else {
     echo "Error: init.php not found within the specified depth.";
     exit;
@@ -73,11 +73,11 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
 }
 
 // 6. Generate CSRF token if it doesn't exist
-// if (!isset($_SESSION['csrf_token'])) {
-//     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-// }
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
-$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <!DOCTYPE html>
@@ -85,8 +85,8 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
 <head>
     <meta charset="UTF-8" />
-    <title>Dashboard with Table Filters</title>
-    <link rel="shortcut icon" href="#">
+    <title>सदस्य ड्यासबोर्ड</title>
+    <link rel="shortcut icon" href="../../modules/favicon.png">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- For File Uploads Only -->

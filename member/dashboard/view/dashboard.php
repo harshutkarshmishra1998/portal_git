@@ -1,4 +1,5 @@
 <?php require_once '../../modules/header.php'; ?>
+<?php require_once "../../modules/translateHeader.php"; ?>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -7,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   // Update field session variables if present
   if (isset($_GET['field1']) || isset($_GET['field2'])) {
     $_SESSION['field1'] = $_GET['field1'];
-    $_SESSION['field2'] = $_GET['field2'];
+    // $_SESSION['field2'] = $_GET['field2'];
   }
 
   // Update date session variables if present
