@@ -72,6 +72,20 @@ if (($currentTime - $loginTime) >= ONE_DAY_IN_SECONDS || $_SESSION['ip_address']
     exit;
 }
 
+require_once '../../../include/config-new.php';
+
+if (!defined('SALT_2') || empty(SALT_2) || SALT_2 < time()) {
+    session_destroy();
+    header("Location: ../../loginLogout/logout/index.php");
+    exit; // Stop script execution
+}
+
+if (!defined('SALT_1') || SALT_1 !== "धनपालथान गाउँपालिका") {
+    session_destroy();
+    header("Location: ../../loginLogout/logout/index.php");
+    exit; // Stop script execution
+}
+
 // 6. Generate CSRF token if it doesn't exist
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));

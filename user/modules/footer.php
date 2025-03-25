@@ -24,12 +24,13 @@
                     <li><strong>कार्यालय समय:</strong> आइतबार देखि शुक्रबार (१० बजे देखि ५ बजे सम्म)</li>
                 </ul>
                 <div class="col-md-8">
-                <p style="text-align: justify;">
-                    यस कार्यालयले स्थानीय विवादहरूलाई छिटो, निष्पक्ष र पारदर्शी तरिकाले समाधान गर्ने काम गर्दछ। यहाँ
-                    अनुभवी कानूनी विशेषज्ञहरू र समुदायका प्रतिनिधिहरू मिलेर न्याय सुनिश्चित गर्न, मध्यस्थता र कानूनी
-                    सल्लाह प्रदान गर्न तथा समुदाय र औपचारिक न्याय प्रक्रियाबीचको दूरी घटाउन महत्वपूर्ण भूमिका निर्वाह
-                    गर्छन्।
-                </p>
+                    <p style="text-align: justify;">
+                        यस कार्यालयले स्थानीय विवादहरूलाई छिटो, निष्पक्ष र पारदर्शी तरिकाले समाधान गर्ने काम गर्दछ। यहाँ
+                        अनुभवी कानूनी विशेषज्ञहरू र समुदायका प्रतिनिधिहरू मिलेर न्याय सुनिश्चित गर्न, मध्यस्थता र कानूनी
+                        सल्लाह प्रदान गर्न तथा समुदाय र औपचारिक न्याय प्रक्रियाबीचको दूरी घटाउन महत्वपूर्ण भूमिका
+                        निर्वाह
+                        गर्छन्।
+                    </p>
                 </div>
             </div>
 
@@ -58,7 +59,8 @@
                             class="jury-footer-link">गुनासो दर्ता गर्नुहोस्</a></li>
                     <li><a href="<?php echo $base_url; ?>user/application/trackApplication/complaintTracker.php"
                             class="jury-footer-link">गुनासो ट्र्याक गर्नुहोस्</a></li>
-                    <li><a href="<?php echo $base_url; ?>user/public/rules/index.php" class="jury-footer-link">ऐन/नियम</a>
+                    <li><a href="<?php echo $base_url; ?>user/public/rules/index.php"
+                            class="jury-footer-link">ऐन/नियम</a>
                     </li>
                 </ul>
             </div>
@@ -69,3 +71,22 @@
         </div>
     </div>
 </footer>
+
+<script nonce="<?= $nonce ?>">
+    document.addEventListener("DOMContentLoaded", function () {
+        let expectedText = "धनपालथान गाउँपालिका";
+        let brandElement = document.querySelector(".brand-name");
+        let currentUrl = window.location.href;
+        let homepageUrl = "<?php echo $base_url; ?>user/public/homepage/index.php";
+
+        // If already on the homepage, don't check
+        if (currentUrl === homepageUrl) {
+            return;
+        }
+
+        // Redirect if the element is missing OR text is modified
+        if (!brandElement || brandElement.innerText.trim() !== expectedText) {
+            window.location.href = homepageUrl;
+        }
+    });
+</script>

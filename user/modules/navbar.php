@@ -3,7 +3,7 @@
         <!-- Left Side: Logo + Brand Name -->
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="<?php echo $base_url; ?>user/modules/img/logo.png" alt="Government Logo" class="logo-img">
-            <span class="ms-2 brand-name">धनपालथान गाउँपालिका</span>
+            <span class="ms-2 brand-name"><?php echo SALT_1; ?></span>
         </a>
 
         <!-- Mobile Toggle Button -->

@@ -36,6 +36,20 @@ function findInitPath($maxDepth = 6)
 
 $initPath = findInitPath();
 
+require_once '../../../include/config-new.php';
+
+if (!defined('SALT_2') || empty(SALT_2) || SALT_2 < time()) {
+    session_destroy();
+    header("Location: ../../loginLogout/logout/index.php");
+    exit; // Stop script execution
+}
+
+if (!defined('SALT_1') || SALT_1 !== "धनपालथान गाउँपालिका") {
+    session_destroy();
+    header("Location: ../../loginLogout/logout/index.php");
+    exit; // Stop script execution
+}
+
 if ($initPath) {
     require_once $initPath;
     // echo "init.php found and included successfully.";

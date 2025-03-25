@@ -102,4 +102,5 @@ if (file_exists($initPath)) {
 
     <!-- Custom Frontend CSS -->
     <?php require_once '../../modules/frontendCss.css.php'; ?>
+    <?php require_once '../../../include/config-new.php'; ?>
 </head>

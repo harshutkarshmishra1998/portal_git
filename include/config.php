@@ -25,8 +25,17 @@ define('ACCOUNT_SID', $_ENV['ACCOUNT_SID']);
 define('AUTH_TOKEN', $_ENV['AUTH_TOKEN']);
 define('TWILIO_NUMBER', $_ENV['TWILIO_NUMBER']);
 
+// function dehash($encodedText) {
+//     return base64_decode($encodedText); // Decoding back to original
+// }
+
+// // SALT KEYS
+// define('SALT_1', dehash($_ENV['SALT_1']));
+// define('SALT_2', dehash($_ENV['SALT_2']));
+
 // var_dump($_ENV);
-// var_dump(getenv());
+// // var_dump(getenv());
+// echo (SALT_2);
 ?>
 
 
