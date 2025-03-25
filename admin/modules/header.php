@@ -82,8 +82,8 @@ if (!isset($_SESSION['csrf_token'])) {
 
 <head>
     <meta charset="UTF-8" />
-    <title>Dashboard with Table Filters</title>
-    <link rel="shortcut icon" href="#">
+    <title>प्रशासक ड्यासबोर्ड</title>
+    <link rel="shortcut icon" href="../../modules/favicon.png">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- For File Uploads Only -->
