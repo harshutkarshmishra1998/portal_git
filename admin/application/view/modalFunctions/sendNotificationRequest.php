@@ -54,25 +54,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $notificationDetails['recipient'] = [
             'name' => $data['plaintiffName'],
             'email' => $data['plaintiffEmail'],
-            'mobile' => "+91" . $data['plaintiffMobile'],
+            'mobile' => $data['plaintiffMobile'],
         ];
     } elseif ($sendTo === 'defendant') {
         $notificationDetails['recipient'] = [
             'name' => $data['defendantName'],
             'email' => $data['defendantEmail'],
-            'mobile' => "+91" . $data['defendantMobile'],
+            'mobile' => $data['defendantMobile'],
         ];
     } elseif ($sendTo === 'both') {
         $notificationDetails['recipients'] = [
             [
                 'name' => $data['plaintiffName'],
                 'email' => $data['plaintiffEmail'],
-                'mobile' => "+91" . $data['plaintiffMobile'],
+                'mobile' => $data['plaintiffMobile'],
             ],
             [
                 'name' => $data['defendantName'],
                 'email' => $data['defendantEmail'],
-                'mobile' => "+91" . $data['defendantMobile'],
+                'mobile' => $data['defendantMobile'],
             ],
         ];
     }

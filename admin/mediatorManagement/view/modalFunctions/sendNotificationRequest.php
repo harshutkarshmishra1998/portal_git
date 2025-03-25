@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $notificationDetails['recipient'] = [
         'name' => $data['name'],
         'email' => $data['email'],
-        'mobile' => "+91" . $data['mobile'],
+        'mobile' => $data['mobile'],
     ];
 
     // header('Content-Type: application/json');
